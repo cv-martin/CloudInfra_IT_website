@@ -39,7 +39,7 @@ export default function BottomCTA() {
             Ready to get started?
           </h2>
           <p className="text-[var(--text-body)] text-gray-400 mt-3 max-w-sm mx-auto">
-            Tell us what you need. We'll take it from there.
+            Tell us what you need. We&apos;ll take it from there.
           </p>
         </motion.div>
 

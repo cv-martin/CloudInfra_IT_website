@@ -57,7 +57,7 @@ export default function HowWeWork() {
               How we work with clients
             </h2>
             <p className="text-sm text-gray-400 mt-3 max-w-md leading-relaxed">
-              Five steps from your first message to your new hire's first day.
+              Five steps from your first message to your new hire&apos;s first day.
             </p>
           </div>
           <Link

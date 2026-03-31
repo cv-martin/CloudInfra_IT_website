@@ -16,24 +16,24 @@ import { motion, AnimatePresence } from "framer-motion";
  */
 
 const servicesLinks = [
-  { label: "Permanent Staffing",  href: "/services/permanent" },
-  { label: "Contract Staffing",   href: "/services/contract" },
-  { label: "Temporary Staffing",  href: "/services/temporary" },
-  { label: "Temp-to-Hire",        href: "/services/temp-to-hire" },
-  { label: "Custom Solutions",    href: "/custom-services-provided" },
+  { label: "All Services",         href: "/services" },
+  { label: "Contract Staffing",    href: "/services" },
+  { label: "Permanent Staffing",   href: "/services" },
+  { label: "Temp-to-Hire",         href: "/services" },
+  { label: "Custom / Enterprise",  href: "/custom-services-provided" },
 ];
 
 const industriesLinks = [
-  { label: "Information Technology",     href: "/information-technology" },
-  { label: "Hospitals & Healthcare",     href: "/hospitals-and-healthcare" },
-  { label: "Engineering",               href: "/engineering" },
-  { label: "Banking & Finance",         href: "/banking-and-finance" },
-  { label: "Manufacturing",             href: "/manufacturing-and-production" },
-  { label: "Oil & Gas",                 href: "/oil-gas" },
-  { label: "Pharmaceutical",            href: "/pharmaceutical" },
-  { label: "Legal",                     href: "/legal-industry" },
-  { label: "Aerospace",                 href: "/aerospace-industry" },
-  { label: "Defence & Space",           href: "/defence-and-space" },
+  { label: "Information Technology",  href: "/information-technology" },
+  { label: "Hospitals & Healthcare",  href: "/hospitals-and-healthcare" },
+  { label: "Engineering",            href: "/engineering" },
+  { label: "Banking & Finance",      href: "/banking-and-finance" },
+  { label: "Manufacturing",          href: "/manufacturing" },
+  { label: "Oil, Gas & Energy",      href: "/oil-and-gas" },
+  { label: "Pharmaceutical",         href: "/pharmaceutical" },
+  { label: "Legal",                  href: "/legal" },
+  { label: "Aerospace",              href: "/aerospace" },
+  { label: "Defence & Space",        href: "/defence-and-space" },
 ];
 
 export default function Header() {
@@ -55,8 +55,8 @@ export default function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         desktopScrolled
-          ? "bg-[#020510]/80 backdrop-blur-lg border-b border-white/10 py-3"
-          : "bg-transparent py-5"
+          ? "bg-[#020510] backdrop-blur-lg border-b border-white/10 py-3 shadow-lg shadow-black/20"
+          : "bg-[#020510]/95 backdrop-blur-sm border-b border-white/8 py-5"
       }`}
     >
       <nav className="flex items-center justify-between px-6 lg:px-16 max-w-[1400px] mx-auto">

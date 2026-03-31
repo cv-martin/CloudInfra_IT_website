@@ -1,153 +1,91 @@
-import Header from "@/components/Header";
-import { 
-  Cloud, 
-  Database, 
-  Code2, 
-  Lock, 
-  Settings, 
-  Activity, 
-  ArrowRight,
-  TrendingUp,
-  Target,
-  BarChart4
-} from "lucide-react";
-import Link from "next/link";
+"use client";
 
-const specialties = [
-  {
-    name: "Cloud & DevOps",
-    icon: Cloud,
-    tagline: "Infrastructure as Code.",
-    description: "Multi-cloud architecture (AWS/Azure/GCP), CI/CD orchestration, Kubernetes, and container security.",
-    roles: ["Cloud Architect", "SRE", "Platform Engineer", "DevSecOps Lead"],
-  },
-  {
-    name: "Data & AI",
-    icon: Database,
-    tagline: "Monetize Intelligence.",
-    description: "Big data engineering, machine learning pipelines, vector database management, and data governance.",
-    roles: ["ML Engineer", "Data Specialist", "BI Architect", "AI Security Lead"],
-  },
-  {
-    name: "Software Engineering",
-    icon: Code2,
-    tagline: "Scalable Systems.",
-    description: "Full-stack development, mobile ecosystem architecture, and complex backend systems (Go, Rust, Node).",
-    roles: ["Staff Engineer", "Backend Architect", "Mobile Lead", "QA Automation"],
-  },
-  {
-    name: "Cybersecurity",
-    icon: Lock,
-    tagline: "Resilient Defenses.",
-    description: "Threat hunting, zero-trust implementation, penetration testing, and regulatory compliance (SOC2/PCI).",
-    roles: ["CISO-as-a-Service", "Security Analyst", "Pen Tester", "Compliance Lead"],
-  },
-  {
-    name: "ERP / SAP / Enterprise",
-    icon: Settings,
-    tagline: "Operational Core.",
-    description: "S/4HANA migrations, Oracle Cloud implementations, and legacy modernization for global enterprises.",
-    roles: ["SAP Consultant", "Oracle Developer", "ERP Architect", "Functional Lead"],
-  },
-  {
-    name: "Banking & Healthcare Tech",
-    icon: Activity,
-    tagline: "High-Sovereignty Sectors.",
-    description: "Specialized technology placement for sectors requiring high data sovereignty and complex compliance.",
-    roles: ["Health-Tech Lead", "Fintech Engineer", "Sovereign Cloud Lead", "Privacy Officer"],
-  },
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
+const industries = [
+  { label: "Information Technology",    href: "/information-technology",    accent: "#06B6D4",  roles: "Cloud, DevOps, Cybersecurity, Data, ERP, Software Engineering" },
+  { label: "Hospitals & Healthcare",    href: "/hospitals-and-healthcare",  accent: "#10B981",  roles: "Physicians, Nurses, Allied Health, Clinical Admin, Healthcare IT" },
+  { label: "Engineering",               href: "/engineering",               accent: "#06B6D4",  roles: "Mechanical, Electrical, Systems, Process, SCADA, Project Management" },
+  { label: "Banking & Finance",         href: "/banking-and-finance",       accent: "#6366F1",  roles: "Risk, Compliance, Investment, FinTech, Accounting & Finance" },
+  { label: "Manufacturing",             href: "/manufacturing",            accent: "#F59E0B",  roles: "Automation, Production, Quality, Maintenance, Supply Chain" },
+  { label: "Oil, Gas & Energy",         href: "/oil-and-gas",              accent: "#F97316",  roles: "Petroleum, Pipeline, Renewables, SCADA, HSE & Safety" },
+  { label: "Pharmaceutical",            href: "/pharmaceutical",           accent: "#14B8A6",  roles: "R&D, Regulatory Affairs, QA/QC, Medical Affairs, Pharma IT" },
+  { label: "Legal",                     href: "/legal",                    accent: "#8B5CF6",  roles: "Litigation, Corporate Counsel, Compliance, IP, Legal Technology" },
+  { label: "Aerospace",                 href: "/aerospace",                accent: "#0EA5E9",  roles: "Avionics, Structures, Propulsion, MRO, Safety & Certification" },
+  { label: "Defence & Space",           href: "/defence-and-space",        accent: "#64748B",  roles: "EW/Signals, Space Systems, C4ISR, Cyber/IA, Programme Management" },
 ];
+
+const fade = { hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0, transition: { duration: 0.35 } } };
 
 export default function SpecialtiesPage() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white">
       <Header />
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="py-24 bg-muted/20 border-b border-border/50">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="max-w-2xl">
-              <h1 className="text-4xl font-extrabold text-white sm:text-6xl tracking-tight leading-10">
-                Strategic focus. <span className="text-accent underline underline-offset-8 decoration-accent/30 tracking-tighter">Sovereign performance.</span>
-              </h1>
-              <p className="mt-8 text-xl text-muted-foreground leading-9">
-                We don’t staff generalists. CloudInfra IT focuses on the high-sovereignty infrastructures 
-                where uptime, security, and market speed are non-negotiable.
-              </p>
-            </div>
-          </div>
-        </section>
 
-        {/* Detailed Specialty Grid */}
-        <section className="py-24">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {specialties.map((specialty) => (
-                <div key={specialty.name} className="glass-panel p-10 rounded-3xl border border-border/50 hover:border-accent/30 transition-all flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-4 mb-8">
-                      <div className="h-12 w-12 rounded-xl bg-accent text-white flex items-center justify-center">
-                        <specialty.icon className="h-6 w-6" />
-                      </div>
-                      <div>
-                         <h3 className="text-2xl font-bold text-white leading-tight">{specialty.name}</h3>
-                         <p className="text-sm font-semibold tracking-widest uppercase text-accent/80 mt-1">{specialty.tagline}</p>
-                      </div>
+      <section className="pt-36 pb-16 bg-white border-b border-gray-100">
+        <div className="ci-container">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+            <div className="w-10 h-0.5 bg-[#06B6D4] mb-6" />
+            <h1 className="text-[clamp(2rem,4vw,3.2rem)] font-extrabold text-[#0F1B2D] leading-tight max-w-2xl">
+              All industries we staff.
+            </h1>
+            <p className="text-sm text-gray-500 mt-5 max-w-xl leading-relaxed">
+              10 industry verticals. Every search run by a recruiter with direct domain experience in that sector — not a generalist.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <main className="flex-1">
+        <section className="bg-white">
+          <div className="ci-container py-14 lg:py-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5">
+              {industries.map((ind, i) => (
+                <motion.div key={ind.label} variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
+                  <Link href={ind.href}
+                    className="flex items-center gap-5 rounded-2xl border border-gray-100 bg-[#F8F9FB] p-6 hover:shadow-sm group transition-all"
+                    style={{ borderLeftWidth: 3, borderLeftColor: ind.accent }}>
+                    <div className="flex-1">
+                      <p className="text-sm font-bold text-gray-900 group-hover:text-[#0F1B2D] mb-1">{ind.label}</p>
+                      <p className="text-xs text-gray-500 leading-relaxed">{ind.roles}</p>
                     </div>
-                    <p className="text-muted-foreground leading-8 mb-10 text-lg">
-                      {specialty.description}
-                    </p>
-                    <div className="space-y-4 mb-10">
-                       <p className="text-xs font-bold text-white uppercase tracking-widest">Typical Roles We Staff:</p>
-                       <div className="flex flex-wrap gap-2">
-                         {specialty.roles.map(role => (
-                           <span key={role} className="bg-white/5 px-3 py-1.5 rounded-lg border border-border/50 text-sm font-semibold text-foreground/90">{role}</span>
-                         ))}
-                       </div>
-                    </div>
-                  </div>
-                  <Link href="/jobs" className="flex items-center gap-2 font-extrabold text-white border-t border-white/5 pt-8 hover:text-accent transition-colors group">
-                    Explore active roles <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="h-4 w-4 text-gray-300 group-hover:text-[#06B6D4] shrink-0 transition-colors" />
                   </Link>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Vertical Summary CTA */}
-        <section className="py-24 bg-muted/40 overflow-hidden relative">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div className="glass-panel py-12 px-8 rounded-2xl">
-                   <TrendingUp className="h-8 w-8 text-accent mx-auto mb-4" />
-                   <h4 className="text-white font-bold text-lg mb-2">Market Insights</h4>
-                   <p className="text-muted-foreground text-sm">We provide salary benchmarking and market intelligence for every project.</p>
-                </div>
-                <div className="glass-panel py-12 px-8 rounded-2xl">
-                   <Target className="h-8 w-8 text-accent mx-auto mb-4" />
-                   <h4 className="text-white font-bold text-lg mb-2">Precision Placement</h4>
-                   <p className="text-muted-foreground text-sm">A placement record that outperforms industry averages for time-to-fill.</p>
-                </div>
-                <div className="glass-panel py-12 px-8 rounded-2xl">
-                   <BarChart4 className="h-8 w-8 text-accent mx-auto mb-4" />
-                   <h4 className="text-white font-bold text-lg mb-2">Scalable Teams</h4>
-                   <p className="text-muted-foreground text-sm">From single contractors to full-lifecycle infrastructure squads.</p>
-                </div>
-             </div>
-             
-             <div className="mt-24 text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-white mb-10">Need a custom technical roadmap?</h2>
-                <Link 
-                  href="/contact" 
-                  className="bg-accent px-10 py-5 rounded-full text-xl font-extrabold text-white shadow-xl shadow-accent/25 hover:brightness-110 active:scale-95 transition-all"
-                >
-                  Book a Strategic Consultation
+        <section className="bg-[#0F1B2D]">
+          <div className="ci-container py-14">
+            <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }}
+              className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-7">
+              <div>
+                <h2 className="text-xl font-bold text-white mb-2">Don&apos;t see your industry?</h2>
+                <p className="text-sm text-gray-400 max-w-md leading-relaxed">
+                  We also handle custom staffing programmes across sectors not listed above. Contact us and we will tell you quickly whether we can help.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+                <Link href="/consult-with-us"
+                  className="inline-flex items-center gap-2 bg-[#06B6D4] text-white text-sm font-semibold px-6 py-3 rounded-full hover:bg-[#0891b2] active:scale-95 transition-all">
+                  Request a Consultation <ArrowRight className="h-4 w-4" />
                 </Link>
-             </div>
+                <Link href="/contact"
+                  className="inline-flex items-center gap-2 border border-white/20 text-white/80 text-sm font-medium px-6 py-3 rounded-full hover:border-white/40 hover:text-white transition-colors">
+                  General Enquiry
+                </Link>
+              </div>
+            </motion.div>
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

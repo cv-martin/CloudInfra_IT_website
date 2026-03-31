@@ -20,8 +20,36 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "CloudInfra IT | High-Sovereignty IT & Engineering Staffing",
-  description: "IT & Engineering talent delivered faster and vetted better for US infrastructure.",
+  metadataBase: new URL("https://www.cloudinfrait.com"),
+  title: {
+    default: "CloudInfra IT | IT & Healthcare Staffing — USA",
+    template: "%s | CloudInfra IT",
+  },
+  description:
+    "CloudInfra IT places IT engineers, Healthcare professionals, and specialists across all major US industries. Permanent, Contract, Temp-to-Hire. Farmers Branch, TX.",
+  keywords: [
+    "IT staffing", "healthcare staffing", "cloud engineer jobs", "DevOps recruiter",
+    "H-1B staffing", "engineering jobs USA", "contract IT jobs", "tech recruiter Texas",
+    "CloudInfra IT", "staffing agency Farmers Branch",
+  ],
+  authors: [{ name: "CloudInfra IT", url: "https://www.cloudinfrait.com" }],
+  creator: "CloudInfra IT",
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://www.cloudinfrait.com",
+    siteName: "CloudInfra IT",
+    title: "CloudInfra IT | IT & Healthcare Staffing — USA",
+    description:
+      "Domain-specialist staffing for IT, Healthcare, Engineering, and more. US-based. 48-hour shortlist SLA. Work-auth verified on every candidate.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CloudInfra IT | IT & Healthcare Staffing",
+    description: "Elite staffing for IT, Healthcare, and Engineering professionals across the USA.",
+    creator: "@cloudinfrait",
+  },
 };
 
 export default function RootLayout({

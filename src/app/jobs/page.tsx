@@ -2,35 +2,7 @@ import Header from "@/components/Header";
 import { Search, MapPin, Briefcase, Filter, ShieldAlert, Clock, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-const mockJobs = [
-  {
-    id: 1,
-    title: "Senior DevOps Engineer",
-    company: "CloudInfra IT (Project Client)",
-    location: "Remote (US)",
-    type: "Contract",
-    updated: "2 hours ago",
-    specialty: "Cloud & DevOps",
-  },
-  {
-    id: 2,
-    title: "Vulnerability Researcher",
-    company: "CloudInfra IT (Project Client)",
-    location: "Dallas, TX (Hybrid)",
-    type: "Direct Hire",
-    updated: "1 day ago",
-    specialty: "Cybersecurity",
-  },
-  {
-    id: 3,
-    title: "SAP S/4HANA Consultant",
-    company: "CloudInfra IT (Project Client)",
-    location: "New York, NY (On-site)",
-    type: "Contract",
-    updated: "3 days ago",
-    specialty: "ERP / SAP",
-  },
-];
+import { mockJobs } from "@/lib/jobs";
 
 export default function JobsPage() {
   return (

@@ -1,38 +1,22 @@
 import Header from "@/components/Header";
-import { ArrowLeft, MapPin, Briefcase, Calendar, Clock, ShieldCheck, Mail, Phone, ExternalLink } from "lucide-react";
+import { ArrowLeft, MapPin, Briefcase, Calendar, ShieldCheck, Mail, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { mockJobs } from "@/lib/jobs";
+import { notFound } from "next/navigation";
 
-// Mock data fetcher for MVP
-const getJob = (id: string) => ({
-  id,
-  title: "Senior DevOps Engineer",
-  company: "CloudInfra IT (Project Client)",
-  location: "Remote (US)",
-  type: "Contract",
-  datePosted: "2026-03-29",
-  validThrough: "2026-06-29",
-  salary: "$140,000 - $180,000",
-  description: `
-    <p>CloudInfra IT is seeking a Senior DevOps Engineer to lead infrastructure automation for a tier-1 finance client. You will be responsible for architecting CI/CD pipelines and managing Kubernetes clusters at scale.</p>
-    <h3 class="font-bold text-white mt-4">Key Responsibilities:</h3>
-    <ul class="list-disc ml-4 mt-2 space-y-2">
-      <li>Architect and maintain robust CI/CD pipelines using GitLab CI and Terraform.</li>
-      <li>Manage multi-cluster Kubernetes environments across AWS and Azure.</li>
-      <li>Design service mesh architectures with Istio.</li>
-      <li>Implement zero-trust security policies for cloud infrastructure.</li>
-    </ul>
-    <h3 class="font-bold text-white mt-4">Requirements:</h3>
-    <ul class="list-disc ml-4 mt-2 space-y-2">
-       <li>5+ years of experience in DevOps/SRE roles.</li>
-       <li>Deep expertise in Terraform and Kubernetes.</li>
-       <li>Certified AWS Solutions Architect or CKA.</li>
-       <li>Experience with SOC2 and PCI-DSS compliance is a plus.</li>
-    </ul>
-  `,
-});
+// Required for static export of dynamic routes
+export function generateStaticParams() {
+  return mockJobs.map((job) => ({
+    id: job.id.toString(),
+  }));
+}
 
 export default function JobDetailPage({ params }: { params: { id: string } }) {
-  const job = getJob(params.id);
+  const job = mockJobs.find(j => j.id.toString() === params.id);
+  
+  if (!job) {
+    notFound();
+  }
 
   // Structured Data for Google Job Search
   const jsonLd = {
@@ -56,15 +40,6 @@ export default function JobDetailPage({ params }: { params: { id: string } }) {
         "addressLocality": "Dallas",
         "addressRegion": "TX",
         "addressCountry": "US"
-      }
-    },
-    "baseSalary": {
-      "@type": "MonetaryAmount",
-      "currency": "USD",
-      "value": {
-        "@type": "QuantitativeValue",
-        "value": 150000,
-        "unitText": "YEAR"
       }
     }
   };
@@ -95,7 +70,7 @@ export default function JobDetailPage({ params }: { params: { id: string } }) {
 
             <div 
               className="prose prose-invert prose-accent max-w-none text-muted-foreground"
-              dangerouslySetInnerHTML={{ __html: job.description }}
+              dangerouslySetInnerHTML={{ __html: job.description || "" }}
             />
             
             <div className="pt-8 border-t border-border/50">

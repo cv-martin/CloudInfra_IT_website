@@ -1,26 +1,157 @@
 @import "tailwindcss";
 
+/* ============================================================
+   CLOUDINFRA IT — Design System 2026
+   Philosophy: White base, one accent color (cyan), generous space.
+   Sections differ by layout and content — not background color.
+   ============================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colour tokens */
+  --ci-white:    #ffffff;
+  --ci-surface:  #F8F9FB;   /* near-white for alternating sections */
+  --ci-border:   #E5E7EB;   /* subtle dividers */
+  --ci-text-900: #111827;   /* headlines */
+  --ci-text-600: #4B5563;   /* body copy */
+  --ci-text-400: #9CA3AF;   /* captions, labels */
+  --ci-cyan:     #06B6D4;   /* ONE accent: CTAs, labels, icons */
+  --ci-dark:     #111827;   /* dark sections: hero, bottom CTA */
+
+  /* Legacy tokens (keep for Hero compatibility) */
+  --accent:      #06B6D4;
+  --border:      #E5E7EB;
+
+  /* Typography scale */
+  --text-display: clamp(2.4rem, 4vw, 3.5rem);
+  --text-h2:      clamp(1.75rem, 2.5vw, 2.4rem);
+  --text-h3:      1.125rem;
+  --text-body:    0.9375rem;   /* 15px */
+  --text-label:   0.6875rem;   /* 11px */
+
+  /* Spacing */
+  --section-py: 5rem;          /* 80px section padding */
+  --container:  1200px;
+  --gutter:     2rem;          /* 32px side padding */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ============================================================
+   RESET — Body defaults to WHITE. Hero overrides its section.
+   ============================================================ */
+body {
+  background-color: var(--ci-white);
+  color: var(--ci-text-900);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  @supports (scrollbar-gutter: stable) {
+    scrollbar-gutter: stable;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Container utility */
+.ci-container {
+  width: 100%;
+  max-width: var(--container);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
 }
+
+/* Section spacing */
+.ci-section {
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+}
+
+/* Alternating surface */
+.ci-surface {
+  background-color: var(--ci-surface);
+}
+
+/* Section label above headlines */
+.ci-label {
+  display: block;
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ci-cyan);
+  margin-bottom: 0.5rem;
+}
+
+/* Thin top border separator (used between white sections) */
+.ci-divider {
+  border-top: 1px solid var(--ci-border);
+}
+
+/* Cyber Hero utilities (only used inside Hero.tsx) */
+.cyber-grid {
+  background-image:
+    linear-gradient(to right, rgba(6, 182, 212, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(6, 182, 212, 0.06) 1px, transparent 1px);
+  background-size: 120px 120px;
+}
+
+.neon-cyan-box {
+  border: 1px solid rgba(6, 182, 212, 0.7);
+  box-shadow:
+    0 0 60px rgba(6, 182, 212, 0.12),
+    inset 0 0 60px rgba(6, 182, 212, 0.04);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+/* Extra utilities for refactoring */
+.ci-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(6,182,212,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(6,182,212,0.06) 1px, transparent 1px);
+  background-size: 120px 120px;
+}
+
+.ci-grid-bg-small {
+  background-image: 
+    linear-gradient(to right, rgba(6,182,212,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(6,182,212,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.ci-glow-cyan {
+  box-shadow: 0 0 25px rgba(6,182,212,0.5);
+}
+
+.ci-border-cyan {
+  border: 1px solid rgba(6,182,212,0.6);
+}
+
+.ci-radial-glow {
+  background: radial-gradient(ellipse at center, rgba(6,182,212,0.07) 0%, transparent 70%);
+}
+
+.ci-process-line {
+  background: linear-gradient(to right, transparent, rgba(6,182,212,0.3) 20%, rgba(6,182,212,0.3) 80%, transparent);
+}
+
+.ci-grid-bg-emerald {
+  background-image: 
+    linear-gradient(to right, rgba(16,185,129,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16,185,129,0.06) 1px, transparent 1px);
+  background-size: 120px 120px;
+}
+
+.ci-grid-bg-small-emerald {
+  background-image: 
+    linear-gradient(to right, rgba(16,185,129,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16,185,129,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.ci-glow-emerald {
+  box-shadow: 0 0 25px rgba(16,185,129,0.5);
+}
+
+.ci-border-emerald {
+  border: 1px solid rgba(16,185,129,0.6);
+}
+
+

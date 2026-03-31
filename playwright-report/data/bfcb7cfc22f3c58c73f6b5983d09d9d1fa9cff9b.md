@@ -1,0 +1,362 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - navigation [ref=e4]:
+        - link "CloudInfra IT" [ref=e5] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e6]:
+          - button "Services" [ref=e8]:
+            - text: Services
+            - img [ref=e9]
+          - button "Industries" [ref=e12]:
+            - text: Industries
+            - img [ref=e13]
+          - link "Our Process" [ref=e15] [cursor=pointer]:
+            - /url: /our-process
+          - link "About" [ref=e16] [cursor=pointer]:
+            - /url: /about
+          - link "Contact" [ref=e17] [cursor=pointer]:
+            - /url: /contact
+        - generic [ref=e18]:
+          - link "Find a Job" [ref=e19] [cursor=pointer]:
+            - /url: /job-opportunities
+          - link "Request Talent" [ref=e20] [cursor=pointer]:
+            - /url: /consult-with-us
+    - main [ref=e21]:
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - generic [ref=e26]:
+            - heading "IT & Healthcare Staffing Built for the USA" [level=1] [ref=e27]:
+              - text: IT & Healthcare Staffing
+              - text: Built for the USA
+            - paragraph [ref=e28]:
+              - text: Connecting skilled professionals with leading companies across
+              - text: IT, Healthcare, Engineering and 10+ industries nationwide.
+            - generic [ref=e29]:
+              - link "Find a Job" [ref=e30] [cursor=pointer]:
+                - /url: /job-opportunities
+              - link "Hire Talent" [ref=e31] [cursor=pointer]:
+                - /url: /consult-with-us
+          - generic:
+            - img "Isometric cloud server network"
+          - generic:
+            - img
+        - paragraph [ref=e33]: 2026 CUTTING EDGE
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: Work Authorization Supported
+        - generic [ref=e43]:
+          - generic "H-1B Sponsorship" [ref=e44]: H-1B
+          - generic "Optional Practical Training" [ref=e45]: OPT (F-1)
+          - generic "STEM OPT Extension" [ref=e46]: STEM OPT
+          - generic "Green Card Holders" [ref=e47]: Green Card
+          - generic "Lawful Permanent Resident" [ref=e48]: LPR
+          - generic "US Citizens" [ref=e49]: US Citizen
+        - generic [ref=e50]: All placements are USCIS-compliant & employment-verified
+      - generic [ref=e52]:
+        - generic [ref=e53]:
+          - generic [ref=e54]:
+            - paragraph [ref=e55]: 2,400+
+            - paragraph [ref=e56]: Professionals placed
+          - generic [ref=e57]:
+            - paragraph [ref=e58]: 48h
+            - paragraph [ref=e59]: Avg. time to shortlist
+          - generic [ref=e60]:
+            - paragraph [ref=e61]: 98%
+            - paragraph [ref=e62]: Client retention rate
+          - generic [ref=e63]:
+            - paragraph [ref=e64]: "10"
+            - paragraph [ref=e65]: Industry specialties
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - generic [ref=e68]:
+              - text: IT & Healthcare Professionals
+              - heading "Looking for your next role?" [level=2] [ref=e69]
+              - paragraph [ref=e70]: We place IT and Healthcare professionals in permanent, contract, and temporary roles across the USA. Your recruiter responds within 24 hours.
+            - generic [ref=e71]:
+              - img [ref=e72]
+              - text: H-1B · OPT · STEM OPT · Green Card · US Citizen — all supported
+            - link "Browse Open Positions" [ref=e75] [cursor=pointer]:
+              - /url: /job-opportunities
+              - text: Browse Open Positions
+              - img [ref=e76]
+          - generic [ref=e78]:
+            - generic [ref=e80]:
+              - text: Healthcare & Technology Employers
+              - heading "Need to hire skilled talent?" [level=2] [ref=e81]
+              - paragraph [ref=e82]: We deliver a curated shortlist of pre-screened, compliance-checked candidates within 48 hours. Permanent, contract, or temp — fully managed.
+            - link "Request a Consultation" [ref=e83] [cursor=pointer]:
+              - /url: /consult-with-us
+              - text: Request a Consultation
+              - img [ref=e84]
+      - generic [ref=e87]:
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - generic [ref=e90]: Open Positions
+            - heading "12 roles open now — IT & Healthcare" [level=2] [ref=e91]
+          - link "View all openings" [ref=e92] [cursor=pointer]:
+            - /url: /job-opportunities
+            - text: View all openings
+            - img [ref=e93]
+        - generic [ref=e95]:
+          - generic [ref=e96]:
+            - generic [ref=e99]:
+              - paragraph [ref=e100]: DevOps Engineer
+              - generic [ref=e101]:
+                - generic [ref=e102]:
+                  - img [ref=e103]
+                  - text: Farmers Branch, TX
+                - generic [ref=e106]:
+                  - img [ref=e107]
+                  - text: Contract
+                - generic [ref=e110]: ·
+                - generic [ref=e111]: IT
+            - button "Express Interest" [ref=e112]
+          - generic [ref=e113]:
+            - generic [ref=e116]:
+              - paragraph [ref=e117]: Python Developer
+              - generic [ref=e118]:
+                - generic [ref=e119]:
+                  - img [ref=e120]
+                  - text: Dallas, TX
+                - generic [ref=e123]:
+                  - img [ref=e124]
+                  - text: Contract
+                - generic [ref=e127]: ·
+                - generic [ref=e128]: IT
+            - button "Express Interest" [ref=e129]
+          - generic [ref=e130]:
+            - generic [ref=e133]:
+              - paragraph [ref=e134]: Cloud Security Engineer
+              - generic [ref=e135]:
+                - generic [ref=e136]:
+                  - img [ref=e137]
+                  - text: Farmers Branch, TX
+                - generic [ref=e140]:
+                  - img [ref=e141]
+                  - text: Contract
+                - generic [ref=e144]: ·
+                - generic [ref=e145]: IT
+            - button "Express Interest" [ref=e146]
+          - generic [ref=e147]:
+            - generic [ref=e150]:
+              - paragraph [ref=e151]: RN Case Manager – Home Health
+              - generic [ref=e152]:
+                - generic [ref=e153]:
+                  - img [ref=e154]
+                  - text: Lebanon, NH
+                - generic [ref=e157]:
+                  - img [ref=e158]
+                  - text: 16-Wk Contract
+                - generic [ref=e161]: ·
+                - generic [ref=e162]: Healthcare
+            - button "Express Interest" [ref=e163]
+        - generic [ref=e164]:
+          - generic [ref=e165]: Don't see your role?
+          - link "Send us your CV — a recruiter will match you." [ref=e166] [cursor=pointer]:
+            - /url: /contact-a-recruiter
+      - generic [ref=e168]:
+        - generic [ref=e169]:
+          - generic [ref=e170]: Primary Specialties
+          - heading "IT and Healthcare — our two domains." [level=2] [ref=e171]
+          - paragraph [ref=e172]: We staff with domain-specialist recruiters — not generalists. Every search is handled by someone who understands the role, the technology, and the compliance requirements.
+        - generic [ref=e173]:
+          - generic [ref=e174]:
+            - generic [ref=e175]:
+              - img "IT professional — software engineer at workstation" [ref=e176]
+              - generic [ref=e178]: Information Technology
+            - generic [ref=e179]:
+              - paragraph [ref=e180]: Cloud · DevOps · Data · Security · Software Engineering
+              - paragraph [ref=e181]: From cloud architects and DevOps engineers to ERP consultants and mobile developers — we staff across the full IT spectrum for permanent, contract, and project-based engagements.
+              - link "Explore IT Staffing" [ref=e182] [cursor=pointer]:
+                - /url: /information-technology
+                - text: Explore IT Staffing
+                - img [ref=e183]
+          - generic [ref=e185]:
+            - generic [ref=e186]:
+              - img "Healthcare professional — nurse in clinical setting" [ref=e187]
+              - generic [ref=e189]: Hospitals & Healthcare
+            - generic [ref=e190]:
+              - paragraph [ref=e191]: Physicians · Nurses · Allied Health · Healthcare IT · Administration
+              - paragraph [ref=e192]: Demand for qualified clinical and health IT professionals consistently outpaces supply. We source through deep referral networks, with thorough background checks and compliance verification.
+              - link "Explore Healthcare Staffing" [ref=e193] [cursor=pointer]:
+                - /url: /hospitals-and-healthcare
+                - text: Explore Healthcare Staffing
+                - img [ref=e194]
+        - paragraph [ref=e197]:
+          - text: We also staff across Engineering, Banking, Manufacturing, Pharma, Legal, Aerospace and more.
+          - link "View all 10 industries →" [ref=e198] [cursor=pointer]:
+            - /url: /services
+      - generic [ref=e200]:
+        - generic [ref=e201]:
+          - paragraph [ref=e202]: 5-Step Framework
+          - heading "The Delivery Engine" [level=2] [ref=e203]
+          - link "See Full Process" [ref=e204] [cursor=pointer]:
+            - /url: /our-process
+            - text: See Full Process
+            - img [ref=e205]
+        - generic [ref=e210]:
+          - generic [ref=e211]:
+            - generic [ref=e212]:
+              - generic [ref=e214]: "1"
+              - img [ref=e215]
+            - generic [ref=e219]: Consult
+          - generic [ref=e220]:
+            - generic [ref=e221]:
+              - generic [ref=e223]: "2"
+              - img [ref=e224]
+            - generic [ref=e227]: Source
+          - generic [ref=e228]:
+            - generic [ref=e229]:
+              - generic [ref=e231]: "3"
+              - img [ref=e232]
+            - generic [ref=e236]: Vet
+          - generic [ref=e237]:
+            - generic [ref=e238]:
+              - generic [ref=e240]: "4"
+              - img [ref=e241]
+            - generic [ref=e246]: Deploy
+          - generic [ref=e247]:
+            - generic [ref=e248]:
+              - generic [ref=e250]: "5"
+              - img [ref=e251]
+            - generic [ref=e256]: Scale
+      - generic [ref=e258]:
+        - generic [ref=e259]:
+          - generic [ref=e260]: Get Started Today
+          - heading "Ready to get started?" [level=2] [ref=e261]
+          - paragraph [ref=e262]: Tell us what you need. We'll take it from there.
+        - generic [ref=e263]:
+          - generic [ref=e264]:
+            - img [ref=e266]
+            - paragraph [ref=e269]: For IT & Healthcare Professionals
+            - heading "I'm looking for work" [level=3] [ref=e270]
+            - paragraph [ref=e271]: Browse open positions in IT, Healthcare, Engineering, and more. Apply quickly — a specialist recruiter will respond within 24 hours.
+            - generic [ref=e272]:
+              - link "Browse Job Opportunities" [ref=e273] [cursor=pointer]:
+                - /url: /job-opportunities
+                - text: Browse Job Opportunities
+                - img [ref=e274]
+              - link "Contact a Recruiter" [ref=e276] [cursor=pointer]:
+                - /url: /contact-a-recruiter
+          - generic [ref=e277]:
+            - img [ref=e279]
+            - paragraph [ref=e283]: For Healthcare & Technology Employers
+            - heading "I need to hire talent" [level=3] [ref=e284]
+            - paragraph [ref=e285]: Submit a staffing request and your dedicated Hiring Partner will reach out within 24 hours. Full compliance, payroll, and onboarding support included.
+            - generic [ref=e286]:
+              - link "Request a Consultation" [ref=e287] [cursor=pointer]:
+                - /url: /consult-with-us
+                - text: Request a Consultation
+                - img [ref=e288]
+              - link "View Services" [ref=e290] [cursor=pointer]:
+                - /url: /custom-services-provided
+        - paragraph [ref=e292]:
+          - text: Prefer to call?
+          - link "(+1) 214-663-7826" [ref=e293] [cursor=pointer]:
+            - /url: tel:+12146637826
+          - text: ·
+          - link "info@cloudinfrait.com" [ref=e294] [cursor=pointer]:
+            - /url: mailto:info@cloudinfrait.com
+    - contentinfo [ref=e295]:
+      - generic [ref=e297]:
+        - generic [ref=e298]:
+          - link "CloudInfra IT" [ref=e299] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e300]: CloudInfra IT
+          - paragraph [ref=e301]: US-based IT & Healthcare staffing. Permanent, Contract, Temporary, and Temp-to-Hire across 10 industries.
+          - generic [ref=e302]:
+            - img [ref=e303]
+            - generic [ref=e306]: Compliant Staffing Partner
+          - generic [ref=e307]:
+            - link "(+1) 214-663-7826" [ref=e308] [cursor=pointer]:
+              - /url: tel:+12146637826
+              - img [ref=e309]
+              - text: (+1) 214-663-7826
+            - link "info@cloudinfrait.com" [ref=e311] [cursor=pointer]:
+              - /url: mailto:info@cloudinfrait.com
+              - img [ref=e312]
+              - text: info@cloudinfrait.com
+            - generic [ref=e315]:
+              - img [ref=e316]
+              - generic [ref=e319]:
+                - text: 2727 LBJ Freeway, Suite 220
+                - text: Farmers Branch, TX 75234, USA
+        - generic [ref=e320]:
+          - paragraph [ref=e321]: For Candidates
+          - list [ref=e322]:
+            - listitem [ref=e323]:
+              - link "Job Opportunities" [ref=e324] [cursor=pointer]:
+                - /url: /job-opportunities
+            - listitem [ref=e325]:
+              - link "Hiring Process" [ref=e326] [cursor=pointer]:
+                - /url: /hiring-process
+            - listitem [ref=e327]:
+              - link "Contact a Recruiter" [ref=e328] [cursor=pointer]:
+                - /url: /contact-a-recruiter
+            - listitem [ref=e329]:
+              - link "FAQ for Candidates" [ref=e330] [cursor=pointer]:
+                - /url: /faqs-for-candidates
+        - generic [ref=e331]:
+          - paragraph [ref=e332]: For Clients
+          - list [ref=e333]:
+            - listitem [ref=e334]:
+              - link "Custom Services" [ref=e335] [cursor=pointer]:
+                - /url: /custom-services-provided
+            - listitem [ref=e336]:
+              - link "Recruitment & Interview Process" [ref=e337] [cursor=pointer]:
+                - /url: /recruitment-interview-process
+            - listitem [ref=e338]:
+              - link "Request Consultation" [ref=e339] [cursor=pointer]:
+                - /url: /consult-with-us
+            - listitem [ref=e340]:
+              - link "FAQ for Clients" [ref=e341] [cursor=pointer]:
+                - /url: /faq
+        - generic [ref=e342]:
+          - paragraph [ref=e343]: Specialties
+          - list [ref=e344]:
+            - listitem [ref=e345]:
+              - link "Information Technology" [ref=e346] [cursor=pointer]:
+                - /url: /information-technology
+            - listitem [ref=e347]:
+              - link "Hospitals & Healthcare" [ref=e348] [cursor=pointer]:
+                - /url: /hospitals-and-healthcare
+            - listitem [ref=e349]:
+              - link "Engineering" [ref=e350] [cursor=pointer]:
+                - /url: /engineering
+            - listitem [ref=e351]:
+              - link "Banking & Finance" [ref=e352] [cursor=pointer]:
+                - /url: /banking-and-finance
+            - listitem [ref=e353]:
+              - link "All Industries →" [ref=e354] [cursor=pointer]:
+                - /url: /specialties
+        - generic [ref=e355]:
+          - paragraph [ref=e356]: Company
+          - list [ref=e357]:
+            - listitem [ref=e358]:
+              - link "Our Process" [ref=e359] [cursor=pointer]:
+                - /url: /our-process
+            - listitem [ref=e360]:
+              - link "Join Us" [ref=e361] [cursor=pointer]:
+                - /url: /join-us
+            - listitem [ref=e362]:
+              - link "Blog" [ref=e363] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e364]:
+              - link "Contact Us" [ref=e365] [cursor=pointer]:
+                - /url: /contact-us
+      - generic [ref=e367]:
+        - paragraph [ref=e368]: © 2026 CloudInfra IT. All rights reserved.
+        - generic [ref=e369]:
+          - link "Privacy Policy" [ref=e370] [cursor=pointer]:
+            - /url: /privacy-policy
+          - link "Terms & Conditions" [ref=e371] [cursor=pointer]:
+            - /url: /terms-service-conditions
+  - button "Open Next.js Dev Tools" [ref=e377] [cursor=pointer]:
+    - img [ref=e378]
+  - alert [ref=e381]
+```

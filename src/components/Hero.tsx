@@ -63,6 +63,7 @@ export default function Hero() {
               src="/hero-servers.png"
               alt="Isometric cloud server network"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 55vw, 700px"
               className="object-contain object-right-bottom mix-blend-screen"
               priority
             />

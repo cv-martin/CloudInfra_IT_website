@@ -15,8 +15,8 @@ test.describe('Homepage Black-Box Tests', () => {
     await expect(h1).toContainText('Healthcare Staffing');
     await expect(h1).toContainText('Built for the USA');
 
-    // Check for "Find a Job" CTA
-    const findJobButton = page.getByRole('link', { name: /Find a Job/i });
+    // Check for "Find a Job" CTA - specify main container to avoid header conflict
+    const findJobButton = page.getByRole('main').getByRole('link', { name: /Find a Job/i });
     await expect(findJobButton).toBeVisible();
     await expect(findJobButton).toHaveAttribute('href', '/job-opportunities');
   });

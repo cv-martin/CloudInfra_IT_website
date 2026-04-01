@@ -1,88 +1,101 @@
 "use client";
 
-import Link from "next/link";
+
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, Heart, Zap, Users, Globe } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+
+/**
+ * Join Us (Careers) — Internal recruitment.
+ * URL: /join-us
+ *
+ * Design language: Premium Dark Mode
+ *   - Pure Black backgrounds
+ *   - Neon Green accents (#a4f07a)
+ *   - ci-card components with grid motifs
+ */
 
 const openRoles = [
   {
     title: "Senior IT Recruiter",
     type: "Full-time",
     location: "Farmers Branch, TX / Remote",
-    desc: "Own end-to-end searches across Cloud, DevOps, and Cybersecurity. You will have 3+ years of IT recruiting experience and a genuine interest in technology.",
+    desc: "Own end-to-end searches across Cloud, DevOps, and Cybersecurity. You will have 3+ years of IT recruiting experience.",
   },
   {
     title: "Healthcare Recruiter",
     type: "Full-time",
     location: "Farmers Branch, TX / Hybrid",
-    desc: "Place clinical professionals — Nurses, Allied Health, and Healthcare Admin — across hospital systems and home health agencies. Clinical staffing experience preferred.",
+    desc: "Place clinical professionals — Nurses, Allied Health, and Admin — across hospital systems. Clinical experience preferred.",
   },
   {
     title: "Talent Sourcer — Engineering",
-    type: "Full-time or Contract",
+    type: "Contract",
     location: "Remote (US)",
-    desc: "Build and maintain active candidate pipelines for Engineering and Industrial sectors. Strong Boolean search and LinkedIn Recruiter skills required.",
+    desc: "Build and maintain active candidate pipelines for Engineering. Strong Boolean search and LinkedIn Recruiter skills required.",
   },
   {
     title: "Client Success Manager",
     type: "Full-time",
     location: "Farmers Branch, TX",
-    desc: "Own relationships with our employer clients post-placement. Manage renewals, account growth, and service satisfaction. Staffing or B2B account management background preferred.",
+    desc: "Own relationships with our employer clients post-placement. Manage renewals and service satisfaction.",
   },
 ];
 
 const values = [
-  { icon: Zap,   title: "Engineers first",     body: "We started with a deep belief that domain expertise makes better recruiters. Every team member is expected to understand the fields they recruit in — not just the job titles." },
-  { icon: Heart, title: "Honest by default",   body: "We tell candidates which client they are being submitted to. We tell clients when a search is difficult. We don't oversell and we don't hide problems." },
-  { icon: Users, title: "Small team, big reach", body: "We are deliberately lean. Every recruiter owns their discipline end-to-end — sourcing, screening, submission, and post-placement. No handoffs, no handoffs, no diluted service." },
-  { icon: Globe, title: "Nationwide impact",   body: "We operate remotely across all 50 US states. Our team is distributed, and we expect people who can work independently and own outcomes without micromanagement." },
+  { icon: Zap,   title: "Domain Authority",     body: "Every team member is expected to understand the fields they recruit in — not just the job titles. This is our core differentiator." },
+  { icon: Heart, title: "Radical Transparency", body: "We tell candidates which client they are being submitted to. We tell clients when a search is difficult. No hiding problems." },
+  { icon: Users, title: "Operational Autonomy", body: "We are deliberately lean. Every recruiter owns their discipline end-to-end — sourcing, screening, and submission." },
+  { icon: Globe, title: "Nationwide Impact",   body: "We operate remotely across all 50 US states. Our team is distributed and independent by design." },
 ];
 
 const fade = { hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0, transition: { duration: 0.4 } } };
 
 export default function JoinUsPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <Header />
-
-      <section className="pt-36 pb-16 bg-white border-b border-gray-100">
-        <div className="ci-container">
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="w-10 h-0.5 bg-[#06B6D4] mb-6" />
-            <span className="ci-label block mb-2">Careers</span>
-            <h1 className="text-[clamp(2rem,4vw,3.2rem)] font-extrabold text-[#0F1B2D] leading-tight max-w-2xl">
-              Recruit smarter. Work with people who actually know the field.
-            </h1>
-            <p className="text-sm text-gray-500 mt-5 max-w-xl leading-relaxed">
-              We are a small team of specialist recruiters who take domain knowledge seriously. If you are tired of generalist recruiting and want to own a vertical end-to-end, we want to hear from you.
-            </p>
-          </motion.div>
+    <div className="flex flex-col min-h-screen bg-black text-white">
+      
+      {/* ── Hero ── */}
+      <section className="pt-40 pb-24 bg-black border-b border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 ci-grid-bg opacity-[0.03] pointer-events-none" />
+        <div className="ci-container relative z-10">
+          <div className="max-w-3xl">
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+              <div className="w-12 h-1 bg-[#a4f07a] mb-8 ci-glow" />
+              <h1 className="text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold text-white leading-tight tracking-tighter">
+                Architecture & <br/><span className="text-white/40">Talent Acquisition.</span>
+              </h1>
+              <p className="text-lg text-white/40 mt-6 max-w-lg leading-relaxed font-light">
+                We are a small team of specialist recruiters who take domain knowledge seriously. If you want to own a vertical end-to-end, let&apos;s talk.
+              </p>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      <main className="flex-1">
-
-        {/* Values */}
-        <section className="bg-[#F8F9FB] border-b border-gray-100">
-          <div className="ci-container py-14">
-            <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-10">
-              <span className="ci-label block mb-2">Our Culture</span>
-              <h2 className="text-xl font-bold text-[#0F1B2D]">What we stand for.</h2>
+      <main className="flex-1 bg-black">
+        {/* ── Values ── */}
+        <section className="bg-black relative overflow-hidden border-b border-white/5">
+          <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10">
+            <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-16">
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Internal Culture</span>
+              <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight">Our Core Frameworks.</h2>
             </motion.div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12">
               {values.map((v, i) => {
                 const Icon = v.icon;
                 return (
                   <motion.div key={v.title} variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} transition={{ delay: i * 0.07 }}
-                    className="flex items-start gap-4 rounded-2xl border border-gray-100 bg-white p-6">
-                    <div className="w-9 h-9 rounded-xl bg-[#06B6D4]/10 border border-[#06B6D4]/20 flex items-center justify-center shrink-0">
-                      <Icon className="h-4 w-4 text-[#06B6D4]" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-gray-900 mb-1">{v.title}</p>
-                      <p className="text-sm text-gray-500 leading-relaxed">{v.body}</p>
+                    className="ci-card p-10 group relative overflow-hidden h-full">
+                    <div className="absolute inset-0 ci-grid-bg-small opacity-[0.015] group-hover:opacity-[0.03] transition-opacity" />
+                    <div className="flex items-start gap-8 relative z-10 h-full">
+                      <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#a4f07a]/30 transition-all">
+                        <Icon className="h-5 w-5 text-[#a4f07a]" />
+                      </div>
+                      <div>
+                        <p className="text-xl font-bold text-white mb-3 tracking-tight group-hover:text-[#a4f07a] transition-colors">{v.title}</p>
+                        <p className="text-white/40 leading-relaxed font-light">{v.body}</p>
+                      </div>
                     </div>
                   </motion.div>
                 );
@@ -91,29 +104,30 @@ export default function JoinUsPage() {
           </div>
         </section>
 
-        {/* Open Roles */}
-        <section className="bg-white border-b border-gray-100">
-          <div className="ci-container py-14">
-            <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-10">
-              <span className="ci-label block mb-2">Open Positions</span>
-              <h2 className="text-xl font-bold text-[#0F1B2D]">Current openings.</h2>
+        {/* ── Open Roles ── */}
+        <section className="bg-[#050505] relative overflow-hidden border-b border-white/5">
+          <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10">
+            <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-16">
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Deployment feed</span>
+              <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight">Current Openings.</h2>
             </motion.div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-6">
               {openRoles.map((r, i) => (
                 <motion.div key={r.title} variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} transition={{ delay: i * 0.06 }}
-                  className="grid grid-cols-1 lg:grid-cols-12 gap-4 rounded-2xl border border-gray-100 bg-[#F8F9FB] p-6">
-                  <div className="lg:col-span-9">
-                    <div className="flex flex-wrap items-center gap-3 mb-2">
-                      <p className="text-sm font-bold text-[#0F1B2D]">{r.title}</p>
-                      <span className="text-[11px] font-semibold text-[#06B6D4] bg-[#06B6D4]/10 border border-[#06B6D4]/20 px-2.5 py-1 rounded-full">{r.type}</span>
-                      <span className="text-[11px] text-gray-400">{r.location}</span>
+                  className="ci-card p-8 lg:p-10 group relative overflow-hidden flex flex-col lg:flex-row gap-8 items-start lg:items-center">
+                  <div className="absolute inset-0 ci-grid-bg-small opacity-[0.015] group-hover:opacity-[0.03] transition-opacity" />
+                  <div className="flex-1 relative z-10">
+                    <div className="flex flex-wrap items-center gap-4 mb-4">
+                      <h3 className="text-xl font-bold text-white tracking-tight group-hover:text-[#a4f07a] transition-colors">{r.title}</h3>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-[#a4f07a]/60 bg-[#a4f07a]/5 border border-[#a4f07a]/10 px-3 py-1.5 rounded-full">{r.type}</span>
+                      <span className="text-xs text-white/20 font-light tracking-wide">{r.location}</span>
                     </div>
-                    <p className="text-sm text-gray-500 leading-relaxed">{r.desc}</p>
+                    <p className="text-white/40 text-lg leading-relaxed font-light">{r.desc}</p>
                   </div>
-                  <div className="lg:col-span-3 flex lg:items-start lg:justify-end">
-                    <a href={`mailto:info@cloudinfrait.com?subject=Application — ${r.title}`}
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-[#06B6D4] hover:underline">
-                      Apply by email <ArrowRight className="h-4 w-4" />
+                  <div className="shrink-0 relative z-10">
+                    <a href={`mailto:info@cloudinfrait.com?subject=Application — ${r.title}`} className="ci-pill-btn ci-pill-btn-outline group/btn">
+                      Transmit Resume <ArrowRight className="h-4 w-4 ml-2 group-hover/btn:translate-x-1 transition-all" />
                     </a>
                   </div>
                 </motion.div>
@@ -122,37 +136,40 @@ export default function JoinUsPage() {
           </div>
         </section>
 
-        {/* Speculative */}
-        <section className="bg-white">
-          <div className="ci-container py-14">
+        {/* ── Speculative ── */}
+        <section className="bg-black relative overflow-hidden">
+          <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10">
             <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-8">
-                <div className="w-10 h-0.5 bg-[#06B6D4] mb-5" />
-                <h2 className="text-xl font-bold text-[#0F1B2D] mb-3">Don&apos;t see a perfect fit?</h2>
-                <p className="text-sm text-gray-500 max-w-lg leading-relaxed">
-                  We hire for attitude and domain knowledge. If you are an experienced recruiter who is serious about a specific field — send us your profile and we will have a conversation about where you might fit.
+              className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
+              <div className="lg:col-span-7">
+                <div className="w-12 h-1 bg-[#a4f07a] mb-10 ci-glow" />
+                <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6 tracking-tight">Manual Discovery.</h2>
+                <p className="text-lg text-white/30 max-w-xl leading-relaxed font-light">
+                  Don&apos;t see a perfect fit? We hire for attitude and domain knowledge. If you are an experienced recruiter who takes a field seriously, initiate contact.
                 </p>
-                <ul className="mt-5 flex flex-col gap-2">
-                  {["3+ years recruiting in a defined vertical", "Track record of delivery, not just activity", "Based in the US or timezone-compatible"].map(p => (
-                    <li key={p} className="flex items-start gap-2.5 text-sm text-gray-500">
-                      <CheckCircle2 className="h-4 w-4 text-[#06B6D4] shrink-0 mt-0.5" /> {p}
+                <ul className="mt-10 flex flex-col gap-6">
+                  {["3+ years recruiting in a defined vertical", "Track record of delivery, not just activity", "Independent Operator mindset"].map(p => (
+                    <li key={p} className="flex items-start gap-4 text-white/50 font-light">
+                      <CheckCircle2 className="h-5 w-5 text-[#a4f07a] shrink-0 mt-0.5" /> 
+                      <span className="text-lg">{p}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="lg:col-span-4 lg:text-right">
-                <a href="mailto:info@cloudinfrait.com?subject=Speculative Application — CloudInfra IT"
-                  className="inline-flex items-center gap-2 bg-[#0F1B2D] text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-[#1a2e4a] active:scale-95 transition-all">
-                  Send Speculative Application <ArrowRight className="h-4 w-4" />
-                </a>
+              <div className="lg:col-span-5 flex justify-center lg:justify-end">
+                <div className="ci-card p-12 bg-[#a4f07a]/5 border-[#a4f07a]/10 text-center w-full max-w-md">
+                   <h3 className="text-xl font-bold text-white mb-4 tracking-tight">Initiate Transmission</h3>
+                   <p className="text-white/30 text-sm mb-10 font-light italic leading-relaxed">Send your profile directly to our Partners Network for baseline review.</p>
+                   <a href="mailto:info@cloudinfrait.com?subject=Speculative Application — CloudInfra IT" className="ci-pill-btn ci-pill-btn-primary w-full justify-center">
+                    Send Speculative Application <ArrowRight className="h-4 w-4 ml-2" />
+                  </a>
+                </div>
               </div>
             </motion.div>
           </div>
         </section>
-
       </main>
-      <Footer />
-    </div>
+          </div>
   );
 }

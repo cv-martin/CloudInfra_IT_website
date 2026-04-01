@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
@@ -26,8 +26,11 @@ const industries = [
 
 export default function Industries() {
   return (
-    <section className="bg-white ci-section ci-divider">
-      <div className="ci-container">
+    <section className="bg-black ci-section relative overflow-hidden">
+      {/* Background motif */}
+      <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+
+      <div className="ci-container relative z-10">
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 items-start">
 
@@ -39,29 +42,33 @@ export default function Industries() {
             transition={{ duration: 0.45 }}
             className="lg:col-span-2"
           >
-            <span className="ci-label">Industries We Serve</span>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px w-8 bg-[#a4f07a]" />
+              <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#a4f07a]">Global Verticals</span>
+            </div>
 
             {/* Large accent number */}
-            <div className="flex items-end gap-3 mt-3 mb-5">
-              <span className="text-[80px] font-black text-gray-100 leading-none select-none">10</span>
-              <div className="pb-2">
-                <p className="text-lg font-bold text-gray-900 leading-tight">industries.</p>
-                <p className="text-lg font-bold text-gray-900 leading-tight">One trusted partner.</p>
+            <div className="flex items-end gap-4 mt-3 mb-8">
+              <span className="text-[100px] font-black text-[#a4f07a]/[0.05] leading-none select-none tracking-tighter">10</span>
+              <div className="pb-3">
+                <p className="text-2xl font-bold text-white tracking-tight leading-none">specialties.</p>
+                <p className="text-base font-medium text-white/40 mt-1 leading-none">One delivery engine.</p>
               </div>
             </div>
 
-            <p className="text-sm text-gray-500 leading-relaxed mb-4">
-              From Information Technology to Healthcare, Banking to Aerospace — we place professionals across the sectors that keep the US economy moving. Each practice is led by recruiters with direct industry experience.
+            <p className="text-base text-white/40 leading-relaxed font-light mb-6">
+              From Cloud Infrastructure to Clinical Care — we source professionals across the sectors that drive the North American economy.
             </p>
-            <p className="text-sm text-gray-500 leading-relaxed mb-8">
-              Every search begins with a detailed requirements briefing. We send qualified, compliance-checked candidates matched to your specific technical needs — not generic applicants.
+            <p className="text-sm text-white/20 leading-relaxed mb-10 font-light">
+              Every practice is led by recruiters with direct industry experience. No generic applicants — only vetted, compliance-checked talent matched to your technical environment.
             </p>
+            
             <Link
               href="/consult-with-us"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[#06B6D4] hover:underline group"
+              className="ci-pill-btn ci-pill-btn-outline group"
             >
-              Talk to an industry specialist
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              Consult a Specialist
+              <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>
 
@@ -84,22 +91,25 @@ export default function Industries() {
                 >
                   <Link
                     href={ind.href}
-                    className={`inline-flex items-center gap-2 px-5 py-3 rounded-full border border-gray-200 bg-white text-sm font-semibold hover:border-[#06B6D4]/40 hover:bg-[#F0FDFF] hover:text-[#06B6D4] transition-all group ${ind.accent}`}
+                    className={`inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/10 bg-white/5 text-sm font-bold text-white/70 hover:border-[#a4f07a] hover:bg-[#a4f07a]/5 hover:text-[#a4f07a] transition-all group`}
                   >
                     {ind.title}
-                    <ArrowRight className="h-3.5 w-3.5 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                    <ArrowRight className="h-4 w-4 opacity-20 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                   </Link>
                 </motion.div>
               ))}
             </div>
 
-            <div className="mt-8 pt-6 border-t border-gray-100">
-              <p className="text-xs text-gray-400 mb-2">Primary specialties highlighted in colour. All others place both IT and Healthcare professionals into sector-adjacent roles.</p>
+            <div className="mt-12 pt-8 border-t border-white/5">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 mb-4">Coverage Architecture</p>
+              <p className="text-xs text-white/40 mb-6 font-light leading-relaxed">
+                Primary intake nodes include both IT and Healthcare clusters. Sector-adjacent roles are managed through our specialized partner network.
+              </p>
               <Link
                 href="/specialties"
-                className="text-xs text-gray-500 hover:text-[#06B6D4] hover:underline transition-colors"
+                className="text-xs font-bold text-[#a4f07a] hover:underline underline-offset-4 transition-all"
               >
-                View all specialty pages →
+                Browse full specialty index →
               </Link>
             </div>
           </motion.div>

@@ -1,45 +1,69 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-
-/**
- * About — McKinsey/prestige editorial design.
- *
- * Design language: institutional authority
- *   - Massive display typography (dark navy, near-serif weight)
- *   - Sparse white space, editorial column grids
- *   - Restrained cyan accent (one line, one button)
- *   - Professional photography, no glow/gradients
- *   - Precise language — no superlatives without specifics
- */
+import { ArrowRight, ShieldCheck, Zap, Users, BarChart3, Globe2, Clock } from "lucide-react";
 
 const stats = [
-  { value: "2,400+", label: "Placements made" },
-  { value: "48 h",   label: "Average shortlist delivery" },
-  { value: "12",     label: "Industry verticals" },
-  { value: "98%",    label: "Contract completion rate" },
+  { value: "2,400+", label: "Placements Made" },
+  { value: "98%",    label: "Client Retention" },
+  { value: "48h",    label: "Avg. Shortlist" },
+  { value: "12",     label: "Industry Verticals" },
 ];
 
-const principles = [
+const approach = [
   {
-    number: "01",
-    title: "Domain expertise is not negotiable.",
-    body: "Every recruiter at CloudInfra IT has worked inside or directly alongside engineering teams. We know what a Kubernetes architect looks like versus a keyword-padded CV. That distinction is the entire business.",
+    num: "01",
+    title: "Discovery & Alignment",
+    body: "We start with a technical deep-dive — not a generic intake form. Your stack, your team structure, your real blocker. One call, one shared brief.",
   },
   {
-    number: "02",
-    title: "Specificity is a form of respect.",
-    body: "We do not send generic shortlists. Every candidate we present has been briefed on your exact requirement, screened against your tech stack, and work-authorisation verified before your team invests one hour of interview time.",
+    num: "02",
+    title: "Domain-Expert Sourcing",
+    body: "Our recruiters have worked inside engineering and clinical teams. We source passively — finding candidates who aren't on job boards because they don't need to be.",
   },
   {
-    number: "03",
-    title: "Compliance is infrastructure.",
-    body: "In IT and Healthcare staffing, a non-compliant hire creates downstream risk — legal, operational, and reputational. Our credentialing and USCIS verification process is not a formality. It is the product.",
+    num: "03",
+    title: "Technical Screening & Compliance",
+    body: "Every candidate is screened against your actual requirements — not just job titles. Work authorisation, credentials, and compliance verified before any introduction.",
+  },
+  {
+    num: "04",
+    title: "Precision Shortlist Delivery",
+    body: "You receive 3–5 highly targeted candidates, not a resume dump. 48-hour SLA for contract roles. 5–10 days for permanent search. Every candidate is ready to interview.",
+  },
+];
+
+const advantages = [
+  {
+    icon: ShieldCheck,
+    title: "Compliance Infrastructure",
+    body: "Work auth, background checks, and licence verification on every candidate — H-1B, OPT, STEM OPT, Green Card, TN Visa.",
+  },
+  {
+    icon: Zap,
+    title: "48-Hour SLA",
+    body: "We commit to timelines in writing. Contract talent shortlisted in 24–48 hours. Permanent search in 5–10 business days.",
+  },
+  {
+    icon: Users,
+    title: "Domain Recruiters Only",
+    body: "No generalists. Every search is run by a recruiter who has worked inside or alongside the relevant engineering or clinical team.",
+  },
+  {
+    icon: BarChart3,
+    title: "Zero-Stale Postings",
+    body: "Every active role is verified daily. If a position is filled, it is removed immediately — we respect your interview time.",
+  },
+  {
+    icon: Globe2,
+    title: "US-Wide Reach",
+    body: "Headquartered in Farmers Branch, TX with placement reach across all 50 states. Remote-first and on-site engagements covered.",
+  },
+  {
+    icon: Clock,
+    title: "Retained, Not Transactional",
+    body: "Your assigned Hiring Partner manages the full lifecycle — from sourcing through onboarding and 90-day check-ins.",
   },
 ];
 
@@ -47,363 +71,312 @@ const fade = { hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0 } };
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <Header />
+    <div className="flex flex-col min-h-screen bg-black">
+      
+      {/* ── HERO — Centered, radial glow, grid bg ── */}
+      <section className="relative pt-40 pb-28 bg-black overflow-hidden">
+        {/* Grid background */}
+        <div className="absolute inset-0 ci-grid-bg opacity-[0.03] pointer-events-none" />
+        {/* Radial glow spotlight */}
+        <div className="absolute inset-0 ci-radial-glow pointer-events-none" />
+        {/* Faint separator line */}
+        <div className="absolute bottom-0 left-0 right-0 ci-divider" />
 
-      {/* ─────────────────────────────────────────
-          HERO  — massive editorial headline
-      ───────────────────────────────────────── */}
-      <section className="pt-36 pb-20 bg-white border-b border-gray-100">
+        <div className="ci-container relative z-10 text-center max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-[#a4f07a]/25 bg-[#a4f07a]/5"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-[#a4f07a] animate-pulse" />
+            <span className="text-[11px] font-black uppercase tracking-[0.35em] text-[#a4f07a]">
+              About CloudInfra IT
+            </span>
+          </motion.div>
+
+          <motion.h1
+            variants={fade}
+            initial="hidden"
+            animate="show"
+            transition={{ duration: 0.6, delay: 0.05 }}
+            className="text-[clamp(2.8rem,6vw,5.5rem)] font-extrabold leading-[1.0] tracking-tighter text-white"
+          >
+            We were engineers<br />
+            <span className="text-[#a4f07a]">before</span> we were recruiters.
+          </motion.h1>
+
+          <motion.p
+            variants={fade}
+            initial="hidden"
+            animate="show"
+            transition={{ duration: 0.55, delay: 0.15 }}
+            className="mt-8 text-xl text-white/40 leading-relaxed max-w-2xl mx-auto font-light"
+          >
+            CloudInfra IT was founded by technologists who lived through the frustration of generic recruiting.
+            Every search we run is led by someone who has been in the room with the technology.
+          </motion.p>
+
+          <motion.div
+            variants={fade}
+            initial="hidden"
+            animate="show"
+            transition={{ delay: 0.22 }}
+            className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <Link href="/consult-with-us" className="ci-pill-btn ci-pill-btn-primary">
+              Request a Consultation <ArrowRight className="h-4 w-4 ml-2" />
+            </Link>
+            <Link href="/jobs" className="ci-pill-btn ci-pill-btn-outline">
+              Browse Open Roles
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── STATS BOARD — DataSignify container style ── */}
+      <section className="bg-black py-12">
         <div className="ci-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-end">
-
-            {/* Left — headline column */}
-            <div className="lg:col-span-7 lg:pr-16">
-              {/* Thin cyan rule — the ONLY accent in the hero */}
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                className="w-12 h-0.5 bg-[#06B6D4] mb-8 origin-left"
-              />
-
-              <motion.h1
-                variants={fade}
-                initial="hidden"
-                animate="show"
-                transition={{ duration: 0.55 }}
-                className="text-[clamp(2.6rem,5.5vw,5rem)] font-extrabold leading-[1.05] tracking-tight"
-                style={{ color: "#0F1B2D" }}
-              >
-                We were engineers<br />
-                before we were<br />
-                recruiters.
-              </motion.h1>
-
-              <motion.p
-                variants={fade}
-                initial="hidden"
-                animate="show"
-                transition={{ duration: 0.55, delay: 0.1 }}
-                className="mt-8 text-[1rem] text-gray-500 leading-relaxed max-w-lg"
-              >
-                CloudInfra IT was founded by technologists who lived through the
-                frustration of generic recruiting — and built a firm where every
-                search is run by someone who has been in the room with the technology.
-              </motion.p>
-
-              <motion.div
-                variants={fade}
-                initial="hidden"
-                animate="show"
-                transition={{ delay: 0.18 }}
-                className="mt-10 flex flex-col sm:flex-row gap-3"
-              >
-                <Link
-                  href="/consult-with-us"
-                  className="inline-flex items-center gap-2 bg-[#0F1B2D] text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-[#1a2e4a] active:scale-95 transition-all"
-                >
-                  Request a Consultation <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href="/job-opportunities"
-                  className="inline-flex items-center gap-2 border border-gray-200 text-gray-600 text-sm font-medium px-7 py-3.5 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors"
-                >
-                  Browse Open Roles
-                </Link>
-              </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="ci-stat-board p-8 lg:p-10"
+          >
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-2 w-2 rounded-full bg-[#a4f07a] animate-pulse ci-glow" />
+              <span className="text-[11px] font-black uppercase tracking-[0.35em] text-[#a4f07a]">
+                Verified Performance
+              </span>
             </div>
-
-            {/* Right — editorial photograph */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.15 }}
-              className="hidden lg:block lg:col-span-5 relative"
-            >
-              {/* Offset decorative block — pure navy, no glow */}
-              <div
-                className="absolute -top-6 -right-6 w-48 h-32 rounded-xl z-0"
-                style={{ backgroundColor: "#0F1B2D" }}
-              />
-              <div className="relative z-10 rounded-2xl overflow-hidden" style={{ height: "420px" }}>
-                <Image
-                  src="/CloudInfra_IT_website/img-it-professional.png"
-                  alt="CloudInfra IT — technology professional"
-                  fill
-                  className="object-cover grayscale"
-                  priority
-                />
-              </div>
-            </motion.div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────
-          STATS BAR — dark navy, precise numbers
-      ───────────────────────────────────────── */}
-      <section style={{ backgroundColor: "#0F1B2D" }}>
-        <div className="ci-container py-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((s, i) => (
-              <motion.div
-                key={s.label}
-                variants={fade}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07 }}
-              >
-                <p className="text-[2.2rem] font-extrabold text-white leading-none tracking-tight">
-                  {s.value}
-                </p>
-                <p className="text-xs text-gray-400 mt-2 uppercase tracking-widest font-medium">
-                  {s.label}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <main className="flex-1">
-
-        {/* ─────────────────────────────────────────
-            STORY — two-column editorial narrative
-        ───────────────────────────────────────── */}
-        <section className="bg-white border-b border-gray-100">
-          <div className="ci-container py-20 lg:py-24">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-
-              {/* Sticky label column */}
-              <div className="lg:col-span-4">
-                <div className="lg:sticky lg:top-28">
-                  <span className="block text-[11px] font-bold uppercase tracking-widest text-[#06B6D4] mb-4">
-                    Our Story
-                  </span>
-                  <h2 className="text-2xl font-bold text-[#0F1B2D] leading-tight">
-                    Why CloudInfra IT exists.
-                  </h2>
-                  <p className="text-sm text-gray-400 mt-3 leading-relaxed">
-                    Farmers Branch, TX — Founded 2021
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              {stats.map((s, i) => (
+                <motion.div
+                  key={s.label}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.07 }}
+                  className="ci-stat-cell p-6 lg:p-8 text-center"
+                >
+                  <p className="text-4xl lg:text-5xl font-black text-[#a4f07a] leading-none tracking-tighter ci-text-glow mb-3">
+                    {s.value}
                   </p>
-                </div>
-              </div>
-
-              {/* Narrative — editorial body copy */}
-              <motion.div
-                variants={fade}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                className="lg:col-span-8 flex flex-col gap-7 text-[0.9375rem] text-gray-600 leading-relaxed"
-              >
-                <p>
-                  The problem was visible long before the company existed. Senior engineers
-                  would receive calls from recruiters who could not distinguish between a
-                  cloud architect and a systems administrator — recruiters who matched on
-                  job titles, not technical depth. Roles would stay open for months.
-                  Teams would settle for "close enough."
-                </p>
-                <p>
-                  CloudInfra IT was built to close that gap. Our founding principle was
-                  simple: if you want to place elite IT and Healthcare professionals,
-                  your recruiters need to understand what elite looks like in those
-                  fields — not in theory, but from having worked there.
-                </p>
-                <p>
-                  Every search we run today reflects that founding discipline. We source
-                  actively, we screen technically, and we verify compliance before a
-                  client spends a single hour on interviews. The result is a shortlist
-                  that is small, deliberate, and ready to hire.
-                </p>
-                <p>
-                  We operate across the full United States, headquartered in
-                  Farmers Branch, Texas — placing IT engineers, clinical professionals,
-                  and leadership in permanent, contract, and temp-to-hire engagements
-                  across 12 industry verticals.
-                </p>
-              </motion.div>
-
+                  <p className="text-[10px] font-black uppercase tracking-[0.25em] text-white/40">
+                    {s.label}
+                  </p>
+                </motion.div>
+              ))}
             </div>
-          </div>
-        </section>
+          </motion.div>
+        </div>
+      </section>
 
-        {/* ─────────────────────────────────────────
-            PRINCIPLES — numbered editorial cards
-        ───────────────────────────────────────── */}
-        <section className="bg-[#F8F9FB] border-b border-gray-100">
-          <div className="ci-container py-20 lg:py-24">
+      <main className="flex-1 bg-black">
 
+        {/* ── OUR APPROACH — 4-column numbered grid ── */}
+        <section className="bg-[#050505] border-t border-b border-white/5 relative overflow-hidden">
+          <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10">
             <motion.div
               variants={fade}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="mb-14"
+              className="text-center mb-16"
             >
-              <span className="block text-[11px] font-bold uppercase tracking-widest text-[#06B6D4] mb-3">
-                How We Work
-              </span>
-              <h2 className="text-2xl font-bold text-[#0F1B2D]">
-                Three principles we do not compromise on.
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="h-px w-8 bg-[#a4f07a]" />
+                <span className="text-[11px] font-black uppercase tracking-[0.35em] text-[#a4f07a]">Our Approach</span>
+                <div className="h-px w-8 bg-[#a4f07a]" />
+              </div>
+              <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight">
+                A results-focused process.
               </h2>
+              <p className="text-lg text-white/40 mt-4 max-w-2xl mx-auto font-light leading-relaxed">
+                From first brief to confirmed placement — every step is designed to protect your time and deliver precision.
+              </p>
             </motion.div>
 
-            <div className="flex flex-col divide-y divide-gray-200">
-              {principles.map((p, i) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {approach.map((step, i) => (
                 <motion.div
-                  key={p.number}
+                  key={step.num}
                   variants={fade}
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  className="grid grid-cols-1 lg:grid-cols-12 gap-6 py-10"
+                  transition={{ delay: i * 0.09 }}
+                  className="ci-card p-8 group"
                 >
-                  {/* Number */}
-                  <div className="lg:col-span-2">
-                    <span className="text-[3rem] font-extrabold leading-none text-gray-100 select-none">
-                      {p.number}
-                    </span>
-                  </div>
-                  {/* Content */}
-                  <div className="lg:col-span-10">
-                    <h3 className="text-[1rem] font-bold text-[#0F1B2D] mb-3 leading-snug">
-                      {p.title}
-                    </h3>
-                    <p className="text-[0.9375rem] text-gray-500 leading-relaxed max-w-2xl">
-                      {p.body}
-                    </p>
-                  </div>
+                  <div className="ci-process-num mb-4">{step.num}.</div>
+                  <h3 className="text-lg font-bold text-white mb-3 tracking-tight leading-snug">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-white/40 leading-relaxed font-light">
+                    {step.body}
+                  </p>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ─────────────────────────────────────────
-            PRESENCE — clean location / coverage
-        ───────────────────────────────────────── */}
-        <section className="bg-white border-b border-gray-100">
-          <div className="ci-container py-20 lg:py-24">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+        {/* ── WHAT SETS US APART — 6-card grid ── */}
+        <section className="bg-black relative overflow-hidden">
+          <div className="absolute inset-0 ci-grid-bg-small opacity-[0.02] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10">
+            <motion.div
+              variants={fade}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="h-px w-8 bg-[#a4f07a]" />
+                <span className="text-[11px] font-black uppercase tracking-[0.35em] text-[#a4f07a]">Differentiators</span>
+                <div className="h-px w-8 bg-[#a4f07a]" />
+              </div>
+              <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight">
+                What sets us apart.
+              </h2>
+              <p className="text-lg text-white/40 mt-4 max-w-xl mx-auto font-light">
+                We don&apos;t just fill positions — we deliver certainty that generalist agencies cannot match.
+              </p>
+            </motion.div>
 
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {advantages.map((adv, i) => {
+                const Icon = adv.icon;
+                return (
+                  <motion.div
+                    key={adv.title}
+                    variants={fade}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.07 }}
+                    className="ci-card p-8 group"
+                  >
+                    <div className="w-12 h-12 rounded-2xl bg-[#a4f07a]/8 border border-[#a4f07a]/15 flex items-center justify-center mb-6 group-hover:bg-[#a4f07a]/15 group-hover:border-[#a4f07a]/30 transition-all duration-400">
+                      <Icon className="h-6 w-6 text-[#a4f07a]" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-3 tracking-tight">
+                      {adv.title}
+                    </h3>
+                    <p className="text-sm text-white/40 leading-relaxed font-light">
+                      {adv.body}
+                    </p>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── PRESENCE GRID ── */}
+        <section className="bg-[#050505] border-t border-white/5">
+          <div className="ci-container py-24">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               <motion.div
                 variants={fade}
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
-                className="lg:col-span-5"
               >
-                <span className="block text-[11px] font-bold uppercase tracking-widest text-[#06B6D4] mb-4">
-                  Coverage
+                <span className="block text-[11px] font-black uppercase tracking-[0.3em] text-[#a4f07a] mb-6">
+                  Infrastructure
                 </span>
-                <h2 className="text-2xl font-bold text-[#0F1B2D] leading-tight mb-6">
-                  US-based. Nationwide reach.
+                <h2 className="text-4xl font-bold text-white leading-tight mb-8 tracking-tight">
+                  US-based.<br />Nationwide reach.
                 </h2>
-                <div className="flex flex-col gap-4 text-sm text-gray-600">
-                  <div className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#06B6D4] mt-2 shrink-0" />
-                    <span>Headquartered — 2727 LBJ Freeway, Suite 220, Farmers Branch, TX 75234</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-2 shrink-0" />
-                    <span>Placements across all 50 US states, including remote-first engagements</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-2 shrink-0" />
-                    <span>Specialising in Texas corridor: Dallas, Farmers Branch, Austin, Houston</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-2 shrink-0" />
-                    <span>H-1B, OPT, STEM OPT, Green Card, LPR, TN Visa — all engagement types</span>
-                  </div>
+                <div className="flex flex-col gap-5">
+                  {[
+                    "Headquartered — 2727 LBJ Freeway, Suite 220, Farmers Branch, TX 75234",
+                    "Placements across all 50 US states including remote-first",
+                    "Texas corridor specialists: Dallas · Austin · Houston",
+                    "H-1B · OPT · STEM OPT · Green Card · LPR · TN Visa — all types",
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-4">
+                      <div className="mt-2 h-1 w-1 rounded-full bg-[#a4f07a] shrink-0 ci-glow" />
+                      <span className="text-sm text-white/40 leading-relaxed font-light">{item}</span>
+                    </div>
+                  ))}
                 </div>
               </motion.div>
 
-              {/* Contact details — clean, institutional */}
               <motion.div
                 variants={fade}
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="lg:col-span-7"
               >
-                <div
-                  className="rounded-2xl p-10 grid grid-cols-1 sm:grid-cols-2 gap-8"
-                  style={{ backgroundColor: "#0F1B2D" }}
-                >
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2">Phone</p>
-                    <a href="tel:+12146637826" className="text-lg font-bold text-white hover:text-[#06B6D4] transition-colors">
+                <div className="ci-stat-board p-10 grid grid-cols-1 sm:grid-cols-2 gap-6 relative overflow-hidden">
+                  <div className="absolute inset-0 ci-grid-bg opacity-[0.04] pointer-events-none" />
+                  <div className="relative z-10">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/25 mb-3">Phone Terminal</p>
+                    <a href="tel:+12146637826" className="text-xl font-bold text-white hover:text-[#a4f07a] transition-colors tracking-tight">
                       (+1) 214-663-7826
                     </a>
                   </div>
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2">Email</p>
-                    <a href="mailto:info@cloudinfrait.com" className="text-lg font-bold text-white hover:text-[#06B6D4] transition-colors">
+                  <div className="relative z-10">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/25 mb-3">Electronic Mail</p>
+                    <a href="mailto:info@cloudinfrait.com" className="text-xl font-bold text-white hover:text-[#a4f07a] transition-colors tracking-tight">
                       info@cloudinfrait.com
                     </a>
                   </div>
-                  <div className="sm:col-span-2">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2">Office</p>
-                    <p className="text-sm text-gray-300 leading-relaxed">
-                      2727 LBJ Freeway, Suite 220<br />
-                      Farmers Branch, TX 75234, USA
+                  <div className="sm:col-span-2 relative z-10 pt-6 border-t border-white/5">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/25 mb-3">Headquarters</p>
+                    <p className="text-base text-white/40 font-light leading-relaxed">
+                      2727 LBJ Freeway, Suite 220<br />Farmers Branch, TX 75234, USA
                     </p>
                   </div>
                 </div>
               </motion.div>
-
             </div>
           </div>
         </section>
 
-        {/* ─────────────────────────────────────────
-            BOTTOM CTA — editorial confidence
-        ───────────────────────────────────────── */}
-        <section className="bg-[#F8F9FB]">
-          <div className="ci-container py-20">
+        {/* ── BOTTOM CTA BAND ── */}
+        <section className="bg-black py-24">
+          <div className="ci-container">
             <motion.div
               variants={fade}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+              className="ci-cta-band p-12 lg:p-20 text-center relative overflow-hidden"
             >
-              <div className="lg:col-span-8">
-                <div className="w-10 h-0.5 bg-[#06B6D4] mb-6" />
-                <h2 className="text-[clamp(1.6rem,3vw,2.4rem)] font-extrabold text-[#0F1B2D] leading-tight">
+              <div className="absolute inset-0 ci-grid-bg opacity-[0.04] pointer-events-none" />
+              <div className="relative z-10">
+                <div className="flex items-center justify-center gap-3 mb-6">
+                  <div className="h-px w-10 bg-[#a4f07a]" />
+                  <span className="text-[11px] font-black uppercase tracking-[0.35em] text-[#a4f07a]">Ready to start</span>
+                  <div className="h-px w-10 bg-[#a4f07a]" />
+                </div>
+                <h2 className="text-4xl sm:text-5xl font-extrabold text-white leading-tight tracking-tighter mb-6">
                   The right hire changes everything.
                 </h2>
-                <p className="text-sm text-gray-500 mt-4 max-w-lg leading-relaxed">
-                  A DevOps engineer who actually understands Kubernetes. A nurse whose credentials are verified before the first interview. A recruiter who knows the difference. That is the standard we hold ourselves to.
+                <p className="text-lg text-white/40 max-w-xl mx-auto font-light leading-relaxed mb-10">
+                  A DevOps engineer who actually understands Kubernetes. A nurse whose credentials are verified before the first interview. That is the standard we hold ourselves to.
                 </p>
-              </div>
-              <div className="lg:col-span-4 flex flex-col gap-3 lg:items-end">
-                <Link
-                  href="/consult-with-us"
-                  className="inline-flex items-center justify-center gap-2 bg-[#0F1B2D] text-white text-sm font-semibold px-8 py-4 rounded-full hover:bg-[#1a2e4a] active:scale-95 transition-all whitespace-nowrap"
-                >
-                  Hire with CloudInfra IT <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href="/job-opportunities"
-                  className="inline-flex items-center justify-center gap-2 border border-gray-200 text-gray-600 text-sm font-medium px-8 py-4 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors whitespace-nowrap"
-                >
-                  Browse IT &amp; Healthcare Roles
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link href="/consult-with-us" className="ci-pill-btn ci-pill-btn-primary">
+                    Hire with CloudInfra <ArrowRight className="h-4 w-4 ml-2" />
+                  </Link>
+                  <Link href="/jobs" className="ci-pill-btn ci-pill-btn-outline">
+                    Browse Tech &amp; Health Roles
+                  </Link>
+                </div>
               </div>
             </motion.div>
           </div>
         </section>
 
       </main>
-      <Footer />
-    </div>
+          </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Clock, CalendarDays, UserCheck, RefreshCw } from "lucide-react";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 
 /**
  * StaffingTypes — Scenario-driven engagement model selector.
@@ -25,7 +25,7 @@ const models = [
     roles: ["Emergency RN cover", "DevOps sprint teams", "IT helpdesk surge", "ICU and ER backfill"],
     duration: "Days to 3 months",
     tag: "Fastest deployment",
-    tagColor: "text-amber-400 bg-amber-400/10",
+    tagColor: "text-white/40 bg-white/5",
   },
   {
     icon: CalendarDays,
@@ -36,7 +36,7 @@ const models = [
     roles: ["Cloud migration teams", "EHR/EMR implementations", "DevOps pipeline builds", "SAP rollouts"],
     duration: "3 to 18 months",
     tag: "Most flexible",
-    tagColor: "text-[#06B6D4] bg-[#06B6D4]/10",
+    tagColor: "text-white/40 bg-white/5",
   },
   {
     icon: RefreshCw,
@@ -47,7 +47,7 @@ const models = [
     roles: ["Senior IT architects", "Specialised clinical roles", "Culture-sensitive leadership", "Hard-to-fill positions"],
     duration: "90–180 days → permanent",
     tag: "Zero hiring risk",
-    tagColor: "text-emerald-400 bg-emerald-400/10",
+    tagColor: "text-[#a4f07a] bg-[#a4f07a]/10",
     highlighted: true,
   },
   {
@@ -59,14 +59,17 @@ const models = [
     roles: ["Software & DevOps engineers", "Registered Nurses (RN)", "IT leadership & architects", "Healthcare administrators"],
     duration: "Ongoing — no end date",
     tag: "Long-term growth",
-    tagColor: "text-violet-400 bg-violet-400/10",
+    tagColor: "text-white/40 bg-white/5",
   },
 ];
 
 export default function StaffingTypes() {
   return (
-    <section className="bg-[#0B1120]">
-      <div className="ci-container ci-section">
+    <section className="bg-black relative overflow-hidden">
+      {/* Background motif */}
+      <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+
+      <div className="ci-container ci-section relative z-10">
 
         {/* Header */}
         <motion.div
@@ -74,31 +77,33 @@ export default function StaffingTypes() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45 }}
-          className="mb-12"
+          className="mb-16"
         >
-          <span className="ci-label">Engagement Models</span>
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mt-1">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-px w-8 bg-[#a4f07a]" />
+            <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#a4f07a]">Engagement Models</span>
+          </div>
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mt-1">
             <div>
-              <h2 className="text-[var(--text-h2)] font-bold text-white leading-tight">
-                Match the model to your need
+              <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight">
+                Responsive Hiring <span className="opacity-40 italic">Mechanics</span>
               </h2>
-              <p className="text-sm text-gray-400 mt-3 max-w-xl leading-relaxed">
+              <p className="text-lg text-white/40 mt-6 max-w-xl leading-relaxed font-light">
                 Whether you need cover in 48 hours or a permanent hire for a long-term role — we match
                 the engagement model to your timeline, budget, and risk tolerance.
               </p>
             </div>
             <Link
               href="/custom-services-provided"
-              className="text-sm font-semibold text-[#06B6D4] hover:underline flex items-center gap-1.5 shrink-0 group"
+              className="text-sm font-bold text-[#a4f07a] hover:underline underline-offset-8 flex items-center gap-2 shrink-0 group transition-all"
             >
-              Custom / enterprise solutions
-              <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+              Enterprise Solutions <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {models.map((m, i) => (
             <motion.div
               key={m.title}
@@ -106,48 +111,47 @@ export default function StaffingTypes() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.4 }}
-              className={`flex flex-col rounded-2xl border overflow-hidden transition-all ${
+              className={`flex flex-col ci-card group transition-all ${
                 m.highlighted
-                  ? "border-emerald-500/30 bg-[#0f1f18]"
-                  : "border-white/5 bg-[#131C2E] hover:border-[#06B6D4]/20"
+                  ? "border-[#a4f07a]/30 bg-[#a4f07a]/[0.02]"
+                  : "hover:border-[#a4f07a]/20"
               }`}
             >
-              {/* Top accent bar */}
-              <div
-                className={`h-0.5 w-full ${
-                  m.highlighted ? "bg-emerald-500" : "bg-[#06B6D4]"
-                }`}
-              />
-
-              <div className="p-6 flex flex-col gap-4 flex-1">
+              <div className="p-8 flex flex-col gap-6 flex-1">
                 {/* Tag */}
-                <span className={`self-start text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ${m.tagColor}`}>
-                  {m.tag}
-                </span>
-
-                {/* Situation question — leads the card */}
-                <div>
-                  <p className="text-xs text-gray-500 italic mb-1">{m.situation}</p>
-                  <div className="flex items-center gap-2">
-                    <m.icon className="h-4 w-4 text-gray-400 shrink-0" strokeWidth={1.75} />
-                    <h3 className="text-base font-bold text-white">{m.title}</h3>
+                <div className="flex items-center justify-between mb-2">
+                  <div className={`h-8 w-8 rounded-lg flex items-center justify-center border transition-all ${
+                    m.highlighted ? "bg-[#a4f07a]/10 border-[#a4f07a]/20" : "bg-white/5 border-white/10"
+                  }`}>
+                    <m.icon className={`h-4 w-4 ${m.highlighted ? "text-[#a4f07a]" : "text-white/40"}`} />
                   </div>
+                  <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md ${
+                     m.highlighted ? "text-[#a4f07a] bg-[#a4f07a]/10" : "text-white/30 bg-white/5"
+                  }`}>
+                    {m.tag}
+                  </span>
+                </div>
+
+                {/* Situation */}
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 mb-2">{m.situation}</p>
+                  <h3 className="text-xl font-bold text-white tracking-tight group-hover:text-white transition-colors">{m.title}</h3>
                 </div>
 
                 {/* Description */}
-                <p className="text-sm text-gray-400 leading-relaxed">
+                <p className="text-sm text-white/40 leading-relaxed font-light">
                   {m.description}
                 </p>
 
                 {/* Role examples */}
-                <div className="flex-1">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-gray-600 mb-2">
-                    Common roles
+                <div className="flex-1 mt-2">
+                  <p className="text-[9px] font-black uppercase tracking-[0.3em] text-white/10 mb-4 pb-1 border-b border-white/5">
+                    Common placement
                   </p>
-                  <ul className="space-y-1">
+                  <ul className="space-y-2">
                     {m.roles.map((r) => (
-                      <li key={r} className="text-xs text-gray-500 flex items-center gap-2">
-                        <span className="h-1 w-1 bg-gray-600 rounded-full shrink-0" />
+                      <li key={r} className="text-[11px] text-white/30 flex items-center gap-2 group-hover:text-white/40 transition-colors">
+                        <span className={`h-1 w-1 rounded-full shrink-0 ${m.highlighted ? "bg-[#a4f07a]/40" : "bg-white/10"}`} />
                         {r}
                       </li>
                     ))}
@@ -155,11 +159,11 @@ export default function StaffingTypes() {
                 </div>
 
                 {/* Duration */}
-                <div className="pt-3 border-t border-white/5">
-                  <span className="text-[10px] font-semibold uppercase tracking-widest text-gray-600">
-                    Typical duration
+                <div className="pt-6 border-t border-white/5 mt-4">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-white/10">
+                    Typical Cycle
                   </span>
-                  <p className="text-sm font-semibold text-gray-300 mt-0.5">{m.duration}</p>
+                  <p className="text-sm font-bold text-white/60 mt-1">{m.duration}</p>
                 </div>
               </div>
             </motion.div>
@@ -172,16 +176,16 @@ export default function StaffingTypes() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
-          className="mt-10 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+          className="mt-16 pt-12 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6"
         >
-          <p className="text-sm text-gray-500">
-            Not sure which model fits your situation? Your Hiring Partner will advise you — no obligation.
+          <p className="text-sm text-white/20 font-light max-w-lg text-center sm:text-left transition-colors hover:text-white/30">
+            Uncertain about the best model for your technical environment? Your Hiring Partner provides full situational analysis — without obligation.
           </p>
           <Link
             href="/consult-with-us"
-            className="inline-flex items-center gap-2 bg-[#06B6D4] text-white text-sm font-semibold px-6 py-3 rounded-full hover:bg-[#0891b2] transition-colors shrink-0"
+            className="ci-pill-btn ci-pill-btn-primary group whitespace-nowrap"
           >
-            Request a Consultation <ArrowRight className="h-4 w-4" />
+            Consult with us <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>
 

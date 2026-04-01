@@ -1,21 +1,21 @@
 "use client";
 
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   ArrowRight, CheckCircle2, ShieldCheck,
   Stethoscope, Heart, Activity, ClipboardList, Users, Monitor,
 } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 /**
  * Hospitals & Healthcare — Domain depth page.
  * URL: /hospitals-and-healthcare
  *
- * Audience: Healthcare candidates + hospital / health-system hiring managers.
- * Purpose: SEO authority, domain trust, dual conversion.
+ * Design language: Premium Dark Mode
+ *   - Pure Black backgrounds
+ *   - Neon Green accents (#a4f07a)
+ *   - ci-card components with grid motifs
  */
 
 const disciplines = [
@@ -74,15 +74,6 @@ const engagementModels = [
   },
 ];
 
-const compliancePoints = [
-  "License and certification verification (RN, NP, MD) before submission",
-  "Background checks and drug screening coordination",
-  "HIPAA compliance verification for all healthcare placements",
-  "Joint Commission standards awareness across clinical candidates",
-  "USCIS work authorisation check on every international placement",
-  "Malpractice history review for physician-level searches",
-];
-
 const whyPoints = [
   "Healthcare-dedicated recruiters — not generalists",
   "We verify credentials and licences before you see a CV",
@@ -94,52 +85,51 @@ const whyPoints = [
 
 export default function HospitalsHealthcarePage() {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <Header />
-
+    <div className="flex flex-col min-h-screen bg-black text-white">
+      
       {/* ── Hero ── */}
-      <section className="pt-32 pb-14 bg-[#020510] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-30 ci-grid-bg-small-emerald" />
+      <section className="pt-40 pb-24 bg-black border-b border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 ci-grid-bg opacity-[0.03] pointer-events-none" />
         <div className="ci-container relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <span className="block text-[11px] font-bold uppercase tracking-widest text-emerald-400 mb-2">Specialty</span>
-              <h1 className="text-[clamp(1.9rem,3vw,2.8rem)] font-bold text-white leading-tight">
-                Hospitals &amp; Healthcare<br />Staffing
+              <div className="w-12 h-1 bg-[#a4f07a] mb-8 ci-glow" />
+              <h1 className="text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold text-white leading-tight tracking-tighter">
+                Clinical & <br/><span className="text-white/40">Healthcare Ops.</span>
               </h1>
-              <p className="text-sm text-white/50 mt-4 max-w-lg leading-relaxed">
-                Credentialed clinical recruiters placing Physicians, Nurses, Allied Health, and Healthcare IT professionals — for hospitals, health systems, and home health agencies across the USA.
+              <p className="text-lg text-white/40 mt-6 max-w-lg leading-relaxed font-light">
+                Credentialed clinical recruiters placing Physicians, Nurses, Allied Health, and Healthcare IT professionals across the USA.
               </p>
 
               {/* Compliance strip */}
-              <div className="mt-8 flex flex-wrap items-center gap-2">
-                <div className="flex items-center gap-1.5 mr-2">
-                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Compliance:</span>
+              <div className="mt-10 flex flex-wrap items-center gap-3">
+                <div className="flex items-center gap-2 mr-2">
+                  <ShieldCheck className="h-4 w-4 text-[#a4f07a]" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20">Compliance Protocol:</span>
                 </div>
-                {["License Verified", "Background Checked", "HIPAA Aware", "Joint Commission"].map(tag => (
-                  <span key={tag} className="text-[11px] font-semibold text-gray-300 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full">
+                {["License Verified", "HIPAA Aware", "Joint Commission"].map(tag => (
+                  <span key={tag} className="text-[10px] font-black uppercase tracking-widest text-[#a4f07a]/60 bg-[#a4f07a]/5 border border-[#a4f07a]/10 px-3 py-1 rounded-full">
                     {tag}
                   </span>
                 ))}
               </div>
 
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <div className="mt-12 flex flex-col sm:flex-row gap-4">
                 <Link
-                  href="/job-opportunities"
-                  className="inline-flex items-center justify-center gap-2 bg-emerald-500 text-white text-sm font-semibold px-6 py-3 rounded-full hover:bg-emerald-600 active:scale-95 transition-all"
+                  href="/jobs"
+                  className="ci-pill-btn ci-pill-btn-primary group"
                 >
-                  Browse Clinical Roles <ArrowRight className="h-4 w-4" />
+                  Browse Clinical Feed <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-all" />
                 </Link>
                 <Link
                   href="/consult-with-us"
-                  className="inline-flex items-center justify-center gap-2 border border-white/20 text-white/80 text-sm font-medium px-6 py-3 rounded-full hover:border-white/40 hover:text-white transition-colors"
+                  className="ci-pill-btn ci-pill-btn-outline"
                 >
-                  Hire Clinical Talent
+                  Acquire Talent
                 </Link>
               </div>
             </motion.div>
@@ -149,40 +139,47 @@ export default function HospitalsHealthcarePage() {
               initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="hidden lg:block relative h-72 rounded-2xl overflow-hidden border border-emerald-500/20"
+              className="hidden lg:block relative h-[450px] rounded-3xl overflow-hidden border border-white/5"
             >
               <Image
-                src="/CloudInfra_IT_website/img-healthcare-professional.png"
+                src="/img-healthcare-professional.png"
                 alt="Healthcare professional — nurse in a clinical setting"
                 fill
-                className="object-cover"
+                className="object-cover grayscale brightness-50 contrast-125"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#020510]/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+              <div className="absolute inset-x-8 bottom-8 text-right">
+                 <div className="inline-block ci-card p-6 bg-black/40 backdrop-blur-xl border-white/10 text-left">
+                    <p className="text-[10px] font-black uppercase tracking-[0.4em] text-[#a4f07a] mb-2">Unit Status</p>
+                    <p className="text-sm text-white/60 font-light">Credentialing verified at source. <br/>National practitioner database integration active.</p>
+                 </div>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      <main className="flex-1">
+      <main className="flex-1 bg-black">
 
         {/* ── Disciplines Grid ── */}
-        <section className="ci-divider bg-white">
-          <div className="ci-container py-14 lg:py-16">
+        <section className="bg-black relative overflow-hidden text-white">
+          <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mb-10"
+              className="mb-16"
             >
-              <span className="block text-[11px] font-bold uppercase tracking-widest text-emerald-600 mb-2">Clinical Disciplines</span>
-              <h2 className="text-[var(--text-h2)] font-bold text-gray-900 mt-1">What we staff</h2>
-              <p className="text-sm text-gray-500 mt-2 max-w-xl leading-relaxed">
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Clinical Disciplines</span>
+              <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight">What we staff.</h2>
+              <p className="text-lg text-white/30 mt-6 max-w-2xl font-light leading-relaxed">
                 From bedside nursing to healthcare IT implementation — every search is run by a recruiter with direct clinical staffing experience.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {disciplines.map((d, i) => {
                 const Icon = d.icon;
                 return (
@@ -192,15 +189,16 @@ export default function HospitalsHealthcarePage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.06, duration: 0.35 }}
-                    className="rounded-2xl border border-gray-100 bg-[#F8F9FB] p-6 hover:border-emerald-200 hover:shadow-sm transition-all"
+                    className="ci-card p-8 group relative overflow-hidden"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center mb-4">
-                      <Icon className="text-emerald-600 h-[18px] w-[18px]" />
+                    <div className="absolute inset-0 ci-grid-bg-small opacity-[0.015] pointer-events-none group-hover:opacity-[0.03] transition-opacity" />
+                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 relative z-10 shadow-lg">
+                      <Icon className="h-6 w-6 text-[#a4f07a]" />
                     </div>
-                    <h3 className="text-sm font-bold text-gray-900 mb-3">{d.label}</h3>
-                    <div className="flex flex-wrap gap-1.5">
+                    <h3 className="text-lg font-bold text-white mb-4 tracking-tight relative z-10">{d.label}</h3>
+                    <div className="flex flex-wrap gap-2 relative z-10">
                       {d.tags.map(tag => (
-                        <span key={tag} className="text-[11px] text-gray-500 bg-white border border-gray-100 px-2.5 py-1 rounded-full">
+                        <span key={tag} className="text-[10px] font-black tracking-widest uppercase text-white/30 bg-white/[0.03] border border-white/5 px-3 py-1.5 rounded-lg">
                           {tag}
                         </span>
                       ))}
@@ -213,19 +211,20 @@ export default function HospitalsHealthcarePage() {
         </section>
 
         {/* ── Engagement Models ── */}
-        <section className="ci-divider bg-[#F8F9FB]">
-          <div className="ci-container py-14 lg:py-16">
+        <section className="bg-[#050505] border-y border-white/5 relative overflow-hidden">
+          <div className="absolute inset-0 ci-grid-bg-small opacity-[0.02] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mb-10"
+              className="mb-16"
             >
-              <span className="block text-[11px] font-bold uppercase tracking-widest text-emerald-600 mb-2">Engagement Models</span>
-              <h2 className="text-[var(--text-h2)] font-bold text-gray-900 mt-1">How we can work together</h2>
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Engagement Protocols</span>
+              <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight">Collaborative Deployment.</h2>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {engagementModels.map((m, i) => (
                 <motion.div
                   key={m.title}
@@ -233,73 +232,81 @@ export default function HospitalsHealthcarePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.07 }}
-                  className="rounded-2xl border border-gray-100 bg-white p-6"
+                  className="ci-card p-10 bg-black/40 backdrop-blur-sm relative overflow-hidden group"
                 >
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-emerald-600 mb-2">{m.title}</p>
-                  <p className="text-sm font-semibold text-gray-800 italic mb-2">&ldquo;{m.scenario}&rdquo;</p>
-                  <p className="text-sm text-gray-500 leading-relaxed">{m.detail}</p>
+                   <div className="absolute inset-0 ci-grid-bg opacity-[0.015] pointer-events-none group-hover:opacity-[0.03] transition-opacity" />
+                  <p className="text-[10px] font-black uppercase tracking-[0.4em] text-[#a4f07a] mb-6 block relative z-10">{m.title}</p>
+                  <p className="text-xl font-bold text-white/50 italic mb-4 leading-snug relative z-10">&ldquo;{m.scenario}&rdquo;</p>
+                  <p className="text-base text-white/40 leading-relaxed font-light relative z-10">{m.detail}</p>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── Compliance Section ── */}
-        <section className="ci-divider bg-white">
-          <div className="ci-container py-14 lg:py-16">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        {/* ── Compliance-First ── */}
+        <section className="bg-black relative overflow-hidden">
+          <div className="absolute inset-0 ci-grid-bg opacity-[0.01] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <span className="block text-[11px] font-bold uppercase tracking-widest text-emerald-600 mb-2">Compliance-First</span>
-                <h2 className="text-[var(--text-h2)] font-bold text-gray-900 mt-1 leading-tight">
-                  Credentialing and compliance are not optional.
+                 <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Compliance Priority</span>
+                <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tighter leading-[1.1] mb-8">
+                  Credentialing is <br/>not Optional.
                 </h2>
-                <p className="text-sm text-gray-500 mt-4 leading-relaxed">
-                  In healthcare, the wrong hire is a patient-safety risk. Every clinical candidate we present has been pre-screened for licence validity, compliance history, and work authorisation before your team reviews a single name.
+                <p className="text-lg text-white/30 leading-relaxed font-light mb-10 max-w-xl">
+                  In healthcare, the wrong hire is a patient-safety risk. Every clinical candidate we present has been pre-screened for licence validity, compliance history, and work authorisation before transmission.
                 </p>
-                <ul className="mt-6 flex flex-col gap-3">
-                  {compliancePoints.map(p => (
-                    <li key={p} className="flex items-start gap-2.5 text-sm text-gray-600">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
-                      {p}
-                    </li>
-                  ))}
-                </ul>
+                
+                <div className="ci-card p-8 bg-[#0b0b0b] relative overflow-hidden group">
+                  <div className="absolute inset-0 ci-grid-bg-small opacity-[0.02] pointer-events-none" />
+                  <p className="text-sm font-bold text-white mb-6 relative z-10">Why CloudInfra IT for Healthcare?</p>
+                  <div className="grid grid-cols-1 gap-4 relative z-10">
+                    {whyPoints.map(p => (
+                      <div key={p} className="flex items-start gap-4">
+                        <div className="w-5 h-5 shrink-0 rounded-md bg-[#a4f07a]/10 border border-[#a4f07a]/20 flex items-center justify-center mt-0.5">
+                          <CheckCircle2 className="h-3 w-3 text-[#a4f07a]" />
+                        </div>
+                        <span className="text-sm text-white/40 font-light leading-relaxed">{p}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.98 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="flex flex-col gap-4"
+                className="flex flex-col gap-8"
               >
-                {/* Why Us points */}
-                <div className="rounded-2xl border border-emerald-100 bg-emerald-50/50 p-6">
-                  <p className="text-sm font-bold text-gray-900 mb-4">Why CloudInfra IT for Healthcare?</p>
-                  <ul className="flex flex-col gap-3">
-                    {whyPoints.map(p => (
-                      <li key={p} className="flex items-start gap-2.5 text-sm text-gray-600">
-                        <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                 <div className="relative h-80 rounded-[2.5rem] overflow-hidden group shadow-2xl">
+                    <Image
+                      src="/img-team-office.png"
+                      alt="Healthcare recruiters collaborating"
+                      fill
+                      className="object-cover grayscale brightness-50 contrast-125"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                 </div>
 
                 {/* Direct contact card */}
-                <div className="rounded-2xl border border-gray-100 bg-[#F8F9FB] p-5">
-                  <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Talk to a Healthcare Recruiter</p>
-                  <a href="tel:+12146637826" className="text-base font-bold text-gray-900 hover:text-emerald-600 transition-colors">
+                <div className="ci-card p-10 bg-[#0d0d0d] relative overflow-hidden group">
+                  <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20 mb-4 block relative z-10">Communication Node</p>
+                  <a href="tel:+12146637826" className="text-2xl font-bold text-white hover:text-[#a4f07a] transition-all tracking-tighter relative z-10">
                     (+1) 214-663-7826
                   </a>
-                  <br />
-                  <a href="mailto:info@cloudinfrait.com" className="text-sm text-gray-500 hover:text-emerald-600 transition-colors">
-                    info@cloudinfrait.com
-                  </a>
+                  <div className="mt-2 relative z-10">
+                    <a href="mailto:info@cloudinfrait.com" className="text-xs text-white/30 hover:text-[#a4f07a] transition-all font-light">
+                      info@cloudinfrait.com
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             </div>
@@ -307,32 +314,33 @@ export default function HospitalsHealthcarePage() {
         </section>
 
         {/* ── Bottom CTA ── */}
-        <section className="bg-gray-950 ci-divider">
-          <div className="ci-container py-14">
+        <section className="bg-[#050505] border-t border-white/5 relative overflow-hidden">
+          <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10 text-center lg:text-left">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8"
+              className="flex flex-col lg:flex-row items-center justify-between gap-12"
             >
               <div>
-                <h2 className="text-xl font-bold text-white">Looking for clinical talent or a clinical role?</h2>
-                <p className="text-sm text-gray-400 mt-2 max-w-md leading-relaxed">
-                  Whether you are a nurse seeking a travel assignment or a hospital system filling a critical gap — we respond within 24 hours.
+                <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight text-center lg:text-left">Initiate Clinical Acquisition.</h2>
+                <p className="text-lg text-white/30 mt-4 max-w-xl font-light text-center lg:text-left">
+                  Whether you are a nurse seeking a travel mandate or a hospital system filling a critical unit gap — activate the protocol within 24 hours.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <div className="flex flex-col sm:flex-row gap-4 shrink-0">
                 <Link
-                  href="/job-opportunities"
-                  className="inline-flex items-center justify-center gap-2 bg-emerald-500 text-white text-sm font-semibold px-6 py-3 rounded-full hover:bg-emerald-600 active:scale-95 transition-all"
+                  href="/jobs"
+                  className="ci-pill-btn ci-pill-btn-primary group"
                 >
-                  Browse Clinical Roles <ArrowRight className="h-4 w-4" />
+                  Browse Clinical Feed <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-all" />
                 </Link>
                 <Link
                   href="/consult-with-us"
-                  className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 text-sm font-semibold px-6 py-3 rounded-full hover:bg-gray-100 transition-colors"
+                  className="ci-pill-btn ci-pill-btn-outline"
                 >
-                  Hire Clinical Talent
+                  Deploy Clinical Talent
                 </Link>
               </div>
             </motion.div>
@@ -340,7 +348,6 @@ export default function HospitalsHealthcarePage() {
         </section>
 
       </main>
-      <Footer />
-    </div>
+          </div>
   );
 }

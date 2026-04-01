@@ -1,25 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, ArrowRight, Building2, UserCircle } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 /**
  * Contact — General enquiries page.
  * URL: /contact
  *
- * Two-path design:
- *   - Employers → routed to /consult-with-us (dedicated form)
- *   - Candidates → routed to /job-opportunities
- *   - General enquiry form for everything else
- *
- * Keeps the white-base / prestige editorial aesthetic.
+ * Design language: Premium Dark Mode
+ *   - Pure Black backgrounds
+ *   - Neon Green accents (#a4f07a)
+ *   - ci-card components with grid motifs
  */
 
-const inp = "w-full bg-[#F8F9FB] border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#06B6D4]/60 transition-colors";
+const inp = "w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#a4f07a] focus:bg-[#a4f07a]/5 transition-all duration-300";
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
@@ -40,22 +36,22 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <Header />
-
+    <div className="flex flex-col min-h-screen bg-black text-white">
+      
       {/* ── Page hero ── */}
-      <section className="pt-36 pb-16 bg-white border-b border-gray-100">
-        <div className="ci-container">
+      <section className="pt-40 pb-20 bg-black border-b border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+        <div className="ci-container relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="w-10 h-0.5 bg-[#06B6D4] mb-6" />
-            <h1 className="text-[clamp(2rem,4vw,3.2rem)] font-extrabold text-[#0F1B2D] leading-tight">
+            <div className="w-12 h-1 bg-[#a4f07a] mb-8 ci-glow" />
+            <h1 className="text-[clamp(2.2rem,5vw,4rem)] font-extrabold text-white leading-tight tracking-tighter">
               Get in touch.
             </h1>
-            <p className="text-sm text-gray-500 mt-4 max-w-lg leading-relaxed">
+            <p className="text-lg text-white/40 mt-6 max-w-lg leading-relaxed font-light">
               We respond to every enquiry within one business day.
               For faster service, use a dedicated path below.
             </p>
@@ -63,12 +59,12 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <main className="flex-1">
-        <div className="ci-container py-14 lg:py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+      <main className="flex-1 bg-black">
+        <div className="ci-container py-20 lg:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
 
             {/* ── Left column ── */}
-            <div className="lg:col-span-5 flex flex-col gap-10">
+            <div className="lg:col-span-5 flex flex-col gap-12">
 
               {/* Audience shortcuts */}
               <motion.div
@@ -76,89 +72,91 @@ export default function ContactPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.45, delay: 0.05 }}
               >
-                <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4">
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20 mb-6 block">
                   Quickest path
-                </p>
-                <div className="flex flex-col gap-3">
+                </span>
+                <div className="flex flex-col gap-4">
                   <Link
                     href="/consult-with-us"
-                    className="flex items-center gap-4 rounded-2xl border border-gray-100 bg-[#F8F9FB] px-5 py-4 hover:border-[#06B6D4]/40 hover:shadow-sm transition-all group"
+                    className="ci-card group flex items-center gap-6 p-6 hover:border-[#a4f07a]/40 transition-all relative overflow-hidden"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-[#0F1B2D] flex items-center justify-center shrink-0">
-                      <Building2 className="h-4 w-4 text-white" />
+                    <div className="absolute inset-0 ci-grid-bg-small opacity-0 group-hover:opacity-[0.03] transition-opacity" />
+                    <div className="w-12 h-12 rounded-2xl bg-black border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#a4f07a]/40 group-hover:bg-[#a4f07a]/5 transition-colors relative z-10">
+                      <Building2 className="h-5 w-5 text-white group-hover:text-[#a4f07a] transition-colors" />
                     </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-semibold text-gray-900 group-hover:text-[#06B6D4] transition-colors">
+                    <div className="flex-1 relative z-10">
+                      <p className="text-base font-bold text-white group-hover:text-[#a4f07a] transition-colors tracking-tight">
                         I want to hire talent
                       </p>
-                      <p className="text-xs text-gray-400 mt-0.5">Request a Consultation →</p>
+                      <p className="text-xs text-white/30 mt-1 font-light">Request a Consultation →</p>
                     </div>
-                    <ArrowRight className="h-4 w-4 text-gray-300 group-hover:text-[#06B6D4] transition-colors" />
+                    <ArrowRight className="h-5 w-5 text-white/10 group-hover:text-[#a4f07a] group-hover:translate-x-1 transition-all relative z-10" />
                   </Link>
 
                   <Link
                     href="/job-opportunities"
-                    className="flex items-center gap-4 rounded-2xl border border-gray-100 bg-[#F8F9FB] px-5 py-4 hover:border-[#06B6D4]/40 hover:shadow-sm transition-all group"
+                    className="ci-card group flex items-center gap-6 p-6 hover:border-[#a4f07a]/40 transition-all relative overflow-hidden"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-[#06B6D4] flex items-center justify-center shrink-0">
-                      <UserCircle className="h-4 w-4 text-white" />
+                    <div className="absolute inset-0 ci-grid-bg-small opacity-0 group-hover:opacity-[0.02] transition-opacity" />
+                    <div className="w-12 h-12 rounded-2xl bg-[#a4f07a]/5 border border-[#a4f07a]/20 flex items-center justify-center shrink-0 group-hover:bg-[#a4f07a]/10 transition-colors relative z-10">
+                      <UserCircle className="h-5 w-5 text-[#a4f07a]" />
                     </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-semibold text-gray-900 group-hover:text-[#06B6D4] transition-colors">
+                    <div className="flex-1 relative z-10">
+                      <p className="text-base font-bold text-white group-hover:text-[#a4f07a] transition-colors tracking-tight">
                         I&apos;m looking for a job
                       </p>
-                      <p className="text-xs text-gray-400 mt-0.5">Browse open positions →</p>
+                      <p className="text-xs text-white/30 mt-1 font-light">Browse open positions →</p>
                     </div>
-                    <ArrowRight className="h-4 w-4 text-gray-300 group-hover:text-[#06B6D4] transition-colors" />
+                    <ArrowRight className="h-5 w-5 text-white/10 group-hover:text-[#a4f07a] group-hover:translate-x-1 transition-all relative z-10" />
                   </Link>
                 </div>
               </motion.div>
 
               {/* Divider */}
-              <div className="border-t border-gray-100" />
+              <div className="border-t border-white/5" />
 
               {/* Real contact details */}
               <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.45, delay: 0.1 }}
-                className="flex flex-col gap-5"
+                className="flex flex-col gap-8"
               >
-                <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                  Direct contact
-                </p>
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20 block">
+                  Direct terminals
+                </span>
 
-                <a href="tel:+12146637826" className="flex items-start gap-4 group">
-                  <div className="w-9 h-9 rounded-xl bg-[#F8F9FB] border border-gray-100 flex items-center justify-center shrink-0">
-                    <Phone className="h-4 w-4 text-[#06B6D4]" />
+                <a href="tel:+12146637826" className="flex items-start gap-5 group">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#a4f07a]/30 transition-colors">
+                    <Phone className="h-4 w-4 text-[#a4f07a] group-hover:ci-glow transition-all" />
                   </div>
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-0.5">Phone</p>
-                    <p className="text-sm font-semibold text-gray-900 group-hover:text-[#06B6D4] transition-colors">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20 mb-1.5">Phone Network</p>
+                    <p className="text-lg font-bold text-white group-hover:text-[#a4f07a] transition-colors tracking-tight">
                       (+1) 214-663-7826
                     </p>
                   </div>
                 </a>
 
-                <a href="mailto:info@cloudinfrait.com" className="flex items-start gap-4 group">
-                  <div className="w-9 h-9 rounded-xl bg-[#F8F9FB] border border-gray-100 flex items-center justify-center shrink-0">
-                    <Mail className="h-4 w-4 text-[#06B6D4]" />
+                <a href="mailto:info@cloudinfrait.com" className="flex items-start gap-5 group">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#a4f07a]/30 transition-colors">
+                    <Mail className="h-4 w-4 text-[#a4f07a] group-hover:ci-glow transition-all" />
                   </div>
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-0.5">Email</p>
-                    <p className="text-sm font-semibold text-gray-900 group-hover:text-[#06B6D4] transition-colors">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20 mb-1.5">Data Relay (Email)</p>
+                    <p className="text-lg font-bold text-white group-hover:text-[#a4f07a] transition-colors tracking-tight">
                       info@cloudinfrait.com
                     </p>
                   </div>
                 </a>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-9 h-9 rounded-xl bg-[#F8F9FB] border border-gray-100 flex items-center justify-center shrink-0">
-                    <MapPin className="h-4 w-4 text-[#06B6D4]" />
+                <div className="flex items-start gap-5 group">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                    <MapPin className="h-4 w-4 text-[#a4f07a]" />
                   </div>
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-0.5">Office</p>
-                    <p className="text-sm text-gray-700 leading-relaxed">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20 mb-1.5">Geospatial HQ</p>
+                    <p className="text-base text-white/40 leading-relaxed font-light">
                       2727 LBJ Freeway, Suite 220<br />
                       Farmers Branch, TX 75234, USA
                     </p>
@@ -167,10 +165,11 @@ export default function ContactPage() {
               </motion.div>
 
               {/* Response SLA note */}
-              <div className="rounded-2xl border border-gray-100 bg-[#F8F9FB] p-5">
-                <p className="text-xs font-semibold text-gray-900 mb-1">Response time</p>
-                <p className="text-xs text-gray-500 leading-relaxed">
-                  All enquiries receive a reply within one business day. For urgent staffing needs, call us directly — we respond faster by phone.
+              <div className="rounded-3xl border border-white/5 bg-[#0b0b0b] p-7 pt-8 relative overflow-hidden group">
+                <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+                <p className="text-xs font-bold text-white mb-3 tracking-tight relative z-10">Uptime & Latency</p>
+                <p className="text-sm text-white/30 leading-relaxed font-light relative z-10">
+                  All enquiries receive a reply within one business day (latency &#60; 24h). For urgent staffing needs, call us directly — our voice network is prioritised.
                 </p>
               </div>
             </div>
@@ -182,33 +181,38 @@ export default function ContactPage() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="lg:col-span-7"
             >
-              <div className="rounded-2xl border border-gray-100 bg-white shadow-sm p-8">
+              <div className="ci-card p-10 lg:p-12 relative overflow-hidden group">
+                <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+                
                 {sent ? (
-                  <div className="flex flex-col items-center justify-center text-center py-16 gap-4">
-                    <div className="w-12 h-12 rounded-full bg-[#06B6D4]/10 border border-[#06B6D4]/25 flex items-center justify-center">
-                      <Mail className="h-5 w-5 text-[#06B6D4]" />
+                  <div className="flex flex-col items-center justify-center text-center py-20 gap-6 relative z-10">
+                    <div className="w-16 h-16 rounded-3xl bg-[#a4f07a]/10 border border-[#a4f07a]/25 flex items-center justify-center ci-glow">
+                      <Mail className="h-6 w-6 text-[#a4f07a]" />
                     </div>
-                    <h2 className="text-lg font-bold text-gray-900">Message sent!</h2>
-                    <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
-                      We&apos;ll be in touch within one business day.
-                    </p>
-                    <Link href="/" className="mt-2 text-sm font-semibold text-[#06B6D4] hover:underline inline-flex items-center gap-1">
-                      Back to Home <ArrowRight className="h-3.5 w-3.5" />
+                    <div className="space-y-4">
+                      <h2 className="text-2xl font-bold text-white tracking-tight">Transmission successful.</h2>
+                      <p className="text-base text-white/30 max-w-xs leading-relaxed font-light">
+                         We&apos;ll be in touch within one business day.
+                      </p>
+                    </div>
+                    <Link href="/" className="mt-4 ci-pill-btn ci-pill-btn-outline group/btn">
+                      Back to Network <ArrowRight className="h-4 w-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                     </Link>
                   </div>
                 ) : (
-                  <>
-                    <div className="mb-6">
-                      <h2 className="text-base font-bold text-gray-900">General enquiry</h2>
-                      <p className="text-xs text-gray-400 mt-1">
+                  <div className="relative z-10">
+                    <div className="mb-10">
+                      <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#a4f07a] mb-4 block">Form Terminal</span>
+                      <h2 className="text-2xl font-bold text-white tracking-tight">General enquiry</h2>
+                      <p className="text-sm text-white/30 mt-3 font-light leading-relaxed">
                         Not sure which path to take? Send us a note and we&apos;ll direct you.
                       </p>
                     </div>
 
-                    <form onSubmit={submit} className="flex flex-col gap-5">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="text-xs font-semibold text-gray-500 mb-1.5 block">Full Name *</label>
+                    <form onSubmit={submit} className="flex flex-col gap-8">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-black uppercase tracking-widest text-white/20 ml-1">Full Name *</label>
                           <input
                             required
                             type="text"
@@ -218,8 +222,8 @@ export default function ContactPage() {
                             onChange={set("name")}
                           />
                         </div>
-                        <div>
-                          <label className="text-xs font-semibold text-gray-500 mb-1.5 block">Email *</label>
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-black uppercase tracking-widest text-white/20 ml-1">Identity (Email) *</label>
                           <input
                             required
                             type="email"
@@ -231,8 +235,8 @@ export default function ContactPage() {
                         </div>
                       </div>
 
-                      <div>
-                        <label className="text-xs font-semibold text-gray-500 mb-1.5 block">Phone</label>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-white/20 ml-1">Phone Node (Optional)</label>
                         <input
                           type="tel"
                           placeholder="+1 (214) 000-0000"
@@ -242,11 +246,11 @@ export default function ContactPage() {
                         />
                       </div>
 
-                      <div>
-                        <label className="text-xs font-semibold text-gray-500 mb-1.5 block">Message *</label>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-white/20 ml-1">Message Content *</label>
                         <textarea
                           required
-                          rows={5}
+                          rows={6}
                           placeholder="Tell us how we can help…"
                           className={`${inp} resize-none`}
                           value={form.message}
@@ -254,20 +258,21 @@ export default function ContactPage() {
                         />
                       </div>
 
-                      <p className="text-[11px] text-gray-400 leading-relaxed">
-                        Sent directly to{" "}
-                        <span className="text-gray-500 font-medium">info@cloudinfrait.com</span>.
-                        We do not share your details.
-                      </p>
+                      <div className="flex items-center gap-3 py-2">
+                        <div className="h-1.5 w-1.5 rounded-full bg-[#a4f07a] ci-glow" />
+                        <p className="text-[11px] text-white/20 leading-relaxed font-light tracking-wide uppercase">
+                          Secure transmission to <span className="text-white/40 font-bold">info@cloudinfrait.com</span>
+                        </p>
+                      </div>
 
                       <button
                         type="submit"
-                        className="w-full bg-[#0F1B2D] text-white text-sm font-bold py-4 rounded-xl hover:bg-[#1a2e4a] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                        className="ci-pill-btn ci-pill-btn-primary w-full group"
                       >
-                        Send Enquiry <ArrowRight className="h-4 w-4" />
+                        Transmit Enquiry <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
                       </button>
                     </form>
-                  </>
+                  </div>
                 )}
               </div>
             </motion.div>
@@ -276,7 +281,6 @@ export default function ContactPage() {
         </div>
       </main>
 
-      <Footer />
-    </div>
+          </div>
   );
 }

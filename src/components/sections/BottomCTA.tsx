@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion } from "framer-motion";
-import { ArrowRight, Briefcase, Building2 } from "lucide-react";
+import { ArrowRight, Building2 } from "lucide-react";
 
 /**
  * BottomCTA — The page's single dark section (besides Hero).
@@ -14,135 +14,127 @@ import { ArrowRight, Briefcase, Building2 } from "lucide-react";
 
 export default function BottomCTA() {
   return (
-    <section className="bg-gray-950 relative overflow-hidden">
+    <section className="bg-black relative overflow-hidden">
 
-      {/* Subtle background grid */}
-      <div className="absolute inset-0 pointer-events-none opacity-30 ci-grid-bg-small" />
+      {/* Background Motifs */}
+      <div className="absolute inset-0 pointer-events-none ci-grid-bg opacity-[0.03]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-px bg-gradient-to-r from-transparent via-[#a4f07a]/40 to-transparent" />
 
-      {/* Ambient glow top-center */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] pointer-events-none ci-radial-glow" />
-
-      <div className="ci-container ci-section relative z-10">
+      <div className="ci-container py-32 relative z-10">
 
         {/* Intro */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.45 }}
-          className="mb-14 text-center"
+          transition={{ duration: 0.6 }}
+          className="mb-20 text-center"
         >
-          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#06B6D4] mb-3 block">
-            Get Started Today
-          </span>
-          <h2 className="text-[var(--text-h2)] font-bold text-white leading-tight">
-            Ready to get started?
+          <div className="flex items-center gap-3 mb-6 justify-center">
+            <div className="h-2 w-2 rounded-full bg-[#a4f07a] animate-pulse" />
+            <span className="text-[11px] font-black uppercase tracking-[0.4em] text-[#a4f07a]">
+              Action Center
+            </span>
+          </div>
+          <h2 className="text-5xl sm:text-6xl font-bold text-white leading-tight tracking-tighter">
+            Ready to <span className="opacity-40 italic">evolve?</span>
           </h2>
-          <p className="text-[var(--text-body)] text-gray-400 mt-3 max-w-sm mx-auto">
-            Tell us what you need. We&apos;ll take it from there.
-          </p>
         </motion.div>
 
-        {/* Two columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-px lg:gap-0">
+        {/* Two columns (DataSignify Grid Logic) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
-          {/* Divider line (desktop only, rendered as a column between panels) */}
-          {/* Left — Find a Job */}
+          {/* Left — Candidate Card */}
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.45, delay: 0.05 }}
-            className="group flex flex-col px-0 lg:pr-16 pb-12 lg:pb-0 border-b border-gray-800 lg:border-b-0 lg:border-r lg:border-r-gray-800"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="flex flex-col p-12 rounded-[2.5rem] bg-[#0d0d0d] border border-white/5 relative group overflow-hidden"
           >
-            {/* Icon */}
-            <div className="w-11 h-11 rounded-xl bg-[#06B6D4]/10 border border-[#06B6D4]/20 flex items-center justify-center mb-5">
-              <Briefcase className="h-5 w-5 text-[#06B6D4]" />
+            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+               <Building2 className="h-32 w-32 text-white" />
             </div>
 
-            <p className="text-xs font-bold uppercase tracking-widest text-[#06B6D4] mb-3">
-              For IT &amp; Healthcare Professionals
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 mb-6">Professionals</span>
+            <h3 className="text-3xl font-bold text-white mb-6 tracking-tight">{"I'm looking for a"}<br />new challenge.</h3>
+            <p className="text-lg text-white/40 leading-relaxed font-light mb-10 max-w-sm">
+                Get priority access to vetted roles in IT and Healthcare. Your application processed in 24 hours.
             </p>
-            <h3 className="text-xl font-bold text-white mb-3">
-              I&apos;m looking for work
-            </h3>
-            <p className="text-sm text-gray-400 leading-relaxed mb-8 flex-1">
-              Browse open positions in IT, Healthcare, Engineering, and more. Apply quickly — a specialist recruiter will respond within 24 hours.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
+            
+            <div className="flex flex-col sm:flex-row gap-4 mt-auto">
               <Link
                 href="/job-opportunities"
-                className="inline-flex items-center justify-center gap-2 bg-[#06B6D4] text-white text-sm font-semibold px-6 py-3 rounded-full hover:bg-[#0891b2] active:scale-95 transition-all duration-200"
+                className="ci-pill-btn ci-pill-btn-primary group"
               >
-                Browse Job Opportunities <ArrowRight className="h-4 w-4" />
+                Browse Jobs
+                <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href="/contact-a-recruiter"
-                className="inline-flex items-center justify-center gap-2 border border-gray-700 text-gray-300 text-sm font-medium px-6 py-3 rounded-full hover:border-gray-500 hover:text-white transition-colors"
+                className="ci-pill-btn ci-pill-btn-outline"
               >
-                Contact a Recruiter
+                Talk to a Recruiter
               </Link>
             </div>
           </motion.div>
 
-          {/* Right — Hire Talent */}
+          {/* Right — Employer Card */}
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.45, delay: 0.1 }}
-            className="flex flex-col pt-12 lg:pt-0 lg:pl-16"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex flex-col p-12 rounded-[2.5rem] border border-[#a4f07a]/20 bg-[#a4f07a]/[0.02] relative group overflow-hidden"
           >
-            {/* Icon */}
-            <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-5">
-              <Building2 className="h-5 w-5 text-gray-400" />
+            <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity">
+               <Building2 className="h-32 w-32 text-[#a4f07a]" />
             </div>
 
-            <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">
-              For Healthcare &amp; Technology Employers
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#a4f07a] mb-6 tracking-widest">Enterprise</span>
+            <h3 className="text-3xl font-bold text-white mb-6 tracking-tight">I need to scale<br />my technical team.</h3>
+            <p className="text-lg text-white/40 leading-relaxed font-light mb-10 max-w-sm">
+               Direct access to pre-screened talent clusters. Full compliance and faster deployment guaranteed.
             </p>
-            <h3 className="text-xl font-bold text-white mb-3">
-              I need to hire talent
-            </h3>
-            <p className="text-sm text-gray-400 leading-relaxed mb-8 flex-1">
-              Submit a staffing request and your dedicated Hiring Partner will reach out within 24 hours. Full compliance, payroll, and onboarding support included.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
+
+            <div className="flex flex-col sm:flex-row gap-4 mt-auto">
               <Link
                 href="/consult-with-us"
-                className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 text-sm font-semibold px-6 py-3 rounded-full hover:bg-gray-100 active:scale-95 transition-all duration-200"
+                className="ci-pill-btn ci-pill-btn-primary group"
               >
-                Request a Consultation <ArrowRight className="h-4 w-4" />
+                Hire Talent
+                <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href="/custom-services-provided"
-                className="inline-flex items-center justify-center gap-2 border border-gray-700 text-gray-300 text-sm font-medium px-6 py-3 rounded-full hover:border-gray-500 hover:text-white transition-colors"
+                className="ci-pill-btn ci-pill-btn-outline"
               >
-                View Services
+                Explore Services
               </Link>
             </div>
           </motion.div>
 
         </div>
 
-        {/* Contact line — bottom */}
+        {/* Global Signature */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-14 pt-8 border-t border-gray-800 text-center"
+          transition={{ delay: 0.6 }}
+          className="mt-24 pt-12 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-6"
         >
-          <p className="text-sm text-gray-600">
-            Prefer to call?{" "}
-            <a href="tel:+12146637826" className="text-gray-400 font-semibold hover:text-white transition-colors">
-              (+1) 214-663-7826
-            </a>
-            {" "}·{" "}
-            <a href="mailto:info@cloudinfrait.com" className="text-gray-400 font-semibold hover:text-white transition-colors">
-              info@cloudinfrait.com
-            </a>
-          </p>
+          <div className="flex items-center gap-8">
+            <div className="flex flex-col">
+              <span className="text-[10px] font-black uppercase text-white/20 tracking-widest">Global Support</span>
+              <a href="mailto:info@cloudinfrait.com" className="text-sm font-bold text-white/60 hover:text-[#a4f07a] transition-colors">info@cloudinfrait.com</a>
+            </div>
+            <div className="flex flex-col border-l border-white/5 pl-8">
+              <span className="text-[10px] font-black uppercase text-white/20 tracking-widest">Direct Line</span>
+              <a href="tel:+12146637826" className="text-sm font-bold text-white/60 hover:text-[#a4f07a] transition-colors">+1 (214) 663-7826</a>
+            </div>
+          </div>
+          <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/10 hidden sm:block">CloudInfra IT Framework v2.6</span>
         </motion.div>
 
       </div>

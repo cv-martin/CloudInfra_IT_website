@@ -1,6 +1,5 @@
-import Header from "@/components/Header";
 import { Users, Code2, ShieldCheck, Zap, ArrowRight, MessageSquare } from "lucide-react";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 
 const models = [
   {
@@ -23,8 +22,7 @@ const models = [
 export default function EmployersPage() {
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-1">
+            <main className="flex-1">
         {/* Hero Section */}
         <section className="relative py-24 bg-muted/20 border-b border-border/50 overflow-hidden">
           <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />

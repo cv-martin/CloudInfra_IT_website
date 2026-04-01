@@ -1,28 +1,28 @@
+
 "use client";
 
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion } from "framer-motion";
 import {
-  ArrowRight, CheckCircle2, Clock, Building2,
+  ArrowRight, Clock, Building2,
   RefreshCw, Star, Zap, Users, Shield,
 } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 /**
  * Services — All engagement models in depth.
  * URL: /services
  *
- * Scenario-driven: helps employers self-select the right model.
- * Not label-driven ("we offer contract staffing") — scenario-driven
- * ("Planning a cloud migration?").
+ * Design language: Premium Dark Mode
+ *   - Pure Black backgrounds
+ *   - Neon Green accents (#a4f07a)
+ *   - ci-card components with grid motifs
  */
 
 const models = [
   {
     id: "permanent",
     icon: Building2,
-    accent: "#0F1B2D",
+    accent: "#a4f07a",
     label: "Permanent Staffing",
     tagline: "Building a long-term engineering team or clinical department?",
     when: [
@@ -37,7 +37,7 @@ const models = [
   {
     id: "contract",
     icon: Zap,
-    accent: "#06B6D4",
+    accent: "#a4f07a",
     label: "Contract Staffing",
     tagline: "Running a cloud migration, product sprint, or infrastructure project?",
     when: [
@@ -52,7 +52,7 @@ const models = [
   {
     id: "temporary",
     icon: Clock,
-    accent: "#10B981",
+    accent: "#a4f07a",
     label: "Temporary Staffing",
     tagline: "Covering a short-term gap — leave, surge demand, or vacancy?",
     when: [
@@ -67,7 +67,7 @@ const models = [
   {
     id: "temp-to-hire",
     icon: RefreshCw,
-    accent: "#8B5CF6",
+    accent: "#a4f07a",
     label: "Temp-to-Hire",
     tagline: "Want to trial a candidate before making a permanent commitment?",
     when: [
@@ -93,31 +93,45 @@ const fade = { hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0, transiti
 
 export default function ServicesPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <Header />
-
+    <div className="flex flex-col min-h-screen bg-black text-white">
+      
       {/* ── Hero ── */}
-      <section className="pt-36 pb-16 bg-white border-b border-gray-100">
-        <div className="ci-container">
+      <section className="pt-40 pb-24 bg-black border-b border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 ci-grid-bg opacity-[0.03] pointer-events-none" />
+        <div className="absolute inset-0 ci-radial-glow pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 ci-divider" />
+        <div className="ci-container relative z-10 text-center max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <div className="w-10 h-0.5 bg-[#06B6D4] mb-6" />
-            <h1 className="text-[clamp(2rem,4vw,3.2rem)] font-extrabold text-[#0F1B2D] leading-tight max-w-2xl">
-              Every engagement model — matched to how you actually hire.
+            <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-[#a4f07a]/25 bg-[#a4f07a]/5">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#a4f07a] animate-pulse" />
+              <span className="text-[11px] font-black uppercase tracking-[0.35em] text-[#a4f07a]">Engagement Models</span>
+            </div>
+            <h1 className="text-[clamp(2.8rem,6vw,5rem)] font-extrabold text-white leading-[1.05] tracking-tighter">
+              Every engagement model —<br />
+              <span className="text-[#a4f07a]">matched</span> to how you actually hire.
             </h1>
-            <p className="text-sm text-gray-500 mt-5 max-w-xl leading-relaxed">
+            <p className="text-xl text-white/40 mt-8 max-w-2xl mx-auto leading-relaxed font-light">
               Four staffing models, each built for a different hiring situation. Choose based on what you need — not on what we call the service.
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+              <Link href="/consult-with-us" className="ci-pill-btn ci-pill-btn-primary">
+                Start a Conversation <ArrowRight className="h-4 w-4 ml-2" />
+              </Link>
+              <Link href="/jobs" className="ci-pill-btn ci-pill-btn-outline">
+                Browse Open Roles
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      <main className="flex-1">
+      <main className="flex-1 bg-black">
 
         {/* ── Models ── */}
-        <section className="bg-white">
-          <div className="ci-container py-14 lg:py-16">
-            <div className="flex flex-col gap-8">
-              {models.map((m, i) => {
+        <section className="bg-black">
+          <div className="ci-container py-16 lg:py-24">
+            <div className="flex flex-col gap-12">
+              {models.map((m, _) => {
                 const Icon = m.icon;
                 return (
                   <motion.div
@@ -126,40 +140,37 @@ export default function ServicesPage() {
                     initial="hidden"
                     whileInView="show"
                     viewport={{ once: true }}
-                    transition={{ delay: i * 0.06 }}
-                    className="rounded-2xl border border-gray-100 bg-[#F8F9FB] overflow-hidden"
+                    transition={{ delay: _ * 0.08 }}
+                    className="ci-card group relative overflow-hidden"
                   >
-                    <div className="grid grid-cols-1 lg:grid-cols-12">
+                    {/* Interior Background Motif */}
+                    <div className="absolute inset-0 ci-grid-bg-small opacity-[0.015] group-hover:opacity-[0.03] transition-opacity" />
 
-                      {/* Left accent strip + icon */}
-                      <div
-                        className="lg:col-span-1 flex lg:flex-col items-center justify-center p-6 lg:p-0 lg:py-8 gap-4 lg:gap-0"
-                        style={{ backgroundColor: m.accent + "08", borderRight: `1px solid ${m.accent}18` }}
-                      >
-                        <div
-                          className="w-10 h-10 rounded-xl flex items-center justify-center"
-                          style={{ backgroundColor: m.accent + "12", border: `1px solid ${m.accent}25` }}
-                        >
-                          <Icon className="h-5 w-5" style={{ color: m.accent }} />
+                    <div className="grid grid-cols-1 lg:grid-cols-12 relative z-10">
+
+                      {/* Left icon node */}
+                      <div className="lg:col-span-1 flex lg:flex-col items-center justify-start p-8 lg:p-0 lg:pt-10">
+                        <div className="w-14 h-14 rounded-2xl bg-[#0d0d0d] border border-white/10 flex items-center justify-center group-hover:border-[#a4f07a]/40 group-hover:bg-[#a4f07a]/5 transition-all duration-500">
+                          <Icon className="h-6 w-6 text-[#a4f07a]/40 group-hover:text-[#a4f07a] transition-colors" />
                         </div>
                       </div>
 
                       {/* Content */}
-                      <div className="lg:col-span-11 p-7 lg:p-8">
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                      <div className="lg:col-span-11 p-8 pt-0 lg:p-10 lg:pl-0">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
 
                           {/* Left: Name + scenario */}
                           <div className="lg:col-span-1">
-                            <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: m.accent }}>
+                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#a4f07a] mb-4 block">
                               {m.label}
-                            </p>
-                            <p className="text-sm font-semibold text-gray-800 italic leading-relaxed mb-4">
+                            </span>
+                            <h3 className="text-xl font-bold text-white leading-tight mb-6 tracking-tight">
                               &ldquo;{m.tagline}&rdquo;
-                            </p>
-                            <ul className="flex flex-col gap-2">
+                            </h3>
+                            <ul className="flex flex-col gap-3">
                               {m.when.map(w => (
-                                <li key={w} className="flex items-start gap-2 text-xs text-gray-500 leading-relaxed">
-                                  <CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5" style={{ color: m.accent }} />
+                                <li key={w} className="flex items-start gap-3 text-sm text-white/40 leading-relaxed font-light">
+                                  <div className="mt-1.5 h-1 w-1 rounded-full bg-[#a4f07a] shrink-0" />
                                   {w}
                                 </li>
                               ))}
@@ -168,26 +179,32 @@ export default function ServicesPage() {
 
                           {/* Middle: How we do it */}
                           <div className="lg:col-span-1">
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">How it works</p>
-                            <p className="text-sm text-gray-600 leading-relaxed">{m.how}</p>
+                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20 mb-4">Methodology</p>
+                            <p className="text-sm text-white/50 leading-relaxed font-light">{m.how}</p>
                           </div>
 
                           {/* Right: Model + deliverable + CTA */}
-                          <div className="lg:col-span-1 flex flex-col gap-4">
-                            <div className="rounded-xl border border-gray-100 bg-white p-4">
-                              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5">Fee Structure</p>
-                              <p className="text-xs text-gray-600 leading-relaxed">{m.model}</p>
+                          <div className="lg:col-span-1 flex flex-col gap-6">
+                            <div className="rounded-2xl border border-white/5 bg-[#050505] p-6 lg:p-7">
+                              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-white/20 mb-3">Model Details</p>
+                              <div className="flex flex-col gap-4">
+                                <div>
+                                  <span className="text-[10px] font-bold text-white/30 block mb-1">Fee Basis</span>
+                                  <p className="text-xs text-white/60 leading-relaxed">{m.model}</p>
+                                </div>
+                                <div>
+                                  <span className="text-[10px] font-bold text-white/30 block mb-1">Expected Deliverable</span>
+                                  <p className="text-xs text-white/60 leading-relaxed">{m.deliverable}</p>
+                                </div>
+                              </div>
                             </div>
-                            <div className="rounded-xl border border-gray-100 bg-white p-4">
-                              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5">Deliverable</p>
-                              <p className="text-xs text-gray-600 leading-relaxed">{m.deliverable}</p>
-                            </div>
+                            
                             <Link
                               href="/consult-with-us"
-                              className="inline-flex items-center gap-1.5 text-xs font-semibold mt-auto hover:underline"
-                              style={{ color: m.accent }}
+                              className="ci-pill-btn ci-pill-btn-outline !py-3 !px-6 text-xs group"
                             >
-                              Request {m.label} <ArrowRight className="h-3.5 w-3.5" />
+                               Start {m.label} 
+                               <ArrowRight className="h-3.5 w-3.5 ml-2 transition-transform group-hover:translate-x-1" />
                             </Link>
                           </div>
 
@@ -203,103 +220,118 @@ export default function ServicesPage() {
         </section>
 
         {/* ── Comparison table ── */}
-        <section className="bg-[#F8F9FB] border-t border-gray-100">
-          <div className="ci-container py-14 lg:py-16">
-            <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-10">
-              <span className="ci-label">Side by Side</span>
-              <h2 className="text-xl font-bold text-[#0F1B2D] mt-1">Quick comparison</h2>
+        <section className="bg-[#050505] border-t border-white/5">
+          <div className="ci-container py-24">
+            <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-12">
+              <div className="flex items-center gap-3 mb-3">
+                 <div className="h-px w-6 bg-[#a4f07a]" />
+                 <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#a4f07a]">Reference</span>
+              </div>
+              <h2 className="text-3xl font-bold text-white tracking-tight">Side-by-side comparison.</h2>
             </motion.div>
 
-            <div className="overflow-x-auto rounded-2xl border border-gray-100">
-              <table className="w-full text-sm bg-white">
+            <div className="overflow-x-auto rounded-3xl border border-white/5 bg-black p-1">
+              <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-gray-100">
-                    <th className="text-left px-5 py-4 text-xs font-bold uppercase tracking-widest text-gray-400 w-40">Criteria</th>
+                  <tr className="border-b border-white/5">
+                    <th className="text-left px-8 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-white/20 w-48">Criteria</th>
                     {models.map(m => (
-                      <th key={m.id} className="text-left px-5 py-4 text-xs font-bold uppercase tracking-widest" style={{ color: m.accent }}>
+                      <th key={m.id} className="text-left px-8 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-[#a4f07a]">
                         {m.label}
                       </th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-50">
+                <tbody className="divide-y divide-white/5">
                   {comparisonRows.map((row, i) => (
-                    <tr key={row.label} className={i % 2 === 0 ? "bg-white" : "bg-[#FAFBFC]"}>
-                      <td className="px-5 py-3.5 text-xs font-semibold text-gray-500 whitespace-nowrap">{row.label}</td>
-                      <td className="px-5 py-3.5 text-xs text-gray-700">{row.permanent}</td>
-                      <td className="px-5 py-3.5 text-xs text-gray-700">{row.contract}</td>
-                      <td className="px-5 py-3.5 text-xs text-gray-700">{row.temporary}</td>
-                      <td className="px-5 py-3.5 text-xs text-gray-700">{row.tempToHire}</td>
+                    <tr key={row.label} className={i % 2 === 0 ? "bg-white/[0.01]" : "bg-transparent"}>
+                      <td className="px-8 py-5 text-[11px] font-bold text-white/30 uppercase tracking-widest whitespace-nowrap">{row.label}</td>
+                      <td className="px-8 py-5 text-sm text-white/60 font-light">{row.permanent}</td>
+                      <td className="px-8 py-5 text-sm text-white/60 font-light">{row.contract}</td>
+                      <td className="px-8 py-5 text-sm text-white/60 font-light">{row.temporary}</td>
+                      <td className="px-8 py-5 text-sm text-white/60 font-light">{row.tempToHire}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            <p className="text-xs text-gray-400 mt-4">
-              Not sure which model fits? <Link href="/consult-with-us" className="text-[#06B6D4] font-semibold hover:underline">Tell us your situation</Link> — we&apos;ll advise you in the alignment call.
+            <p className="text-sm text-white/20 mt-8 text-center font-light">
+              Not sure which model fits? <Link href="/consult-with-us" className="text-[#a4f07a] font-bold hover:ci-text-glow transition-all">Tell us your situation</Link> — we&apos;ll advise you in the alignment call.
             </p>
           </div>
         </section>
 
         {/* ── Custom / Enterprise note ── */}
-        <section className="bg-white border-t border-gray-100">
-          <div className="ci-container py-14">
-            <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-8 flex items-start gap-5">
-                <div className="w-10 h-10 rounded-xl bg-[#0F1B2D]/5 border border-[#0F1B2D]/10 flex items-center justify-center shrink-0">
-                  <Star className="h-5 w-5 text-[#0F1B2D]" />
+        <section className="bg-black border-t border-white/5">
+          <div className="ci-container py-24">
+            <motion.div 
+              variants={fade} 
+              initial="hidden" 
+              whileInView="show" 
+              viewport={{ once: true }}
+              className="ci-card p-10 lg:p-14 relative group overflow-hidden"
+            >
+              <div className="absolute inset-0 ci-grid-bg opacity-[0.03] group-hover:opacity-[0.05] transition-opacity" />
+              
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+                <div className="lg:col-span-8 flex items-start gap-8">
+                  <div className="w-14 h-14 rounded-2xl bg-[#0d0d0d] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#a4f07a]/30 transition-colors">
+                    <Star className="h-6 w-6 text-[#a4f07a] ci-glow" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#a4f07a] mb-4 block">Strategic Accounts</span>
+                    <h2 className="text-2xl font-bold text-white mb-4 tracking-tight">Custom & Enterprise Engagements</h2>
+                    <p className="text-base text-white/40 leading-relaxed max-w-2xl font-light">
+                      Building an entire cloud team, staffing a hospital wing, or deploying 10+ contractors simultaneously? We offer bespoke multi-hire programmes with dedicated account management, SLA guarantees, and volume pricing.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-bold text-[#0F1B2D] mb-1">Custom & Enterprise Engagements</p>
-                  <p className="text-sm text-gray-500 leading-relaxed max-w-xl">
-                    Building an entire cloud team, staffing a hospital wing, or deploying 10+ contractors simultaneously? We offer bespoke multi-hire programmes with dedicated account management, SLA guarantees, and volume pricing.
-                  </p>
+                <div className="lg:col-span-4 lg:text-right">
+                  <Link
+                    href="/custom-services-provided"
+                    className="ci-pill-btn ci-pill-btn-primary"
+                  >
+                    Enterprise Solutions <ArrowRight className="h-4 w-4 ml-2" />
+                  </Link>
                 </div>
-              </div>
-              <div className="lg:col-span-4 lg:text-right">
-                <Link
-                  href="/custom-services-provided"
-                  className="inline-flex items-center gap-2 border border-gray-200 text-gray-700 text-sm font-medium px-6 py-3 rounded-full hover:border-[#06B6D4]/40 hover:text-[#06B6D4] transition-colors"
-                >
-                  Enterprise Solutions <ArrowRight className="h-4 w-4" />
-                </Link>
               </div>
             </motion.div>
           </div>
         </section>
 
         {/* ── Why CloudInfra across all models ── */}
-        <section className="bg-[#0F1B2D]">
-          <div className="ci-container py-14">
+        <section className="bg-[#0b0b0b] border-t border-white/5 relative overflow-hidden">
+          <div className="absolute inset-0 ci-grid-bg-small opacity-[0.02]" />
+          
+          <div className="ci-container py-24 relative z-10">
             <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }}
-              className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
               {[
-                { icon: Shield, title: "Compliance on every engagement", body: "Work authorisation, background, and licence checks on every candidate — regardless of model." },
-                { icon: Clock,  title: "SLA-backed delivery",            body: "We commit to timelines in writing. 24–48h for contract talent, 5–10 days for permanent search." },
-                { icon: Users,  title: "Single point of contact",        body: "Your Hiring Partner manages the full lifecycle — from search to onboarding to check-ins." },
-              ].map((p, i) => {
+                { icon: Shield, title: "Compliance Infrastructure", body: "Work authorisation, background, and licence checks on every candidate — regardless of model." },
+                { icon: Clock,  title: "SLA-Backed Delivery",            body: "We commit to timelines in writing. 24–48h for contract talent, 5–10 days for permanent search." },
+                { icon: Users,  title: "Strategic Partnership",        body: "Your Hiring Partner manages the full lifecycle — from search to onboarding to check-ins." },
+              ].map((p) => {
                 const Icon = p.icon;
                 return (
-                  <div key={p.title} className="flex flex-col gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
-                      <Icon className="h-4 w-4 text-[#06B6D4]" />
+                  <div key={p.title} className="flex flex-col gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                      <Icon className="h-5 w-5 text-[#a4f07a]" />
                     </div>
-                    <p className="text-sm font-bold text-white">{p.title}</p>
-                    <p className="text-xs text-gray-400 leading-relaxed">{p.body}</p>
+                    <p className="text-lg font-bold text-white tracking-tight">{p.title}</p>
+                    <p className="text-sm text-white/30 leading-relaxed font-light">{p.body}</p>
                   </div>
                 );
               })}
             </motion.div>
 
-            <div className="mt-10 pt-10 border-t border-white/10 flex flex-col sm:flex-row gap-3">
+            <div className="mt-16 pt-12 border-t border-white/5 flex flex-col sm:flex-row gap-4 items-center justify-center">
               <Link href="/consult-with-us"
-                className="inline-flex items-center justify-center gap-2 bg-[#06B6D4] text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-[#0891b2] active:scale-95 transition-all">
-                Request a Consultation <ArrowRight className="h-4 w-4" />
+                className="ci-pill-btn ci-pill-btn-primary group">
+                Request a Consultation <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link href="/our-process"
-                className="inline-flex items-center justify-center gap-2 border border-white/20 text-white/80 text-sm font-medium px-7 py-3.5 rounded-full hover:border-white/40 hover:text-white transition-colors">
+                className="ci-pill-btn ci-pill-btn-outline">
                 How the process works
               </Link>
             </div>
@@ -307,7 +339,6 @@ export default function ServicesPage() {
         </section>
 
       </main>
-      <Footer />
-    </div>
+          </div>
   );
 }

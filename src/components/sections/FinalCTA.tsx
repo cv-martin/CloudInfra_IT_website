@@ -1,73 +1,90 @@
 "use client";
 
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion } from "framer-motion";
-import { ArrowRight, BriefcaseMedical, Building2 } from "lucide-react";
+import { ArrowRight, Briefcase, Building2 } from "lucide-react";
+
+/**
+ * FinalCTA — The closing argument of the homepage.
+ * 
+ * Design language: Premium Dark Mode
+ *   - Pure Black backgrounds
+ *   - Neon Green accents (#a4f07a)
+ *   - Matrix / Grid patterning
+ */
 
 export default function FinalCTA() {
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-[1300px] mx-auto px-8 lg:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <section className="py-24 bg-black relative overflow-hidden border-t border-white/5">
+      <div className="absolute inset-0 ci-grid-bg opacity-[0.03] pointer-events-none" />
+      
+      <div className="ci-container relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-          {/* Job seekers */}
+          {/* Professionals */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="relative rounded-3xl overflow-hidden p-10 flex flex-col items-start"
-            style={{ background: "linear-gradient(135deg, #020510 0%, #0a1628 100%)" }}
+            transition={{ duration: 0.6 }}
+            className="ci-card group p-12 flex flex-col items-start relative overflow-hidden bg-[#0d0d0d]"
           >
-            <div className="absolute top-0 right-0 h-48 w-48 bg-[#06B6D4]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+               <Briefcase className="h-32 w-32 text-white" />
+            </div>
 
             <div className="relative z-10 flex flex-col items-start h-full">
-              <div className="inline-flex items-center gap-2 border border-[#06B6D4]/30 bg-[#06B6D4]/10 rounded-full px-3 py-1 mb-6">
-                <BriefcaseMedical className="h-3.5 w-3.5 text-[#06B6D4]" />
-                <span className="text-xs text-[#06B6D4] font-bold uppercase tracking-wide">IT & Medical Professionals</span>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-1 w-8 bg-[#a4f07a] ci-glow" />
+                <span className="text-[11px] font-black uppercase tracking-[0.4em] text-[#a4f07a]">Candidates</span>
               </div>
 
-              <h3 className="text-2xl font-bold text-white mb-3">Looking for a role?</h3>
-              <p className="text-sm text-white/50 leading-relaxed mb-8">
-                Search hundreds of IT and medical positions. Apply in minutes. Our specialist recruiters follow up within 24 hours — no spam, no outsourced response teams.
+              <h3 className="text-3xl font-bold text-white mb-6 tracking-tight leading-tight">
+                Accelerate your<br />career <span className="opacity-40 italic font-light">pathway.</span>
+              </h3>
+              <p className="text-lg text-white/40 leading-relaxed font-light mb-12 max-w-sm">
+                Get direct access to vetted roles at tier-1 US firms. No third-party layers, just high-performance recruitment.
               </p>
 
               <Link
                 href="/jobs"
-                className="mt-auto inline-flex items-center gap-2 bg-[#06B6D4] text-[#020510] font-bold px-7 py-3 rounded-full hover:bg-[#00d4f0] transition-all text-sm"
+                className="ci-pill-btn ci-pill-btn-primary group mt-auto"
               >
-                Search All Jobs <ArrowRight className="h-4 w-4" />
+                Explore Market <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </motion.div>
 
           {/* Employers */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="relative rounded-3xl overflow-hidden p-10 flex flex-col items-start"
-            style={{ background: "linear-gradient(135deg, #06B6D4 0%, #0891b2 100%)" }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="ci-card group p-12 flex flex-col items-start relative overflow-hidden bg-[#a4f07a]/[0.02] border-[#a4f07a]/20"
           >
-            <div className="absolute bottom-0 right-0 h-48 w-48 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity">
+               <Building2 className="h-32 w-32 text-[#a4f07a]" />
+            </div>
 
             <div className="relative z-10 flex flex-col items-start h-full">
-              <div className="inline-flex items-center gap-2 bg-white/15 border border-white/20 rounded-full px-3 py-1 mb-6">
-                <Building2 className="h-3.5 w-3.5 text-white" />
-                <span className="text-xs text-white font-bold uppercase tracking-wide">Healthcare & Tech Employers</span>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-1 w-8 bg-white/20" />
+                <span className="text-[11px] font-black uppercase tracking-[0.4em] text-white/40">Enterprise</span>
               </div>
 
-              <h3 className="text-2xl font-bold text-white mb-3">Need to hire fast?</h3>
-              <p className="text-sm text-white/80 leading-relaxed mb-8">
-                Get a HIPAA-vetted, SOC2-cleared shortlist within 48 hours. W2 payroll, compliance handling, and full onboarding support. Zero placement risk.
+              <h3 className="text-3xl font-bold text-white mb-6 tracking-tight leading-tight">
+                Scale your technical<br />delivery <span className="opacity-40 italic font-light">velocity.</span>
+              </h3>
+              <p className="text-lg text-white/40 leading-relaxed font-light mb-12 max-w-sm">
+                Deploy compliant, pre-screened teams in under 48 hours. Zero placement risk, 100% USCIS alignment.
               </p>
 
               <Link
-                href="/employers"
-                className="mt-auto inline-flex items-center gap-2 bg-white text-[#0891b2] font-bold px-7 py-3 rounded-full hover:bg-white/90 transition-all text-sm"
+                href="/consult-with-us"
+                className="ci-pill-btn ci-pill-btn-outline group mt-auto"
               >
-                Start a Hiring Brief <ArrowRight className="h-4 w-4" />
+                Hire Talent Cluster <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </motion.div>

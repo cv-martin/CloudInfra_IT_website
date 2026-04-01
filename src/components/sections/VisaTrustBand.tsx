@@ -23,28 +23,28 @@ const visaTypes = [
 
 export default function VisaTrustBand() {
   return (
-    <div className="bg-[#0B1120] border-t border-white/5">
+    <div className="bg-[#000000] border-t border-white/5 py-1">
       <div className="ci-container">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 py-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 py-5">
 
           {/* Label */}
-          <div className="flex items-center gap-2 shrink-0">
-            <ShieldCheck className="h-4 w-4 text-[#06B6D4]" strokeWidth={1.75} />
-            <span className="text-[11px] font-bold uppercase tracking-widest text-gray-400 whitespace-nowrap">
-              Work Authorization Supported
+          <div className="flex items-center gap-2.5 shrink-0">
+            <ShieldCheck className="h-4 w-4 text-[#a4f07a] ci-text-glow" strokeWidth={2} />
+            <span className="text-[11px] font-black uppercase tracking-[0.25em] text-white/70 whitespace-nowrap">
+              US Work Authorization
             </span>
           </div>
 
           {/* Divider — desktop only */}
-          <div className="hidden sm:block h-4 w-px bg-white/10" />
+          <div className="hidden sm:block h-6 w-px bg-white/10" />
 
           {/* Visa type pills */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2.5">
             {visaTypes.map((v) => (
               <span
                 key={v.abbr}
                 title={v.label}
-                className="text-[11px] font-semibold text-gray-300 bg-white/5 border border-white/10 px-3 py-1 rounded-full hover:border-[#06B6D4]/40 hover:text-[#06B6D4] transition-colors cursor-default"
+                className="text-[11px] font-bold text-white/85 bg-white/5 border border-white/15 px-4 py-1.5 rounded-full hover:border-[#a4f07a]/60 hover:text-[#a4f07a] hover:bg-[#a4f07a]/8 transition-all cursor-default"
               >
                 {v.abbr}
               </span>
@@ -53,8 +53,8 @@ export default function VisaTrustBand() {
 
           {/* Right — compliance note */}
           <div className="hidden lg:block ml-auto">
-            <span className="text-[11px] text-gray-600">
-              All placements are USCIS-compliant &amp; employment-verified
+            <span className="text-[11px] text-white/55 font-medium tracking-tight">
+              All placements are <span className="text-white/80">USCIS-compliant</span> &amp; employment-verified
             </span>
           </div>
 

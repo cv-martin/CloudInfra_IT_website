@@ -1,10 +1,12 @@
 import type { NextConfig } from "next";
 import path from "path";
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig: NextConfig = {
   output: 'export', // Required for GitHub Pages static hosting
-  basePath: '/CloudInfra_IT_website', // Matches the repository name
-  assetPrefix: '/CloudInfra_IT_website/', // Ensures assets load from the correct path
+  basePath: isProd ? '/CloudInfra_IT_website' : '', // Active only in production for GitHub Pages
+  assetPrefix: isProd ? '/CloudInfra_IT_website/' : '', // Active only in production
   // Addressing the Turbopack workspace root warning
   turbopack: {
     root: path.resolve(__dirname, "./"),

@@ -12,20 +12,20 @@ test.describe('Homepage Black-Box Tests', () => {
     // Check for Hero headline (using level 1 and a more lenient check)
     const h1 = page.locator('h1').first();
     await expect(h1).toBeVisible({ timeout: 10000 });
-    await expect(h1).toContainText('Healthcare Staffing');
+    await expect(h1).toContainText('Precision Staffing');
 
     // Check for "Find a Job" CTA - specify main container to avoid header conflict
     const findJobButton = page.locator('main').getByRole('link', { name: 'Find a Job', exact: true });
     await expect(findJobButton).toBeVisible();
-    await expect(findJobButton).toHaveAttribute('href', '/job-opportunities');
+    await expect(findJobButton).toHaveAttribute('href', '/jobs');
   });
 
   test('should display the StatsBar with internal mission data', async ({ page }) => {
     await page.goto('/');
     
-    // Check for stats using text (scrolling might be needed but Playwright handles visibility automatically)
+    // Check for stats using text
     await expect(page.getByText('2,400+')).toBeVisible();
-    await expect(page.getByText('Professionals Placed')).toBeVisible();
+    await expect(page.getByText('Placements Made')).toBeVisible();
   });
 
   test('should have a functional navigation to the about page', async ({ page }) => {
@@ -37,9 +37,9 @@ test.describe('Homepage Black-Box Tests', () => {
     await expect(page).toHaveURL(/\/about/);
   });
 
-  test('should have the "Ready to get started?" CTA at the bottom', async ({ page }) => {
+  test('should have the "Initiate Recruitment" CTA at the bottom', async ({ page }) => {
     await page.goto('/');
-    const bottomCta = page.getByText(/Ready to get started\?/i);
+    const bottomCta = page.getByText(/Initiate Recruitment/i);
     await expect(bottomCta).toBeVisible();
   });
 });

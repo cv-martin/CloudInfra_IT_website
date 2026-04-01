@@ -1,21 +1,21 @@
 "use client";
 
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   ArrowRight, CheckCircle2, ShieldCheck,
   Cloud, Code2, Lock, Database, Cpu, Layers,
 } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 /**
  * Information Technology — Domain depth page.
  * URL: /information-technology
  *
- * Audience: IT candidates + IT hiring managers.
- * Purpose: SEO authority, domain trust, dual conversion.
+ * Design language: Premium Dark Mode
+ *   - Pure Black backgrounds
+ *   - Neon Green accents (#a4f07a)
+ *   - ci-card components with grid motifs
  */
 
 const specialties = [
@@ -63,53 +63,51 @@ const whyPoints = [
 
 export default function InformationTechnologyPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <Header />
-
+    <div className="flex flex-col min-h-screen bg-black text-white">
+      
       {/* ── Hero ── */}
-      <section className="pt-32 pb-14 bg-[#020510] relative overflow-hidden">
-        {/* Grid bg */}
-        <div className="absolute inset-0 pointer-events-none opacity-40 ci-grid-bg-small" />
+      <section className="pt-40 pb-24 bg-black border-b border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 ci-grid-bg opacity-[0.03] pointer-events-none" />
         <div className="ci-container relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <span className="ci-label">Specialty</span>
-              <h1 className="text-[clamp(1.9rem,3vw,2.8rem)] font-bold text-white leading-tight mt-1">
-                Information Technology<br />Staffing
+              <div className="w-12 h-1 bg-[#a4f07a] mb-8 ci-glow" />
+              <h1 className="text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold text-white leading-tight tracking-tighter">
+                Information <br/><span className="text-white/40">Technology Ops.</span>
               </h1>
-              <p className="text-sm text-white/50 mt-4 max-w-lg leading-relaxed">
-                Domain-specialist IT recruiters placing Cloud, DevOps, Security, Data, and Software Engineering professionals across the USA — on contract, permanent, or temp-to-hire terms.
+              <p className="text-lg text-white/40 mt-6 max-w-lg leading-relaxed font-light">
+                Domain-specialist IT recruiters placing Cloud, DevOps, Security, Data, and Software Engineering professionals across the USA.
               </p>
 
               {/* Visa strip */}
-              <div className="mt-8 flex flex-wrap gap-2">
-                <div className="flex items-center gap-1.5 mr-2">
-                  <ShieldCheck className="h-3.5 w-3.5 text-[#06B6D4]" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Visa Supported:</span>
+              <div className="mt-10 flex flex-wrap gap-3">
+                <div className="flex items-center gap-2 mr-2">
+                  <ShieldCheck className="h-4 w-4 text-[#a4f07a]" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20">Visa Clearance Level:</span>
                 </div>
                 {visaTypes.map(v => (
-                  <span key={v} className="text-[11px] font-semibold text-gray-300 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full">
+                  <span key={v} className="text-[10px] font-black uppercase tracking-widest text-[#a4f07a]/60 bg-[#a4f07a]/5 border border-[#a4f07a]/10 px-3 py-1 rounded-full">
                     {v}
                   </span>
                 ))}
               </div>
 
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <div className="mt-12 flex flex-col sm:flex-row gap-4">
                 <Link
-                  href="/job-opportunities"
-                  className="inline-flex items-center justify-center gap-2 bg-[#06B6D4] text-white text-sm font-semibold px-6 py-3 rounded-full hover:bg-[#0891b2] active:scale-95 transition-all"
+                  href="/jobs"
+                  className="ci-pill-btn ci-pill-btn-primary group"
                 >
-                  Browse IT Roles <ArrowRight className="h-4 w-4" />
+                  Browse IT Feed <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-all" />
                 </Link>
                 <Link
                   href="/consult-with-us"
-                  className="inline-flex items-center justify-center gap-2 border border-white/20 text-white/80 text-sm font-medium px-6 py-3 rounded-full hover:border-white/40 hover:text-white transition-colors"
+                  className="ci-pill-btn ci-pill-btn-outline"
                 >
-                  Hire IT Talent
+                  Acquire Talent
                 </Link>
               </div>
             </motion.div>
@@ -119,40 +117,47 @@ export default function InformationTechnologyPage() {
               initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="hidden lg:block relative h-72 rounded-2xl overflow-hidden border border-[#06B6D4]/20"
+              className="hidden lg:block relative h-[450px] rounded-3xl overflow-hidden border border-white/5"
             >
               <Image
-                src="/CloudInfra_IT_website/img-it-professional.png"
+                src="/img-it-professional.png"
                 alt="IT professional working at a cloud engineering workstation"
                 fill
-                className="object-cover"
+                className="object-cover grayscale brightness-50 contrast-125"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#020510]/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+              <div className="absolute inset-x-8 bottom-8">
+                 <div className="ci-card p-6 bg-black/40 backdrop-blur-xl border-white/10">
+                    <p className="text-[10px] font-black uppercase tracking-[0.4em] text-[#a4f07a] mb-2">Live Status</p>
+                    <p className="text-sm text-white/60 font-light">Direct sourcing active in all 50 US States across all major cloud tech-stacks.</p>
+                 </div>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      <main className="flex-1">
+      <main className="flex-1 bg-black">
 
         {/* ── Specialties Grid ── */}
-        <section className="ci-divider bg-white">
-          <div className="ci-container py-14 lg:py-16">
+        <section className="bg-black relative overflow-hidden">
+          <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mb-10"
+              className="mb-16"
             >
-              <span className="ci-label">IT Disciplines</span>
-              <h2 className="text-[var(--text-h2)] font-bold text-gray-900 mt-1">What we staff</h2>
-              <p className="text-sm text-gray-500 mt-2 max-w-xl leading-relaxed">
-                We cover the full IT spectrum — from cloud infrastructure to ERP consulting. Every search is run by a recruiter with real domain experience in that specific area.
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Deployment Vectors</span>
+              <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight">Active Verticals.</h2>
+              <p className="text-lg text-white/30 mt-6 max-w-2xl font-light leading-relaxed">
+                We cover the full IT spectrum. Every search is run by a recruiter with real domain experience in that specific area.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {specialties.map((sp, i) => {
                 const Icon = sp.icon;
                 return (
@@ -162,15 +167,16 @@ export default function InformationTechnologyPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.06, duration: 0.35 }}
-                    className="rounded-2xl border border-gray-100 bg-[#F8F9FB] p-6 hover:border-[#06B6D4]/30 hover:shadow-sm transition-all"
+                    className="ci-card p-8 group relative overflow-hidden"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-[#06B6D4]/10 border border-[#06B6D4]/20 flex items-center justify-center mb-4">
-                      <Icon className="h-4.5 w-4.5 text-[#06B6D4]" />
+                    <div className="absolute inset-0 ci-grid-bg-small opacity-[0.015] pointer-events-none group-hover:opacity-[0.03] transition-opacity" />
+                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 relative z-10 shadow-lg">
+                      <Icon className="h-6 w-6 text-[#a4f07a]" />
                     </div>
-                    <h3 className="text-sm font-bold text-gray-900 mb-3">{sp.label}</h3>
-                    <div className="flex flex-wrap gap-1.5">
+                    <h3 className="text-lg font-bold text-white mb-4 tracking-tight relative z-10">{sp.label}</h3>
+                    <div className="flex flex-wrap gap-2 relative z-10">
                       {sp.tags.map(tag => (
-                        <span key={tag} className="text-[11px] text-gray-500 bg-white border border-gray-100 px-2.5 py-1 rounded-full">
+                        <span key={tag} className="text-[10px] font-black tracking-widest uppercase text-white/30 bg-white/[0.03] border border-white/5 px-3 py-1.5 rounded-lg">
                           {tag}
                         </span>
                       ))}
@@ -183,19 +189,20 @@ export default function InformationTechnologyPage() {
         </section>
 
         {/* ── Engagement Models ── */}
-        <section className="ci-divider bg-[#F8F9FB]">
-          <div className="ci-container py-14 lg:py-16">
+        <section className="bg-[#050505] border-y border-white/5 relative overflow-hidden">
+          <div className="absolute inset-0 ci-grid-bg-small opacity-[0.02] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mb-10"
+              className="mb-16"
             >
-              <span className="ci-label">Engagement Models</span>
-              <h2 className="text-[var(--text-h2)] font-bold text-gray-900 mt-1">How we can work together</h2>
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Engagement Protocols</span>
+              <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight">Collaboration Delivery.</h2>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {engagementModels.map((m, i) => (
                 <motion.div
                   key={m.title}
@@ -203,11 +210,12 @@ export default function InformationTechnologyPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.07 }}
-                  className="rounded-2xl border border-gray-100 bg-white p-6"
+                  className="ci-card p-10 bg-black/40 backdrop-blur-sm relative overflow-hidden group"
                 >
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-[#06B6D4] mb-2">{m.title}</p>
-                  <p className="text-sm font-semibold text-gray-800 italic mb-2">&ldquo;{m.scenario}&rdquo;</p>
-                  <p className="text-sm text-gray-500 leading-relaxed">{m.detail}</p>
+                   <div className="absolute inset-0 ci-grid-bg opacity-[0.015] pointer-events-none group-hover:opacity-[0.03] transition-opacity" />
+                  <p className="text-[10px] font-black uppercase tracking-[0.4em] text-[#a4f07a] mb-6 block relative z-10">{m.title}</p>
+                  <p className="text-xl font-bold text-white/50 italic mb-4 leading-snug relative z-10">&ldquo;{m.scenario}&rdquo;</p>
+                  <p className="text-base text-white/40 leading-relaxed font-light relative z-10">{m.detail}</p>
                 </motion.div>
               ))}
             </div>
@@ -216,39 +224,42 @@ export default function InformationTechnologyPage() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="mt-6 text-center"
+              className="mt-12 text-center"
             >
-              <Link href="/custom-services-provided" className="text-sm text-gray-400 hover:text-[#06B6D4] transition-colors hover:underline">
-                View all custom & enterprise solutions →
+              <Link href="/custom-services-provided" className="text-xs font-black uppercase tracking-[0.4em] text-white/20 hover:text-[#a4f07a] transition-all">
+                Access Enterprise Frameworks <ArrowRight className="h-4 w-4 inline ml-2" />
               </Link>
             </motion.div>
           </div>
         </section>
 
         {/* ── Why CloudInfra IT ── */}
-        <section className="ci-divider bg-white">
-          <div className="ci-container py-14 lg:py-16">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <section className="bg-black relative overflow-hidden">
+          <div className="absolute inset-0 ci-grid-bg opacity-[0.01] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <span className="ci-label">Why Us</span>
-                <h2 className="text-[var(--text-h2)] font-bold text-gray-900 mt-1 leading-tight">
-                  We were technologists before we were recruiters.
+                <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Legacy Benchmark</span>
+                <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tighter leading-[1.1] mb-8">
+                  Engineers by Design, <br/>Recruiters by Protocol.
                 </h2>
-                <p className="text-sm text-gray-500 mt-4 leading-relaxed">
-                  Every CloudInfra IT IT recruiter has worked in or directly alongside engineering teams. We understand what a 5+ year DevOps engineer looks like versus a buzzword-padded CV — and we never send you the wrong fit.
+                <p className="text-lg text-white/30 leading-relaxed font-light mb-10 max-w-xl">
+                  Every CloudInfra IT recruiter has worked directly alongside engineering teams. We understand what a 5+ year DevOps engineer looks like versus a buzzword-padded CV — and we never transmit the wrong fit.
                 </p>
-                <ul className="mt-6 flex flex-col gap-3">
+                <div className="grid grid-cols-1 gap-4">
                   {whyPoints.map(p => (
-                    <li key={p} className="flex items-start gap-2.5 text-sm text-gray-600">
-                      <CheckCircle2 className="h-4 w-4 text-[#06B6D4] shrink-0 mt-0.5" />
-                      {p}
-                    </li>
+                    <div key={p} className="flex items-start gap-4">
+                      <div className="w-5 h-5 shrink-0 rounded-md bg-[#a4f07a]/10 border border-[#a4f07a]/20 flex items-center justify-center mt-0.5">
+                        <CheckCircle2 className="h-3 w-3 text-[#a4f07a]" />
+                      </div>
+                      <span className="text-sm text-white/40 font-light leading-relaxed">{p}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </motion.div>
 
               <motion.div
@@ -256,47 +267,49 @@ export default function InformationTechnologyPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="relative h-80 rounded-2xl overflow-hidden"
+                className="relative h-[500px] rounded-[2.5rem] overflow-hidden group shadow-2xl"
               >
                 <Image
-                  src="/CloudInfra_IT_website/img-team-office.png"
+                  src="/img-team-office.png"
                   alt="CloudInfra IT recruitment team collaborating"
                   fill
-                  className="object-cover"
+                  className="object-cover grayscale brightness-50 group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-br from-black/60 to-transparent pointer-events-none" />
+                <div className="absolute inset-10 border border-white/5 rounded-[1.5rem] pointer-events-none" />
               </motion.div>
             </div>
           </div>
         </section>
 
         {/* ── Bottom CTA ── */}
-        <section className="bg-gray-950 ci-divider">
-          <div className="ci-container py-14">
+        <section className="bg-[#050505] border-t border-white/5 relative overflow-hidden">
+          <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10 text-center lg:text-left">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8"
+              className="flex flex-col lg:flex-row items-center justify-between gap-12"
             >
               <div>
-                <h2 className="text-xl font-bold text-white">Ready to find or fill an IT role?</h2>
-                <p className="text-sm text-gray-400 mt-2 max-w-md leading-relaxed">
-                  Whether you are a DevOps engineer looking for a contract or a CTO building a cloud team — we start the same way: a conversation.
+                <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">Initiate IT Acquisition.</h2>
+                <p className="text-lg text-white/30 mt-4 max-w-xl font-light">
+                  Whether you are scaling a cloud squad or looking for your next engineering mandate — activate the protocol today.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <div className="flex flex-col sm:flex-row gap-4 shrink-0">
                 <Link
-                  href="/job-opportunities"
-                  className="inline-flex items-center justify-center gap-2 bg-[#06B6D4] text-white text-sm font-semibold px-6 py-3 rounded-full hover:bg-[#0891b2] active:scale-95 transition-all"
+                  href="/jobs"
+                  className="ci-pill-btn ci-pill-btn-primary group"
                 >
-                  Browse IT Jobs <ArrowRight className="h-4 w-4" />
+                  Browse IT Openings <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-all" />
                 </Link>
                 <Link
                   href="/consult-with-us"
-                  className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 text-sm font-semibold px-6 py-3 rounded-full hover:bg-gray-100 transition-colors"
+                  className="ci-pill-btn ci-pill-btn-outline"
                 >
-                  Hire IT Talent
+                  Deploy IT Talent
                 </Link>
               </div>
             </motion.div>
@@ -304,7 +317,6 @@ export default function InformationTechnologyPage() {
         </section>
 
       </main>
-      <Footer />
-    </div>
+          </div>
   );
 }

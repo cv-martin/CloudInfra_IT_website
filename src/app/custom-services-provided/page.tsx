@@ -1,10 +1,18 @@
 "use client";
 
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, Users, Zap, Shield, BarChart3 } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+
+/**
+ * Custom Services (Enterprise) — Specific high-volume/strategic models.
+ * URL: /custom-services-provided
+ *
+ * Design language: Premium Dark Mode
+ *   - Pure Black backgrounds
+ *   - Neon Green accents (#a4f07a)
+ *   - ci-card components with grid motifs
+ */
 
 const programmes = [
   {
@@ -32,7 +40,7 @@ const programmes = [
     fits: ["CTO / CISO / VP Engineering", "Chief Nursing Officer / VP Clinical Operations", "Director-level IT & Programme Management"],
   },
   {
-    title: "Compliance & Visa Sponsorship Support",
+    title: "Compliance & Visa Support",
     subtitle: "Complex work authorisation — handled by specialists.",
     detail:
       "For organisations engaging H-1B transfers, OPT/STEM OPT holders, or candidates requiring TN/E-3 visa support. We manage the candidate side of the compliance workflow and partner with specialist immigration counsel for employer-side filings.",
@@ -48,56 +56,61 @@ const guarantees = [
   { icon: BarChart3, text: "Monthly reporting on pipeline, fill rates, and compliance status" },
 ];
 
-const fade = { hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0, transition: { duration: 0.4 } } };
-
 export default function CustomServicesPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <Header />
-
-      <section className="pt-36 pb-16 bg-white border-b border-gray-100">
-        <div className="ci-container">
+    <div className="flex flex-col min-h-screen bg-black text-white">
+      
+      {/* ── Hero ── */}
+      <section className="pt-40 pb-24 bg-black border-b border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 ci-grid-bg opacity-[0.03] pointer-events-none" />
+        <div className="ci-container relative z-10">
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <div className="w-10 h-0.5 bg-[#06B6D4] mb-6" />
-            <h1 className="text-[clamp(2rem,4vw,3.2rem)] font-extrabold text-[#0F1B2D] leading-tight max-w-2xl">
-              Custom &amp; Enterprise Staffing Solutions
+            <div className="w-12 h-1 bg-[#a4f07a] mb-8 ci-glow" />
+            <h1 className="text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold text-white leading-tight tracking-tighter max-w-3xl">
+              Enterprise <br/><span className="text-white/40">Scale Frameworks.</span>
             </h1>
-            <p className="text-sm text-gray-500 mt-5 max-w-xl leading-relaxed">
-              For organisations with complex, high-volume, or strategic hiring requirements that go beyond a standard single search. Built around your programme, not ours.
+            <p className="text-lg text-white/40 mt-8 max-w-xl leading-relaxed font-light">
+              For organisations with complex, high-volume, or strategic hiring requirements that go beyond standard search protocols. Built around your unique architecture.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <div className="mt-12 flex flex-col sm:flex-row gap-4">
               <Link href="/consult-with-us"
-                className="inline-flex items-center gap-2 bg-[#0F1B2D] text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-[#1a2e4a] active:scale-95 transition-all">
-                Discuss Your Programme <ArrowRight className="h-4 w-4" />
+                className="ci-pill-btn ci-pill-btn-primary group">
+                Discuss Your Programme <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-all" />
               </Link>
             </div>
           </motion.div>
         </div>
       </section>
 
-      <main className="flex-1">
-        <section className="bg-white">
-          <div className="ci-container py-14 lg:py-16">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <main className="flex-1 bg-black">
+        {/* ── Programme Grid ── */}
+        <section className="bg-black relative overflow-hidden">
+          <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {programmes.map((p, i) => (
-                <motion.div key={p.title} variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }}
+                <motion.div key={p.title} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                   transition={{ delay: i * 0.07 }}
-                  className="rounded-2xl border border-gray-100 bg-[#F8F9FB] p-7 flex flex-col gap-4">
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-[#06B6D4] mb-1">{p.title}</p>
-                    <p className="text-sm font-semibold text-gray-800 italic mb-3">&ldquo;{p.subtitle}&rdquo;</p>
-                    <p className="text-sm text-gray-600 leading-relaxed">{p.detail}</p>
+                  className="ci-card p-10 flex flex-col gap-8 group relative overflow-hidden">
+                  <div className="absolute inset-0 ci-grid-bg-small opacity-[0.015] pointer-events-none group-hover:opacity-[0.03] transition-opacity" />
+                  
+                  <div className="relative z-10">
+                    <p className="text-[10px] font-black uppercase tracking-[0.4em] text-[#a4f07a] mb-6 block">{p.title}</p>
+                    <p className="text-2xl font-bold text-white/50 italic mb-4 leading-tight tracking-tight">&ldquo;{p.subtitle}&rdquo;</p>
+                    <p className="text-base text-white/30 leading-relaxed font-light">{p.detail}</p>
                   </div>
-                  <div className="rounded-xl border border-gray-100 bg-white p-4">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1.5">Deliverable</p>
-                    <p className="text-xs text-gray-600">{p.deliverable}</p>
+
+                  <div className="ci-card p-6 bg-white/[0.02] border-white/5 relative z-10">
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/10 mb-2">Protocol Output</p>
+                    <p className="text-sm text-white/50 font-light italic">{p.deliverable}</p>
                   </div>
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Best for</p>
-                    <ul className="flex flex-col gap-1.5">
+
+                  <div className="relative z-10">
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/10 mb-4">Deployment Vector</p>
+                    <ul className="flex flex-col gap-3">
                       {p.fits.map(f => (
-                        <li key={f} className="flex items-start gap-2 text-xs text-gray-500">
-                          <CheckCircle2 className="h-3.5 w-3.5 text-[#06B6D4] shrink-0 mt-0.5" /> {f}
+                        <li key={f} className="flex items-start gap-3 text-sm text-white/40 font-light">
+                          <CheckCircle2 className="h-4 w-4 text-[#a4f07a]/40 shrink-0 mt-0.5" /> {f}
                         </li>
                       ))}
                     </ul>
@@ -108,40 +121,43 @@ export default function CustomServicesPage() {
           </div>
         </section>
 
-        <section className="bg-[#0F1B2D]">
-          <div className="ci-container py-14">
-            <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-10">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-[#06B6D4] mb-2">Enterprise Standards</p>
-              <h2 className="text-xl font-bold text-white">What every custom programme includes.</h2>
+        {/* ── Enterprise Standards ── */}
+        <section className="bg-[#050505] border-y border-white/5 relative overflow-hidden">
+          <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+          <div className="ci-container py-24 relative z-10">
+            <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16">
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Enterprise Standards</span>
+              <h2 className="text-4xl font-bold text-white tracking-tighter">Intrinsic Programme Assets.</h2>
             </motion.div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
               {guarantees.map((g, i) => {
                 const Icon = g.icon;
                 return (
-                  <motion.div key={g.text} variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }}
-                    transition={{ delay: i * 0.07 }} className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                      <Icon className="h-4 w-4 text-[#06B6D4]" />
+                  <motion.div key={g.text} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                    transition={{ delay: i * 0.07 }} className="flex flex-col gap-5 group">
+                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#a4f07a]/30 transition-colors">
+                      <Icon className="h-5 w-5 text-[#a4f07a]" />
                     </div>
-                    <p className="text-xs text-gray-300 leading-relaxed">{g.text}</p>
+                    <p className="text-sm text-white/30 leading-relaxed font-light">{g.text}</p>
                   </motion.div>
                 );
               })}
             </div>
-            <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row gap-3">
+
+            <div className="border-t border-white/5 pt-12 flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/consult-with-us"
-                className="inline-flex items-center justify-center gap-2 bg-[#06B6D4] text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-[#0891b2] active:scale-95 transition-all">
-                Schedule an Enterprise Consultation <ArrowRight className="h-4 w-4" />
+                className="ci-pill-btn ci-pill-btn-primary group">
+                Initiate Enterprise Consultation <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-all" />
               </Link>
               <Link href="/services"
-                className="inline-flex items-center justify-center gap-2 border border-white/20 text-white/80 text-sm font-medium px-7 py-3.5 rounded-full hover:border-white/40 hover:text-white transition-colors">
-                View all service models
+                className="ci-pill-btn ci-pill-btn-outline">
+                View Service Matrix
               </Link>
             </div>
           </div>
         </section>
       </main>
-      <Footer />
-    </div>
+          </div>
   );
 }

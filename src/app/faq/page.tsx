@@ -1,11 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ArrowRight } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+
+/**
+ * Client FAQ Page.
+ * URL: /faq
+ *
+ * Design language: Premium Dark Mode
+ *   - Pure Black backgrounds
+ *   - Neon Green accents (#a4f07a)
+ *   - ci-card components with grid motifs
+ */
 
 const faqs = [
   {
@@ -51,63 +59,76 @@ export default function ClientFAQPage() {
   const fade = { hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0, transition: { duration: 0.4 } } };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <Header />
-
-      <section className="pt-36 pb-16 bg-white border-b border-gray-100">
-        <div className="ci-container">
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="w-10 h-0.5 bg-[#06B6D4] mb-6" />
-            <span className="ci-label block mb-2">For Clients</span>
-            <h1 className="text-[clamp(2rem,4vw,3.2rem)] font-extrabold text-[#0F1B2D] leading-tight max-w-2xl">
-              Client FAQ.
-            </h1>
-            <p className="text-sm text-gray-500 mt-5 max-w-xl leading-relaxed">
-              Fees, compliance, timelines, and how we operate — answered directly.
-            </p>
-          </motion.div>
+    <div className="flex flex-col min-h-screen bg-black text-white">
+      
+      {/* ── Hero ── */}
+      <section className="pt-40 pb-24 bg-black border-b border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 ci-grid-bg opacity-[0.03] pointer-events-none" />
+        <div className="ci-container relative z-10">
+          <div className="max-w-3xl">
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+              <div className="w-12 h-1 bg-[#a4f07a] mb-8 ci-glow" />
+              <h1 className="text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold text-white leading-tight tracking-tighter">
+                Framework & <br/><span className="text-white/40">Client FAQ.</span>
+              </h1>
+              <p className="text-lg text-white/40 mt-6 max-w-lg leading-relaxed font-light">
+                Fees, compliance, timelines, and how we operate — answered directly.
+              </p>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      <main className="flex-1">
-        <div className="ci-container py-14 lg:py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <main className="flex-1 bg-black">
+        <div className="ci-container py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+
+            {/* Sticky nav */}
             <div className="lg:col-span-3 hidden lg:block">
-              <div className="sticky top-28 flex flex-col gap-2">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Jump to</p>
+              <div className="sticky top-40 flex flex-col gap-2">
+                <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20 mb-6 block">Classification</span>
                 {faqs.map(cat => (
                   <a key={cat.category} href={`#${cat.category.replace(/[\s&]/g, "-").toLowerCase()}`}
-                    className="text-sm text-gray-500 hover:text-[#06B6D4] transition-colors">{cat.category}</a>
+                    className="text-sm font-light text-white/40 hover:text-[#a4f07a] transition-colors py-2 border-l-2 border-white/5 hover:border-[#a4f07a] pl-6 -ml-[2px]">
+                    {cat.category}
+                  </a>
                 ))}
-                <div className="mt-6 pt-6 border-t border-gray-100">
-                  <p className="text-xs text-gray-400 mb-3">Ready to hire?</p>
-                  <Link href="/consult-with-us" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#06B6D4] hover:underline">
-                    Request a Consultation <ArrowRight className="h-3.5 w-3.5" />
+                <div className="mt-12 pt-8 border-t border-white/5">
+                  <p className="text-xs text-white/20 mb-4 font-light italic">Ready to hire?</p>
+                  <Link href="/consult-with-us" className="ci-pill-btn ci-pill-btn-outline w-full justify-center text-xs">
+                    Request a Consultation <ArrowRight className="h-3 w-3 ml-2" />
                   </Link>
                 </div>
               </div>
             </div>
 
-            <div className="lg:col-span-9 flex flex-col gap-10">
+            {/* FAQ Accordion */}
+            <div className="lg:col-span-9 flex flex-col gap-16">
               {faqs.map((cat, ci) => (
                 <motion.div key={cat.category} id={cat.category.replace(/[\s&]/g, "-").toLowerCase()}
                   variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} transition={{ delay: ci * 0.05 }}>
-                  <h2 className="text-base font-bold text-[#0F1B2D] mb-4 pb-3 border-b border-gray-100">{cat.category}</h2>
-                  <div className="flex flex-col gap-2">
+                  <h2 className="text-xl font-bold text-white mb-8 pb-4 border-b border-white/5 flex items-center gap-4">
+                    <span className="w-8 h-[1px] bg-[#a4f07a]/30" />
+                    {cat.category}
+                  </h2>
+                  <div className="flex flex-col gap-4">
                     {cat.items.map((item) => {
                       const id = `${ci}-${item.q.slice(0, 20)}`;
                       const isOpen = open === id;
                       return (
-                        <div key={id} className="rounded-xl border border-gray-100 overflow-hidden">
+                        <div key={id} className={`ci-card overflow-hidden transition-all duration-300 ${isOpen ? "bg-white/[0.04] border-[#a4f07a]/20" : "bg-white/[0.01]"}`}>
                           <button onClick={() => setOpen(isOpen ? null : id)}
-                            className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-[#F8F9FB] hover:bg-gray-50 transition-colors">
-                            <span className="text-sm font-medium text-gray-800">{item.q}</span>
-                            <ChevronDown className={`h-4 w-4 text-gray-400 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+                            className="w-full flex items-center justify-between gap-6 px-8 py-6 text-left group">
+                            <span className={`text-lg font-bold tracking-tight transition-colors ${isOpen ? "text-[#a4f07a]" : "text-white/80 group-hover:text-white"}`}>{item.q}</span>
+                            <ChevronDown className={`h-5 w-5 transition-transform duration-300 ${isOpen ? "rotate-180 text-[#a4f07a]" : "text-white/20"}`} />
                           </button>
                           <AnimatePresence initial={false}>
                             {isOpen && (
-                              <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} transition={{ duration: 0.2 }} className="overflow-hidden">
-                                <p className="px-5 py-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100">{item.a}</p>
+                              <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} transition={{ duration: 0.3 }} className="overflow-hidden">
+                                <div className="px-8 pb-8">
+                                  <div className="h-[1px] bg-white/5 mb-6" />
+                                  <p className="text-white/40 text-lg leading-relaxed font-light">{item.a}</p>
+                                </div>
                               </motion.div>
                             )}
                           </AnimatePresence>
@@ -118,21 +139,22 @@ export default function ClientFAQPage() {
                 </motion.div>
               ))}
 
-              <div className="rounded-2xl border border-[#0F1B2D]/10 bg-[#F8F9FB] p-7 flex flex-col sm:flex-row items-start sm:items-center gap-6 justify-between">
-                <div>
-                  <p className="text-sm font-bold text-[#0F1B2D] mb-1">Still have questions?</p>
-                  <p className="text-sm text-gray-500">Book a 15-minute call with a Hiring Partner — no obligation, no sales pitch.</p>
+              {/* Bottom CTA */}
+              <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                className="ci-card p-10 bg-[#a4f07a]/5 border-[#a4f07a]/10 relative overflow-hidden flex flex-col lg:flex-row items-center gap-12 justify-between">
+                <div className="absolute inset-0 ci-grid-bg opacity-[0.05] pointer-events-none" />
+                <div className="relative z-10 text-center lg:text-left">
+                  <h3 className="text-2xl font-bold text-white tracking-tight">Direct Support Required?</h3>
+                  <p className="text-white/40 text-lg mt-2 font-light">Book a 15-minute call with a Hiring Partner — no obligation, no sales pitch.</p>
                 </div>
-                <Link href="/consult-with-us"
-                  className="inline-flex items-center gap-2 bg-[#0F1B2D] text-white text-sm font-semibold px-6 py-3 rounded-full hover:bg-[#1a2e4a] active:scale-95 transition-all shrink-0">
-                  Request a Consultation <ArrowRight className="h-4 w-4" />
+                <Link href="/consult-with-us" className="ci-pill-btn ci-pill-btn-primary group relative z-10">
+                  Request a Consultation <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-all" />
                 </Link>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
       </main>
-      <Footer />
-    </div>
+          </div>
   );
 }

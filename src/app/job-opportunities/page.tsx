@@ -1,20 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   MapPin, Briefcase, ShieldAlert, Search, X, ArrowRight,
 } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 /**
  * Job Opportunities — Full job board.
  *
- * All 12 Q1 2026 positions. Aligned with the "white-base, cyan-accent"
- * design system. Express-Interest drawer identical to JobsPreview on home.
- * URL: /job-opportunities   (matches Footer + Header nav)
+ * Design language: Premium Dark Mode
+ *   - Pure Black backgrounds
+ *   - Neon Green accents (#a4f07a)
+ *   - ci-card components with grid motifs
  */
 
 const jobs = [
@@ -34,6 +33,8 @@ const jobs = [
 
 const visaOptions = ["H-1B", "OPT (F-1)", "STEM OPT", "Green Card", "Lawful Permanent Resident (LPR)", "US Citizen", "TN Visa", "Other"];
 
+const inp = "w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#a4f07a] focus:bg-[#a4f07a]/5 transition-all duration-300";
+
 type Job = typeof jobs[0];
 
 function ApplyDrawer({ job, onClose }: { job: Job; onClose: () => void }) {
@@ -52,70 +53,75 @@ function ApplyDrawer({ job, onClose }: { job: Job; onClose: () => void }) {
     window.location.href = `mailto:info@cloudinfrait.com?subject=${subject}&body=${body}`;
   };
 
-  const inp = "w-full bg-[#F8F9FB] border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#06B6D4]/60 transition-colors";
-
   return (
     <AnimatePresence>
       <motion.div key="bd" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-        onClick={onClose} className="fixed inset-0 bg-black/40 z-40" />
+        onClick={onClose} className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[90]" />
       <motion.div key="drawer" initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
-        transition={{ type: "spring", damping: 28, stiffness: 260 }}
-        className="fixed top-0 right-0 bottom-0 w-full max-w-lg bg-white border-l border-gray-200 z-50 flex flex-col overflow-y-auto shadow-2xl">
+        transition={{ type: "spring", damping: 30, stiffness: 300 }}
+        className="fixed top-0 right-0 bottom-0 w-full max-w-xl bg-black border-l border-white/10 z-[100] flex flex-col overflow-y-auto">
+
+        <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
 
         {/* Header */}
-        <div className="flex items-start justify-between p-6 border-b border-gray-100 shrink-0">
+        <div className="flex items-start justify-between p-8 border-b border-white/5 shrink-0 relative z-10">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#06B6D4]">Express Interest</span>
-            <h3 className="text-lg font-bold text-gray-900 mt-1">{job.title}</h3>
-            <p className="text-xs text-gray-400 mt-1">{job.location} · Code: {job.id}</p>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#a4f07a] mb-3 block">Application Terminal</span>
+            <h3 className="text-2xl font-bold text-white tracking-tight leading-none">{job.title}</h3>
+            <p className="text-sm text-white/30 mt-3 font-light">{job.location} · Instance Code: {job.id}</p>
           </div>
-          <button onClick={onClose} aria-label="Close application drawer" className="text-gray-400 hover:text-gray-700 p-1 mt-1">
-            <X className="h-5 w-5" />
+          <button onClick={onClose} aria-label="Close application drawer" className="text-white/20 hover:text-white transition-colors p-2 -mr-2">
+            <X className="h-6 w-6" />
           </button>
         </div>
 
         {/* Summary */}
-        <div className="px-6 py-4 border-b border-gray-100 shrink-0 bg-[#F8F9FB]">
-          <p className="text-sm text-gray-500 leading-relaxed">{job.summary}</p>
+        <div className="px-8 py-6 border-b border-white/5 shrink-0 bg-[#050505] relative z-10">
+          <p className="text-sm text-white/40 leading-relaxed font-light italic">&ldquo;{job.summary}&rdquo;</p>
         </div>
 
         {/* Form */}
-        <form onSubmit={submit} className="flex flex-col gap-4 p-6 flex-1">
-          <div>
-            <label className="text-xs font-semibold text-gray-500 mb-1.5 block">Full Name *</label>
+        <form onSubmit={submit} className="flex flex-col gap-8 p-8 flex-1 relative z-10">
+          <div className="space-y-2">
+            <label className="text-[10px] font-black uppercase tracking-widest text-white/20 ml-1">Full Identity Name *</label>
             <input required type="text" placeholder="Jane Smith" className={inp} value={form.name} onChange={set("name")} />
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="text-xs font-semibold text-gray-500 mb-1.5 block">Email *</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-[10px] font-black uppercase tracking-widest text-white/20 ml-1">Email Node *</label>
               <input required type="email" placeholder="jane@example.com" className={inp} value={form.email} onChange={set("email")} />
             </div>
-            <div>
-              <label className="text-xs font-semibold text-gray-500 mb-1.5 block">Phone *</label>
+            <div className="space-y-2">
+              <label className="text-[10px] font-black uppercase tracking-widest text-white/20 ml-1">Phone Relay *</label>
               <input required type="tel" placeholder="+1 (214) 000-0000" className={inp} value={form.phone} onChange={set("phone")} />
             </div>
           </div>
-          <div>
-            <label className="text-xs font-semibold text-gray-500 mb-1.5 block">LinkedIn URL</label>
+          <div className="space-y-2">
+            <label className="text-[10px] font-black uppercase tracking-widest text-white/20 ml-1">Professional URL (LinkedIn)</label>
             <input type="url" placeholder="https://linkedin.com/in/yourprofile" className={inp} value={form.linkedin} onChange={set("linkedin")} />
           </div>
-          <div>
-            <label htmlFor="visa-select" className="text-xs font-semibold text-gray-500 mb-1.5 block">Work Authorization *</label>
+          <div className="space-y-2">
+            <label htmlFor="visa-select" className="text-[10px] font-black uppercase tracking-widest text-white/20 ml-1">Work Authorization Protocol *</label>
             <select id="visa-select" required className={`${inp} appearance-none`} value={form.visa} onChange={set("visa")}>
-              <option value="" disabled>Select visa / work status</option>
-              {visaOptions.map(v => <option key={v}>{v}</option>)}
+              <option value="" disabled className="bg-[#0d0d0d]">Select visa / work status</option>
+              {visaOptions.map(v => <option key={v} className="bg-[#0d0d0d]">{v}</option>)}
             </select>
           </div>
-          <div>
-            <label className="text-xs font-semibold text-gray-500 mb-1.5 block">Cover Note</label>
-            <textarea rows={3} placeholder="Brief note about your background or availability..." className={`${inp} resize-none`} value={form.message} onChange={set("message")} />
+          <div className="space-y-2">
+            <label className="text-[10px] font-black uppercase tracking-widest text-white/20 ml-1">Cover Brief</label>
+            <textarea rows={4} placeholder="Brief note about your background or availability..." className={`${inp} resize-none`} value={form.message} onChange={set("message")} />
           </div>
-          <p className="text-[11px] text-gray-400 leading-relaxed">
-            Your details go directly to <span className="text-gray-500 font-medium">info@cloudinfrait.com</span>. We never share without your consent.
-          </p>
+          
+          <div className="flex items-center gap-3 py-2">
+            <div className="h-1.5 w-1.5 rounded-full bg-[#a4f07a] ci-glow" />
+            <p className="text-[11px] text-white/20 leading-relaxed font-light tracking-wide uppercase">
+              Secure transmission to <span className="text-white/40 font-bold">Recruitment Ops</span>
+            </p>
+          </div>
+
           <button type="submit"
-            className="w-full bg-[#06B6D4] text-white text-sm font-bold py-3.5 rounded-xl hover:bg-[#0891b2] active:scale-95 transition-all flex items-center justify-center gap-2">
-            Send to Recruiter <ArrowRight className="h-4 w-4" />
+            className="ci-pill-btn ci-pill-btn-primary w-full group">
+            Send to Recruiter <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
           </button>
         </form>
       </motion.div>
@@ -138,63 +144,63 @@ export default function JobOpportunitiesPage() {
   });
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <Header />
-
-      {/* Page hero */}
-      <section className="pt-32 pb-12 bg-[#020510]">
-        <div className="ci-container">
+    <div className="flex flex-col min-h-screen bg-black text-white">
+      
+      {/* ── Page hero ── */}
+      <section className="pt-40 pb-20 bg-black border-b border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+        <div className="ci-container relative z-10">
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <span className="ci-label">Open Positions</span>
-            <h1 className="text-[clamp(1.9rem,3vw,2.8rem)] font-bold text-white leading-tight mt-1">
-              Job Opportunities
+            <div className="w-12 h-1 bg-[#a4f07a] mb-8 ci-glow" />
+            <h1 className="text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold text-white leading-tight tracking-tighter">
+              Active Job Feed.
             </h1>
-            <p className="text-sm text-white/50 mt-3 max-w-xl leading-relaxed">
+            <p className="text-lg text-white/40 mt-6 max-w-xl leading-relaxed font-light">
               All {jobs.length} active roles — IT and Healthcare. Apply quickly, a specialist recruiter responds within 24 hours.
             </p>
           </motion.div>
         </div>
       </section>
 
-      <main className="flex-1">
+      <main className="flex-1 bg-black">
 
         {/* Fraud warning */}
-        <div className="bg-red-50 border-b border-red-200">
-          <div className="ci-container py-3 flex items-start gap-3">
-            <ShieldAlert className="h-4 w-4 text-red-500 shrink-0 mt-0.5" />
-            <p className="text-xs text-red-700 leading-relaxed">
-              <strong>Job Fraud Warning:</strong> CloudInfra IT will never ask for payment during the hiring process.
-              Official communications always come from <code className="bg-red-100 px-1 rounded font-mono">@cloudinfrait.com</code>.
+        <div className="bg-[#a4f07a]/5 border-b border-[#a4f07a]/10">
+          <div className="ci-container py-4 flex items-start gap-4">
+            <ShieldAlert className="h-5 w-5 text-[#a4f07a] shrink-0 mt-0.5" />
+            <p className="text-xs text-white/40 leading-relaxed font-light">
+              <strong className="text-white font-bold">Protocol Alert:</strong> CloudInfra IT will never ask for payment during the hiring process.
+              Official communications always come from <code className="text-[#a4f07a] font-mono mx-1">@cloudinfrait.com</code>.
             </p>
           </div>
         </div>
 
-        <div className="ci-container py-12">
+        <div className="ci-container py-20 lg:py-24">
 
           {/* Search + filter bar */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-8">
+          <div className="flex flex-col lg:flex-row gap-6 mb-12 items-center">
             {/* Search input */}
-            <div className="relative flex-1 max-w-sm">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400 pointer-events-none" />
+            <div className="relative w-full lg:max-w-md">
+              <Search className="absolute left-4 top-4 h-5 w-5 text-white/20 pointer-events-none" />
               <input
                 type="text"
                 placeholder="Search by title or location…"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 bg-[#F8F9FB] text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#06B6D4]/60 transition-colors"
+                className="w-full pl-12 pr-4 py-4 rounded-2xl border border-white/10 bg-white/5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#a4f07a] transition-all"
               />
             </div>
 
             {/* Specialty filter pills */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3 p-1.5 bg-white/5 rounded-2xl border border-white/5">
               {SPECIALTY_FILTER.map(s => (
                 <button
                   key={s}
                   onClick={() => setFilter(s)}
-                  className={`text-xs font-semibold px-4 py-2 rounded-full border transition-colors ${
+                  className={`text-[10px] font-black uppercase tracking-[0.2em] px-5 py-2.5 rounded-xl transition-all ${
                     filter === s
-                      ? "bg-[#06B6D4] text-white border-[#06B6D4]"
-                      : "bg-white text-gray-500 border-gray-200 hover:border-[#06B6D4]/50 hover:text-[#06B6D4]"
+                      ? "bg-[#a4f07a] text-black shadow-[0_0_20px_rgba(164,240,122,0.3)]"
+                      : "text-white/40 hover:text-white"
                   }`}
                 >
                   {s}
@@ -203,51 +209,60 @@ export default function JobOpportunitiesPage() {
             </div>
 
             {/* Count */}
-            <p className="self-center text-sm text-gray-400 shrink-0 ml-auto">
-              {filtered.length} of {jobs.length} roles
+            <p className="text-xs font-black uppercase tracking-[0.3em] text-white/10 ml-auto hidden lg:block">
+              {filtered.length} of {jobs.length} roles active
             </p>
           </div>
 
           {/* Job list */}
-          <div className="flex flex-col divide-y divide-gray-100 rounded-2xl border border-gray-200 overflow-hidden bg-white">
+          <div className="flex flex-col gap-4">
             {filtered.length === 0 && (
-              <div className="px-6 py-12 text-center text-sm text-gray-400">
-                No roles match your filters — <button className="text-[#06B6D4] font-semibold hover:underline" onClick={() => { setSearch(""); setFilter("All"); }}>clear filters</button>
+              <div className="px-6 py-20 text-center rounded-3xl border border-white/5 bg-[#050505]">
+                <p className="text-sm text-white/20 font-light mb-6">No roles match your search filters.</p>
+                <button className="ci-pill-btn ci-pill-btn-outline" onClick={() => { setSearch(""); setFilter("All"); }}>Reset Selection</button>
               </div>
             )}
             {filtered.map((job, i) => (
               <motion.div
                 key={job.id}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04, duration: 0.3 }}
-                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-6 py-5 hover:bg-gray-50 transition-colors group"
+                className="ci-card group flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-6 lg:p-8 relative overflow-hidden"
               >
+                 <div className="absolute inset-0 ci-grid-bg-small opacity-[0.015] group-hover:opacity-[0.03] transition-opacity pointer-events-none" />
+                
                 {/* Left */}
-                <div className="flex items-start sm:items-center gap-3 flex-1 min-w-0">
-                  {/* Specialty dot */}
-                  <div className={`h-2 w-2 rounded-full mt-1.5 sm:mt-0 shrink-0 ${job.specialty === "IT" ? "bg-[#06B6D4]" : "bg-emerald-500"}`} />
+                <div className="flex items-center gap-6 flex-1 min-w-0 relative z-10">
+                  {/* Specialty indicator */}
+                  <div className={`h-10 w-10 flex-shrink-0 rounded-xl border flex items-center justify-center transition-colors ${
+                    job.specialty === "IT" 
+                      ? "border-[#a4f07a]/20 bg-[#a4f07a]/5" 
+                      : "border-blue-500/20 bg-blue-500/5 text-blue-400"
+                  }`}>
+                    <Briefcase className={`h-5 w-5 ${job.specialty === "IT" ? "text-[#a4f07a]" : "text-blue-400"}`} />
+                  </div>
+                  
                   <div className="min-w-0">
-                    <p className="text-sm font-semibold text-gray-900 truncate">{job.title}</p>
-                    <div className="flex flex-wrap items-center gap-3 mt-1 text-xs text-gray-500">
-                      <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{job.location}</span>
-                      <span className="flex items-center gap-1"><Briefcase className="h-3 w-3" />{job.type}</span>
-                      <span className="hidden sm:inline text-gray-300">·</span>
-                      <span className={`hidden sm:inline font-semibold ${job.specialty === "IT" ? "text-[#06B6D4]" : "text-emerald-600"}`}>{job.specialty}</span>
+                    <p className="text-xl font-bold text-white tracking-tight group-hover:text-[#a4f07a] transition-colors">{job.title}</p>
+                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-3 text-xs font-light text-white/30">
+                      <span className="flex items-center gap-2"><MapPin className="h-3.5 w-3.5 text-[#a4f07a]/40" />{job.location}</span>
+                      <span className="flex items-center gap-2 uppercase tracking-widest font-black text-[9px] px-2 py-0.5 rounded bg-white/5">{job.type}</span>
+                      <span className={`uppercase tracking-[0.2em] font-black text-[10px] ${job.specialty === "IT" ? "text-[#a4f07a]" : "text-blue-400"}`}>{job.specialty}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Right */}
-                <div className="flex items-center gap-3 shrink-0">
-                  <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">
+                <div className="flex items-center gap-8 shrink-0 relative z-10">
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/10 hidden sm:block">
                     {job.date}
                   </span>
                   <button
                     onClick={() => setActiveJob(job)}
-                    className="text-xs font-semibold text-[#06B6D4] border border-[#06B6D4]/30 px-4 py-1.5 rounded-full hover:bg-[#06B6D4] hover:text-white transition-colors shrink-0"
+                    className="ci-pill-btn ci-pill-btn-primary !py-3 !px-6 text-xs group/btn"
                   >
-                    Express Interest
+                    Express Interest <ArrowRight className="h-3.5 w-3.5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                   </button>
                 </div>
               </motion.div>
@@ -255,18 +270,17 @@ export default function JobOpportunitiesPage() {
           </div>
 
           {/* Bottom strip */}
-          <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center gap-3 text-sm text-gray-500">
-            <span>Don&apos;t see your role?</span>
-            <Link href="/contact-a-recruiter" className="text-[#06B6D4] font-semibold hover:underline">
-              Send us your CV — a recruiter will match you.
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-white/30 font-light">
+            <span>Don&apos;t see your specific role?</span>
+            <Link href="/contact" className="text-[#a4f07a] font-bold hover:ci-text-glow transition-all">
+              Send us your CV — we will match you.
             </Link>
           </div>
 
         </div>
       </main>
 
-      <Footer />
-
+      
       {activeJob && <ApplyDrawer job={activeJob} onClose={() => setActiveJob(null)} />}
     </div>
   );

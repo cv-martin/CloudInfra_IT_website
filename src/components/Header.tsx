@@ -1,18 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { TransitionLink } from "./TransitionLink";
 
 /**
- * Header — Flat, clear navigation.
+ * Header — Flat, clear navigation with 2026-standard active link highlighting.
  *
- * Principle: A user should know where to go within 2 seconds.
- * Rule: Max 5 nav links. One simple dropdown per link if needed.
- * No icon grids. No mega-menus. No jargon tabs like "Talents."
- *
- * Two CTAs always visible: Find a Job (candidate) / Request Talent (employer).
+ * Principle: A user should know where they are and where to go within 2 seconds.
  */
 
 const servicesLinks = [
@@ -36,7 +33,14 @@ const industriesLinks = [
   { label: "Defence & Space",        href: "/defence-and-space" },
 ];
 
+const navLinks = [
+  { label: "Our Process", href: "/our-process" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
 export default function Header() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [desktopScrolled, setDesktopScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<"services" | "industries" | null>(null);
@@ -48,27 +52,29 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleMobileExpanded = (key: "services" | "industries") =>
-    setMobileExpanded((prev) => (prev === key ? null : key));
+  // Close mobile menu on path change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${
         desktopScrolled
-          ? "bg-[#020510] backdrop-blur-lg border-b border-white/10 py-3 shadow-lg shadow-black/20"
-          : "bg-[#020510]/95 backdrop-blur-sm border-b border-white/8 py-5"
+          ? "bg-black/80 backdrop-blur-xl border-b border-white/5 py-3 shadow-2xl"
+          : "bg-transparent py-6"
       }`}
     >
-      <nav className="flex items-center justify-between px-6 lg:px-16 max-w-[1400px] mx-auto">
+      <nav className="flex items-center justify-between px-6 lg:px-12 max-w-[1440px] mx-auto">
 
         {/* Logo */}
-        <Link href="/" className="text-xl font-bold tracking-tight shrink-0">
-          <span className="text-white">Cloud</span>
-          <span className="text-[#06B6D4]">Infra IT</span>
-        </Link>
+        <TransitionLink href="/" className="text-2xl font-bold tracking-tighter shrink-0 group">
+          <span className="text-white transition-colors group-hover:text-white/90">Cloud</span>
+          <span className="text-[#a4f07a] ci-text-glow ml-0.5">Infra IT</span>
+        </TransitionLink>
 
         {/* ── Desktop nav ────────────────────────────── */}
-        <div className="hidden lg:flex items-center gap-1">
+        <div className="hidden lg:flex items-center gap-2">
 
           {/* Services dropdown */}
           <div
@@ -76,25 +82,41 @@ export default function Header() {
             onMouseEnter={() => setActiveDropdown("services")}
             onMouseLeave={() => setActiveDropdown(null)}
           >
-            <button className="flex items-center gap-1 px-4 py-2 text-sm text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/5">
+            <button className={`flex items-center gap-1.5 px-4 py-2 text-[13px] font-medium transition-all rounded-full hover:bg-white/5 ${
+              pathname === "/services" ? "text-[#a4f07a]" : "text-white/85 hover:text-[#a4f07a]"
+            }`}>
               Services
-              <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${activeDropdown === "services" ? "rotate-180" : ""}`} />
+              <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-300 ${activeDropdown === "services" ? "rotate-180" : ""}`} />
+              {pathname === "/services" && (
+                <motion.div
+                  layoutId="active-pill"
+                  className="absolute inset-0 bg-[#a4f07a]/10 rounded-full border border-[#a4f07a]/20 -z-10"
+                  transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+                />
+              )}
             </button>
-            {activeDropdown === "services" && (
-              <div className="absolute top-full left-0 pt-2 z-50">
-                <div className="bg-[#0F172A] border border-white/10 rounded-2xl shadow-2xl py-2 w-52">
-                  {servicesLinks.map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
+            <AnimatePresence>
+              {activeDropdown === "services" && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="absolute top-full left-0 pt-3 z-50"
+                >
+                  <div className="bg-[#0d0d0d] border border-white/10 rounded-2xl shadow-2xl py-3 w-56 overflow-hidden">
+                    {servicesLinks.map((item) => (
+                      <TransitionLink
+                        key={item.label}
+                        href={item.href}
+                        className="block px-5 py-2.5 text-[13px] text-white/60 hover:text-[#a4f07a] hover:bg-white/5 transition-all"
+                      >
+                        {item.label}
+                      </TransitionLink>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Industries dropdown */}
@@ -103,52 +125,71 @@ export default function Header() {
             onMouseEnter={() => setActiveDropdown("industries")}
             onMouseLeave={() => setActiveDropdown(null)}
           >
-            <button className="flex items-center gap-1 px-4 py-2 text-sm text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/5">
+            <button className="flex items-center gap-1.5 px-4 py-2 text-[13px] font-medium text-white/85 hover:text-[#a4f07a] transition-all rounded-full hover:bg-white/5">
               Industries
-              <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${activeDropdown === "industries" ? "rotate-180" : ""}`} />
+              <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-300 ${activeDropdown === "industries" ? "rotate-180" : ""}`} />
             </button>
-            {activeDropdown === "industries" && (
-              <div className="absolute top-full left-0 pt-2 z-50">
-                <div className="bg-[#0F172A] border border-white/10 rounded-2xl shadow-2xl py-2 w-56">
-                  {industriesLinks.map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
+            <AnimatePresence>
+              {activeDropdown === "industries" && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="absolute top-full left-0 pt-3 z-50"
+                >
+                  <div className="bg-[#0d0d0d] border border-white/10 rounded-2xl shadow-2xl py-3 w-60 overflow-hidden">
+                    {industriesLinks.map((item) => (
+                      <TransitionLink
+                        key={item.label}
+                        href={item.href}
+                        className="block px-5 py-2.5 text-[13px] text-white/60 hover:text-[#a4f07a] hover:bg-white/5 transition-all"
+                      >
+                        {item.label}
+                      </TransitionLink>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          <Link href="/our-process" className="px-4 py-2 text-sm text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/5">
-            Our Process
-          </Link>
-          <Link href="/about" className="px-4 py-2 text-sm text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/5">
-            About
-          </Link>
-          <Link href="/contact" className="px-4 py-2 text-sm text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/5">
-            Contact
-          </Link>
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <TransitionLink
+                key={link.href}
+                href={link.href}
+                className={`relative px-4 py-2 text-[13px] font-medium transition-all rounded-full hover:bg-white/5 ${
+                  isActive ? "text-[#a4f07a]" : "text-white/85 hover:text-[#a4f07a]"
+                }`}
+              >
+                {link.label}
+                {isActive && (
+                  <motion.div
+                    layoutId="active-pill"
+                    className="absolute inset-0 bg-[#a4f07a]/10 rounded-full border border-[#a4f07a]/20 -z-10"
+                    transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+                  />
+                )}
+              </TransitionLink>
+            );
+          })}
         </div>
 
         {/* ── Desktop CTAs ─────────────────────────── */}
-        <div className="hidden lg:flex items-center gap-3 shrink-0">
-          <Link
+        <div className="hidden lg:flex items-center gap-4 shrink-0">
+          <TransitionLink
             href="/job-opportunities"
-            className="text-sm font-semibold text-white/70 hover:text-white px-4 py-2 transition-colors"
+            className="text-[13px] font-semibold text-white/90 hover:text-white px-2 transition-all"
           >
             Find a Job
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
             href="/consult-with-us"
-            className="inline-flex items-center rounded-full bg-[#06B6D4] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#0891b2] transition-colors"
+            className="ci-pill-btn ci-pill-btn-primary !py-2.5 !px-6 text-[13px]"
           >
-            Request Talent
-          </Link>
+            Let&apos;s Talk
+          </TransitionLink>
         </div>
 
         {/* ── Mobile hamburger ─────────────────────── */}
@@ -162,75 +203,79 @@ export default function Header() {
       </nav>
 
       {/* ── Mobile menu ──────────────────────────────── */}
-      {mobileOpen && (
-        <div id="mobile-menu" className="lg:hidden fixed inset-0 bg-[#020510]/98 backdrop-blur-md z-40 overflow-y-auto">
-          <div className="flex justify-between items-center px-6 py-5 border-b border-white/8">
-            <span className="text-xl font-bold">
-              <span className="text-white">Cloud</span>
-              <span className="text-[#06B6D4]">Infra IT</span>
-            </span>
-            <button onClick={() => setMobileOpen(false)} aria-label="Close menu" className="text-white/60 hover:text-white p-2">
-              <X className="h-6 w-6" />
-            </button>
-          </div>
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div 
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            id="mobile-menu" 
+            className="lg:hidden fixed inset-0 bg-black z-40 overflow-y-auto"
+          >
+            <div className="flex justify-between items-center px-6 py-6 border-b border-white/5">
+              <span className="text-xl font-bold">
+                <span className="text-white">Cloud</span>
+                <span className="text-[#a4f07a]">Infra IT</span>
+              </span>
+              <button onClick={() => setMobileOpen(false)} aria-label="Close menu" className="text-white/60 hover:text-white p-2">
+                <X className="h-6 w-6" />
+              </button>
+            </div>
 
-          <div className="px-6 py-6 flex flex-col gap-1">
-
-            {/* Services accordion */}
-            <div>
+            <div className="px-6 py-8 flex flex-col gap-2">
+              {/* Mobile menu items with standard styles */}
               <button
-                className="w-full flex justify-between items-center py-3 text-base font-medium text-white/80 border-b border-white/5"
+                className="w-full flex justify-between items-center py-4 text-lg font-medium text-white/90 border-b border-white/5"
                 onClick={() => setMobileExpanded(mobileExpanded === "services" ? null : "services")}
               >
                 Services
-                <ChevronDown className={`h-4 w-4 transition-transform ${mobileExpanded === "services" ? "rotate-180" : ""}`} />
+                <ChevronDown className={`h-5 w-5 transition-transform ${mobileExpanded === "services" ? "rotate-180" : ""}`} />
               </button>
               {mobileExpanded === "services" && (
-                <div className="pt-2 pb-3 flex flex-col gap-1 pl-3">
+                <div className="py-2 flex flex-col gap-1 pl-4 border-l border-[#a4f07a]/20 ml-2">
                   {servicesLinks.map(item => (
-                    <Link key={item.label} href={item.href} className="py-2 text-sm text-white/60 hover:text-[#06B6D4] transition-colors" onClick={() => setMobileOpen(false)}>
+                    <TransitionLink key={item.label} href={item.href} className="py-2.5 text-white/60 hover:text-[#a4f07a]">
                       {item.label}
-                    </Link>
+                    </TransitionLink>
                   ))}
                 </div>
               )}
-            </div>
 
-            {/* Industries accordion */}
-            <div>
               <button
-                className="w-full flex justify-between items-center py-3 text-base font-medium text-white/80 border-b border-white/5"
+                className="w-full flex justify-between items-center py-4 text-lg font-medium text-white/90 border-b border-white/5"
                 onClick={() => setMobileExpanded(mobileExpanded === "industries" ? null : "industries")}
               >
                 Industries
-                <ChevronDown className={`h-4 w-4 transition-transform ${mobileExpanded === "industries" ? "rotate-180" : ""}`} />
+                <ChevronDown className={`h-5 w-5 transition-transform ${mobileExpanded === "industries" ? "rotate-180" : ""}`} />
               </button>
               {mobileExpanded === "industries" && (
-                <div className="pt-2 pb-3 flex flex-col gap-1 pl-3">
+                <div className="py-2 flex flex-col gap-1 pl-4 border-l border-[#a4f07a]/20 ml-2">
                   {industriesLinks.map(item => (
-                    <Link key={item.label} href={item.href} className="py-2 text-sm text-white/60 hover:text-[#06B6D4] transition-colors" onClick={() => setMobileOpen(false)}>
+                    <TransitionLink key={item.label} href={item.href} className="py-2.5 text-white/60 hover:text-[#a4f07a]">
                       {item.label}
-                    </Link>
+                    </TransitionLink>
                   ))}
                 </div>
               )}
-            </div>
 
-            <Link href="/our-process" className="py-3 text-base font-medium text-white/80 border-b border-white/5" onClick={() => setMobileOpen(false)}>Our Process</Link>
-            <Link href="/about" className="py-3 text-base font-medium text-white/80 border-b border-white/5" onClick={() => setMobileOpen(false)}>About</Link>
-            <Link href="/contact" className="py-3 text-base font-medium text-white/80 border-b border-white/5" onClick={() => setMobileOpen(false)}>Contact</Link>
+              <TransitionLink href="/our-process" className="py-4 text-lg font-medium text-white/90 border-b border-white/5">Our Process</TransitionLink>
+              <TransitionLink href="/about" className="py-4 text-lg font-medium text-white/90 border-b border-white/5">About</TransitionLink>
+              <TransitionLink href="/contact" className="py-4 text-lg font-medium text-white/90 border-b border-white/5">Contact</TransitionLink>
 
-            <div className="mt-6 flex flex-col gap-3">
-              <Link href="/job-opportunities" className="w-full text-center rounded-full border border-white/20 py-3 text-base font-semibold text-white" onClick={() => setMobileOpen(false)}>
-                Find a Job
-              </Link>
-              <Link href="/consult-with-us" className="w-full text-center rounded-full bg-[#06B6D4] py-3 text-base font-semibold text-white" onClick={() => setMobileOpen(false)}>
-                Request Talent
-              </Link>
+              <div className="mt-10 flex flex-col gap-4">
+                <TransitionLink href="/consult-with-us" className="ci-pill-btn ci-pill-btn-primary w-full text-center">
+                  Let&apos;s Talk
+                </TransitionLink>
+                <TransitionLink href="/job-opportunities" className="ci-pill-btn ci-pill-btn-outline w-full text-center">
+                  Find a Job
+                </TransitionLink>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
+

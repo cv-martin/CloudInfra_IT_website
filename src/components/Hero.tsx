@@ -1,119 +1,186 @@
 "use client";
 
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import ParticleCanvas from "./ParticleCanvas";
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Parallax scroll — image drifts slightly as user scrolls down
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "5%"]);
+  const opacity  = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
   return (
-    <section className="relative w-full min-h-screen bg-[#020510] flex flex-col items-center justify-start overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative w-full min-h-screen bg-[#000000] flex flex-col items-center justify-center overflow-hidden pt-20 ci-grain"
+    >
+      {/* ── Layer 1: Aurora blobs — animated glow orbs ── */}
+      <div className="ci-aurora-blob -top-1/5 left-1/2 -translate-x-1/2" />
+      <div className="ci-aurora-blob-2 -bottom-10 -right-20 ci-aurora-blob-delay" />
 
-      {/* ===== BACKGROUND: Fine Cyan Grid ===== */}
-      <div className="absolute inset-0 pointer-events-none ci-grid-bg" />
+      {/* ── Layer 2: Particle network — reduced count for performance ── */}
+      <ParticleCanvas particleCount={50} maxDistance={140} className="opacity-60" />
 
-      {/* ===== MAIN CONTENT WRAPPER ===== */}
-      <div className="relative z-10 w-full max-w-[1300px] px-8 lg:px-16 pt-36 pb-20">
+      {/* ── Layer 3: Grid motif ── */}
+      <div className="absolute inset-0 pointer-events-none ci-grid-bg opacity-30" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black pointer-events-none" />
 
-        {/* ===== GLOWING NEON CONTAINER ===== */}
+      {/* ── Layer 4: Content Wrapper ── */}
+      <motion.div
+        style={{ y: contentY, opacity: mounted ? opacity : 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: mounted ? 1 : 0 }}
+        transition={{ duration: 0.4 }}
+        className="relative z-10 w-full ci-container flex flex-col items-center text-center"
+      >
+        {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="relative w-full rounded-2xl overflow-hidden neon-cyan-box bg-[#020510]/60 min-h-[620px]"
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="mb-8 flex items-center gap-2 rounded-full border border-[#a4f07a]/30 bg-[#a4f07a]/5 px-4 py-1.5 backdrop-blur-md ci-float"
         >
-          {/* Inner grid on the container */}
-          <div className="absolute inset-0 pointer-events-none ci-grid-bg-small" />
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#a4f07a] opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#a4f07a]" />
+          </span>
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#a4f07a]">
+            US-Based Specialists
+          </span>
+        </motion.div>
 
-          {/* Small corner decoration — top right */}
-          <div className="absolute top-0 right-0 w-32 h-24 rounded-bl-2xl opacity-30 bg-[#06B6D4]/10 border-l border-b border-[#06B6D4]/25" />
-
-          {/* ===== TEXT CONTENT ===== */}
-          <div className="relative z-20 flex flex-col items-center text-center px-8 sm:px-16 lg:px-24 pt-20 pb-16">
-            <h1 className="text-[2.8rem] sm:text-[3.8rem] lg:text-[4.4rem] font-bold leading-[1.15] text-white tracking-tight mb-6 font-sans">
-              IT &amp; Healthcare Staffing<br />
-              Built for the USA
-            </h1>
-
-            <p className="text-base sm:text-lg text-white/55 max-w-2xl font-light mb-12 leading-relaxed">
-              Connecting skilled professionals with leading companies across<br className="hidden sm:block" />
-              IT, Healthcare, Engineering and 10+ industries nationwide.
-            </p>
-
-            {/* ===== BUTTONS ===== */}
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
-              <a
-                href="/job-opportunities"
-                className="px-7 py-3 rounded-full font-semibold text-[15px] text-[#020510] bg-[#06B6D4] ci-glow-cyan transition-all hover:opacity-90"
-              >
-                Find a Job
-              </a>
-
-              <a
-                href="/consult-with-us"
-                className="px-7 py-3 rounded-full text-[15px] font-medium text-[#06B6D4] border border-[#06B6D4]/60 transition-all hover:bg-[#06B6D4]/10"
-              >
-                Hire Talent
-              </a>
-            </div>
-          </div>
-
-          {/* ===== ISOMETRIC SERVER ILLUSTRATION (Bottom Right) ===== */}
-          <div className="absolute bottom-0 right-0 w-[55%] h-[65%] pointer-events-none select-none">
-            <Image
-              src="/CloudInfra_IT_website/hero-servers.png"
-              alt="Isometric cloud server network"
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 55vw, 700px"
-              className="object-contain object-right-bottom mix-blend-screen"
-              priority
+        {/* Main Headline — faster reveal */}
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+          className="text-[2.8rem] sm:text-[4.2rem] lg:text-[5.6rem] font-extrabold leading-[1.0] text-white tracking-tighter mb-8 max-w-5xl"
+        >
+          Connecting{" "}
+          <span className="relative inline-block">
+            <span className="text-[#a4f07a] ci-text-glow">Elite Talent</span>
+            {/* Underline accent */}
+            <motion.span
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute -bottom-2 left-0 right-0 h-[3px] bg-[#a4f07a] origin-left ci-glow"
             />
-          </div>
+          </span>
+          <br />
+          with the Infrastructure<br className="hidden sm:block" /> that Powers America.
+        </motion.h1>
 
-          {/* ===== NODE NETWORK (Bottom Left) ===== */}
-          {/* Pure CSS glowing node dots and lines for the left constellation */}
-          <div className="absolute bottom-0 left-0 w-[45%] h-[65%] pointer-events-none select-none overflow-hidden">
-            <svg
-              viewBox="0 0 400 320"
-              className="w-full h-full opacity-70"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {/* Lines */}
-              <line x1="80" y1="280" x2="160" y2="220" stroke="#06B6D4" strokeWidth="0.7" strokeOpacity="0.4"/>
-              <line x1="160" y1="220" x2="280" y2="200" stroke="#06B6D4" strokeWidth="0.7" strokeOpacity="0.3"/>
-              <line x1="60" y1="200" x2="160" y2="220" stroke="#06B6D4" strokeWidth="0.7" strokeOpacity="0.35"/>
-              <line x1="160" y1="220" x2="200" y2="160" stroke="#06B6D4" strokeWidth="0.7" strokeOpacity="0.3"/>
-              <line x1="30" y1="140" x2="160" y2="220" stroke="#06B6D4" strokeWidth="0.5" strokeOpacity="0.2"/>
-              <line x1="200" y1="160" x2="280" y2="200" stroke="#06B6D4" strokeWidth="0.5" strokeOpacity="0.2"/>
-              {/* Glowing nodes */}
-              <circle cx="80" cy="280" r="4" fill="#06B6D4" fillOpacity="0.8"/>
-              <circle cx="80" cy="280" r="8" fill="#06B6D4" fillOpacity="0.15"/>
-              <circle cx="160" cy="220" r="5" fill="#06B6D4" fillOpacity="0.9"/>
-              <circle cx="160" cy="220" r="12" fill="#06B6D4" fillOpacity="0.12"/>
-              <circle cx="60" cy="200" r="3" fill="#06B6D4" fillOpacity="0.7"/>
-              <circle cx="60" cy="200" r="7" fill="#06B6D4" fillOpacity="0.12"/>
-              <circle cx="30" cy="140" r="3" fill="#06B6D4" fillOpacity="0.5"/>
-              <circle cx="30" cy="140" r="6" fill="#06B6D4" fillOpacity="0.1"/>
-              <circle cx="200" cy="160" r="3" fill="#06B6D4" fillOpacity="0.5"/>
-              <circle cx="200" cy="160" r="6" fill="#06B6D4" fillOpacity="0.1"/>
-              <circle cx="280" cy="200" r="3" fill="#06B6D4" fillOpacity="0.4"/>
-              {/* Star sparkle dots */}
-              <circle cx="100" cy="150" r="1.5" fill="#06B6D4" fillOpacity="0.6"/>
-              <circle cx="330" cy="140" r="1.5" fill="#06B6D4" fillOpacity="0.5"/>
-              <circle cx="250" cy="100" r="1.5" fill="#06B6D4" fillOpacity="0.4"/>
-              <circle cx="150" cy="80" r="1" fill="#06B6D4" fillOpacity="0.5"/>
-              <circle cx="50" cy="250" r="1" fill="#06B6D4" fillOpacity="0.5"/>
-            </svg>
+        {/* Sub-headline */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
+          className="text-lg sm:text-xl text-white/70 max-w-2xl font-light mb-12 leading-relaxed"
+        >
+          Domain-specialist staffing for IT &amp; Healthcare professionals.
+          48-hour shortlist SLA. Work-auth verified on every candidate.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
+          className="flex flex-col sm:flex-row gap-5 mb-20"
+        >
+          <Link
+            href="/consult-with-us"
+            className="ci-pill-btn ci-pill-btn-primary group"
+          >
+            Request Talent
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+          <Link
+            href="/jobs"
+            className="ci-pill-btn ci-pill-btn-outline"
+          >
+            Browse Openings
+          </Link>
+        </motion.div>
+
+        {/* Hero Visual — faster reveal */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          style={{ y: imageY }}
+          className="relative w-full max-w-5xl aspect-[16/9] lg:aspect-[21/9] rounded-[2rem] overflow-hidden border border-white/5 bg-[#0d0d0d] shadow-2xl group"
+        >
+          {/* Inner Grid */}
+          <div className="absolute inset-0 ci-grid-bg-small opacity-20 group-hover:opacity-30 transition-opacity duration-700" />
+
+          <Image
+            src="/hero-green-infra.png"
+            alt="CloudInfra Digital Infrastructure Visualization"
+            fill
+            className="object-cover object-center opacity-80 group-hover:scale-105 transition-transform duration-1000"
+            priority
+          />
+
+          {/* Edge ring */}
+          <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[2rem] pointer-events-none" />
+
+          {/* Bottom badges — slide up on load */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9 }}
+            className="absolute bottom-8 left-8 flex flex-col gap-3"
+          >
+            <div className="flex items-center gap-2 bg-black/70 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10">
+              <CheckCircle2 className="h-4 w-4 text-[#a4f07a] shrink-0" />
+              <span className="text-[12px] text-white/80 font-medium tracking-tight">48-Hour Shortlist SLA</span>
+            </div>
+            <div className="flex items-center gap-2 bg-black/70 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10">
+              <CheckCircle2 className="h-4 w-4 text-[#a4f07a] shrink-0" />
+              <span className="text-[12px] text-white/80 font-medium tracking-tight">USCIS Compliance Guaranteed</span>
+            </div>
+          </motion.div>
+
+          {/* Top-right version tag */}
+          <div className="absolute top-6 right-8 opacity-30">
+            <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-white font-mono">INFRA V2.0</span>
           </div>
         </motion.div>
 
-        {/* ===== 2026 CUTTING EDGE SIGNATURE ===== */}
-        <div className="mt-8">
-          <p className="text-sm font-bold tracking-[0.25em] uppercase font-sans text-[#06B6D4]">
-            2026 CUTTING EDGE
-          </p>
-        </div>
-      </div>
+      </motion.div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.0 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+      >
+        <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-mono">Scroll</span>
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          className="w-px h-8 bg-gradient-to-b from-[#a4f07a]/40 to-transparent"
+        />
+      </motion.div>
+
     </section>
   );
 }

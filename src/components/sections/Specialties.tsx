@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -24,8 +24,11 @@ const healthRoles = [
 
 export default function Specialties() {
   return (
-    <section className="bg-white ci-section ci-divider">
-      <div className="ci-container">
+    <section className="bg-black ci-section relative overflow-hidden">
+      {/* Background motif */}
+      <div className="absolute inset-0 ci-grid-bg opacity-[0.02] pointer-events-none" />
+
+      <div className="ci-container relative z-10">
 
         {/* Header */}
         <motion.div
@@ -33,14 +36,17 @@ export default function Specialties() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45 }}
-          className="mb-12 max-w-2xl"
+          className="mb-16 max-w-2xl"
         >
-          <span className="ci-label">Our Primary Specialties</span>
-          <h2 className="text-[var(--text-h2)] font-bold text-gray-900 leading-tight mt-1">
-            Deep expertise in two domains
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-px w-8 bg-[#a4f07a]" />
+            <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#a4f07a]">Our Core Infrastructure</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-[1.1]">
+            Domain Expertise in <span className="opacity-40 italic">Two Verticals</span>
           </h2>
-          <p className="text-base text-gray-500 mt-4 leading-relaxed">
-            We are not a generalist firm. Our recruiters have direct experience in their domain — understanding the technical roles, regulatory requirements, and nuances that matter for each placement.
+          <p className="text-lg text-white/40 mt-6 leading-relaxed font-light">
+            We are not a generalist firm. Each placement is handled by recruiters with direct industry experience who understand the technical roles and regulatory nuances.
           </p>
         </motion.div>
 
@@ -53,46 +59,43 @@ export default function Specialties() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="rounded-2xl border border-gray-200 overflow-hidden bg-[#F8F9FB]"
+            className="ci-card group overflow-hidden"
           >
             {/* Photo header */}
-            <div className="relative h-52 w-full">
+            <div className="relative h-56 w-full overflow-hidden">
               <Image
-                src="/CloudInfra_IT_website/img-it-professional.png"
-                alt="IT professional and software engineer working at a modern workstation"
+                src="/img-it-professional.png"
+                alt="Information Technology infrastructure visualization"
                 fill
-                className="object-cover"
+                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
               {/* Scrim + label */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0B1120]/80" />
-              <div className="absolute bottom-4 left-5">
-                <span className="text-[10px] font-black uppercase tracking-widest text-[#06B6D4]">
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+              <div className="absolute bottom-6 left-8">
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#a4f07a] bg-black/60 backdrop-blur-md px-3 py-1 rounded">
                   Information Technology
                 </span>
               </div>
-              {/* Cyan left accent line */}
-              <div className="absolute top-0 left-0 bottom-0 w-1 bg-[#06B6D4]" />
+              {/* Left accent line */}
+              <div className="absolute top-0 left-0 bottom-0 w-1 bg-[#a4f07a] ci-glow" />
             </div>
 
             {/* Content */}
-            <div className="p-7">
-              <h3 className="text-xl font-bold text-gray-900 leading-snug mb-3">
-                Cloud, DevOps, Data, Security &amp; Software Engineering
+            <div className="p-8">
+              <h3 className="text-2xl font-bold text-white leading-snug mb-4 tracking-tight group-hover:text-[#a4f07a] transition-colors">
+                Cloud, DevOps, Security &amp;<br />Software Engineering
               </h3>
-              <p className="text-sm text-gray-500 leading-relaxed mb-3">
-                IT encompasses software, hardware, services, and R&amp;D. As the landscape evolves rapidly, companies need a talent partner that truly understands technical roles — not just keywords on a resume.
-              </p>
-              <p className="text-sm text-gray-500 leading-relaxed mb-6">
-                We maintain a diverse, qualified IT talent pool through extensive networks — filling multiple roles simultaneously while saving clients time and cost.
+              <p className="text-[15px] text-white/40 leading-relaxed mb-8 font-light">
+                We maintain a diverse, qualified IT talent pool through extensive networks — sourcing top-tier engineering talent for permanent and contract-based engagements.
               </p>
 
               {/* Skill tags */}
-              <div className="flex flex-wrap gap-2 mb-7">
+              <div className="flex flex-wrap gap-2 mb-10">
                 {itSkills.map(skill => (
                   <span
                     key={skill}
-                    className="text-[11px] font-medium text-[#0891b2] bg-[#E0F7FA] px-3 py-1 rounded-full"
+                    className="text-[10px] font-bold uppercase tracking-widest text-white/60 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full hover:border-[#a4f07a]/40 hover:text-white transition-all"
                   >
                     {skill}
                   </span>
@@ -101,10 +104,10 @@ export default function Specialties() {
 
               <Link
                 href="/information-technology"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-[#06B6D4] hover:underline group"
+                className="inline-flex items-center gap-2 text-sm font-bold text-[#a4f07a] hover:underline underline-offset-8 transition-all group/link"
               >
-                View IT Staffing Solutions
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                Explore IT Capabilities
+                <ArrowRight className="h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
               </Link>
             </div>
           </motion.div>
@@ -115,46 +118,43 @@ export default function Specialties() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="rounded-2xl border border-gray-200 overflow-hidden bg-[#F8F9FB]"
+            className="ci-card group overflow-hidden"
           >
             {/* Photo header */}
-            <div className="relative h-52 w-full">
+            <div className="relative h-56 w-full overflow-hidden">
               <Image
-                src="/CloudInfra_IT_website/img-healthcare-professional.png"
-                alt="Healthcare professional — nurse or physician in a modern hospital setting"
+                src="/img-healthcare-professional.png"
+                alt="Healthcare professional in hospital setting"
                 fill
-                className="object-cover"
+                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
               {/* Scrim + label */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0B1120]/80" />
-              <div className="absolute bottom-4 left-5">
-                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400">
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+              <div className="absolute bottom-6 left-8">
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/80 bg-white/10 backdrop-blur-md px-3 py-1 rounded">
                   Hospitals &amp; Healthcare
                 </span>
               </div>
-              {/* Emerald left accent line */}
-              <div className="absolute top-0 left-0 bottom-0 w-1 bg-emerald-500" />
+              {/* Left accent line */}
+              <div className="absolute top-0 left-0 bottom-0 w-1 bg-white/10" />
             </div>
 
             {/* Content */}
-            <div className="p-7">
-              <h3 className="text-xl font-bold text-gray-900 leading-snug mb-3">
-                Clinical, Allied Health, Healthcare IT &amp; Administration
+            <div className="p-8">
+              <h3 className="text-2xl font-bold text-white leading-snug mb-4 tracking-tight group-hover:text-white/90 transition-colors">
+                Clinical, Allied Health &amp;<br />Health IT Administration
               </h3>
-              <p className="text-sm text-gray-500 leading-relaxed mb-3">
-                The health economy delivers curative, preventive, rehabilitative, and palliative care. Demand for qualified physicians, nurses, and health IT professionals consistently outpaces supply.
-              </p>
-              <p className="text-sm text-gray-500 leading-relaxed mb-6">
-                Our Healthcare team uses targeted strategies — referrals and deep network sourcing — evaluating both technical qualification and cultural fit.
+              <p className="text-[15px] text-white/40 leading-relaxed mb-8 font-light">
+                Evaluative and targeted sourcing strategies for clinical professionals. Full compliance verification and USCIS support for every candidate placement.
               </p>
 
               {/* Role tags */}
-              <div className="flex flex-wrap gap-2 mb-7">
+              <div className="flex flex-wrap gap-2 mb-10">
                 {healthRoles.map(role => (
                   <span
                     key={role}
-                    className="text-[11px] font-medium text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full"
+                    className="text-[10px] font-bold uppercase tracking-widest text-white/60 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full hover:border-white/30 hover:text-white transition-all"
                   >
                     {role}
                   </span>
@@ -163,10 +163,10 @@ export default function Specialties() {
 
               <Link
                 href="/hospitals-and-healthcare"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 hover:underline group"
+                className="inline-flex items-center gap-2 text-sm font-bold text-white hover:underline underline-offset-8 transition-all group/link"
               >
-                View Healthcare Staffing Solutions
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                Explore Healthcare Capabilities
+                <ArrowRight className="h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
               </Link>
             </div>
           </motion.div>

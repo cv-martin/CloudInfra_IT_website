@@ -49,7 +49,7 @@ export default function ProofSection() {
           </div>
           <div className="lg:max-w-sm">
             <p className="text-black/50 text-xl leading-relaxed font-light italic">
-               "We provide the technical and regulatory certainty that generalist agencies cannot match."
+               &quot;We provide the technical and regulatory certainty that generalist agencies cannot match.&quot;
             </p>
           </div>
         </div>

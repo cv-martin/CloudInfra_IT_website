@@ -68,7 +68,7 @@ export default function WhoWeServe() {
             className="relative rounded-2xl overflow-hidden aspect-[4/3] lg:aspect-auto lg:h-[520px]"
           >
             <Image
-              src="/img-team-office.png"
+              src="/CloudInfra_IT_website/img-team-office.png"
               alt="CloudInfra IT team — professionals collaborating in a modern office environment"
               fill
               className="object-cover"

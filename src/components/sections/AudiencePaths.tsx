@@ -85,7 +85,7 @@ export default function AudiencePaths() {
             {/* Subtle image overlay */}
             <div className="absolute inset-0">
               <Image
-                src="/img-team-office.png"
+                src="/CloudInfra_IT_website/img-team-office.png"
                 alt=""
                 fill
                 className="object-cover opacity-10"

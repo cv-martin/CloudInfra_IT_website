@@ -122,7 +122,7 @@ export default function InformationTechnologyPage() {
               className="hidden lg:block relative h-72 rounded-2xl overflow-hidden border border-[#06B6D4]/20"
             >
               <Image
-                src="/img-it-professional.png"
+                src="/CloudInfra_IT_website/img-it-professional.png"
                 alt="IT professional working at a cloud engineering workstation"
                 fill
                 className="object-cover"
@@ -259,7 +259,7 @@ export default function InformationTechnologyPage() {
                 className="relative h-80 rounded-2xl overflow-hidden"
               >
                 <Image
-                  src="/img-team-office.png"
+                  src="/CloudInfra_IT_website/img-team-office.png"
                   alt="CloudInfra IT recruitment team collaborating"
                   fill
                   className="object-cover"

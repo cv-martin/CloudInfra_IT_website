@@ -128,7 +128,7 @@ export default function AboutPage() {
               />
               <div className="relative z-10 rounded-2xl overflow-hidden" style={{ height: "420px" }}>
                 <Image
-                  src="/img-it-professional.png"
+                  src="/CloudInfra_IT_website/img-it-professional.png"
                   alt="CloudInfra IT — technology professional"
                   fill
                   className="object-cover grayscale"

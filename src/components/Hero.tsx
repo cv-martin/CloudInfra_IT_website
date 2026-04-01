@@ -60,7 +60,7 @@ export default function Hero() {
           {/* ===== ISOMETRIC SERVER ILLUSTRATION (Bottom Right) ===== */}
           <div className="absolute bottom-0 right-0 w-[55%] h-[65%] pointer-events-none select-none">
             <Image
-              src="/hero-servers.png"
+              src="/CloudInfra_IT_website/hero-servers.png"
               alt="Isometric cloud server network"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 55vw, 700px"

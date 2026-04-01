@@ -58,7 +58,7 @@ export default function Specialties() {
             {/* Photo header */}
             <div className="relative h-52 w-full">
               <Image
-                src="/img-it-professional.png"
+                src="/CloudInfra_IT_website/img-it-professional.png"
                 alt="IT professional and software engineer working at a modern workstation"
                 fill
                 className="object-cover"
@@ -120,7 +120,7 @@ export default function Specialties() {
             {/* Photo header */}
             <div className="relative h-52 w-full">
               <Image
-                src="/img-healthcare-professional.png"
+                src="/CloudInfra_IT_website/img-healthcare-professional.png"
                 alt="Healthcare professional — nurse or physician in a modern hospital setting"
                 fill
                 className="object-cover"

@@ -47,7 +47,7 @@ export default function DomainPreview() {
             {/* Photo */}
             <div className="relative h-52">
               <Image
-                src="/img-it-professional.png"
+                src="/CloudInfra_IT_website/img-it-professional.png"
                 alt="IT professional — software engineer at workstation"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -86,7 +86,7 @@ export default function DomainPreview() {
             {/* Photo */}
             <div className="relative h-52">
               <Image
-                src="/img-healthcare-professional.png"
+                src="/CloudInfra_IT_website/img-healthcare-professional.png"
                 alt="Healthcare professional — nurse in clinical setting"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"

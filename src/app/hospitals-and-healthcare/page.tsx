@@ -152,7 +152,7 @@ export default function HospitalsHealthcarePage() {
               className="hidden lg:block relative h-72 rounded-2xl overflow-hidden border border-emerald-500/20"
             >
               <Image
-                src="/img-healthcare-professional.png"
+                src="/CloudInfra_IT_website/img-healthcare-professional.png"
                 alt="Healthcare professional — nurse in a clinical setting"
                 fill
                 className="object-cover"

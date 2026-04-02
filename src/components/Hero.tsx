@@ -3,9 +3,23 @@
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, ShieldCheck, Zap, TrendingUp, Cpu } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import ParticleCanvas from "./ParticleCanvas";
+
+/**
+ * Hero — The 2026 "Silicon Valley" First Impression.
+ * 
+ * Aesthetic: High-Frequency Exchange. 
+ * Replaces aggressive "Neon" with sophisticated glows, 
+ * technical precision, and rhythmic typography.
+ */
+
+const trustSignals = [
+  { icon: Zap,         label: "48-Hour Shortlist",     sub: "Avg. SLA" },
+  { icon: ShieldCheck, label: "USCIS Compliant",        sub: "Verified" },
+  { icon: TrendingUp,  label: "98% Retention Rate",     sub: "Yearly" },
+];
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -15,169 +29,184 @@ export default function Hero() {
     setMounted(true);
   }, []);
 
-  // Parallax scroll — image drifts slightly as user scrolls down
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "5%"]);
-  const opacity  = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
+  const imageY   = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "4%"]);
+  const opacity  = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-screen bg-[#000000] flex flex-col items-center justify-center overflow-hidden pt-20 ci-grain"
+      className="relative w-full min-h-screen bg-[#000000] flex flex-col items-center justify-center overflow-hidden pt-[72px] ci-grain"
     >
-      {/* ── Layer 1: Aurora blobs — animated glow orbs ── */}
-      <div className="ci-aurora-blob -top-1/5 left-1/2 -translate-x-1/2" />
-      <div className="ci-aurora-blob-2 -bottom-10 -right-20 ci-aurora-blob-delay" />
+      {/* ── Background: Deep Depth ───────────────────────── */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[80vw] h-[80vw] bg-radial from-[#a4f07a]/[0.08] via-transparent to-transparent opacity-40 blur-[100px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-radial from-[#a4f07a]/[0.05] via-transparent to-transparent opacity-30 blur-[80px]" />
+      </div>
 
-      {/* ── Layer 2: Particle network — reduced count for performance ── */}
-      <ParticleCanvas particleCount={50} maxDistance={140} className="opacity-60" />
+      {/* ── Technical Overlay ────────────────────────────── */}
+      <ParticleCanvas particleCount={40} maxDistance={120} className="opacity-[0.45]" />
+      <div className="absolute inset-0 pointer-events-none ci-grid-bg opacity-[0.22]" />
 
-      {/* ── Layer 3: Grid motif ── */}
-      <div className="absolute inset-0 pointer-events-none ci-grid-bg opacity-30" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black pointer-events-none" />
-
-      {/* ── Layer 4: Content Wrapper ── */}
+      {/* ── Content Wrapper ─────────────────────────────── */}
       <motion.div
         style={{ y: contentY, opacity: mounted ? opacity : 0 }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: mounted ? 1 : 0 }}
-        transition={{ duration: 0.4 }}
         className="relative z-10 w-full ci-container flex flex-col items-center text-center"
       >
-        {/* Badge */}
+        
+        {/* ── Context Badge ─────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="mb-8 flex items-center gap-2 rounded-full border border-[#a4f07a]/30 bg-[#a4f07a]/5 px-4 py-1.5 backdrop-blur-md ci-float"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mb-8 flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl"
         >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#a4f07a] opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#a4f07a]" />
-          </span>
-          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#a4f07a]">
-            US-Based Specialists
+          <Cpu className="w-3 h-3 text-[#a4f07a] opacity-80" />
+          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40">
+            US Infrastructure Specialists
           </span>
         </motion.div>
 
-        {/* Main Headline — faster reveal */}
+        {/* ── Refined Headline ───────────────────────────── */}
         <motion.h1
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          className="text-[2.8rem] sm:text-[4.2rem] lg:text-[5.6rem] font-extrabold leading-[1.0] text-white tracking-tighter mb-8 max-w-5xl"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+          className="text-[2.8rem] sm:text-[4.8rem] lg:text-[6rem] font-bold leading-[1.0] text-white tracking-[-0.04em] mb-8 max-w-4xl"
         >
-          Connecting{" "}
+          The Elite Pipeline{" "}
+          <br className="hidden sm:block" />
           <span className="relative inline-block">
-            <span className="text-[#a4f07a] ci-text-glow">Elite Talent</span>
-            {/* Underline accent */}
+            <span className="bg-gradient-to-br from-[#a4f07a] via-[#a4f07a] to-white/60 bg-clip-text text-transparent">
+              Built for IT
+            </span>
+            {/* Minimal Underline */}
             <motion.span
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute -bottom-2 left-0 right-0 h-[3px] bg-[#a4f07a] origin-left ci-glow"
+              transition={{ duration: 1, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute -bottom-2 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#a4f07a]/40 to-transparent"
             />
           </span>
-          <br />
-          with the Infrastructure<br className="hidden sm:block" /> that Powers America.
+          <br className="hidden sm:block" />
+          &amp; Healthcare.
         </motion.h1>
 
-        {/* Sub-headline */}
+        {/* ── Subheadline ─────────────────────────────────── */}
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
-          className="text-lg sm:text-xl text-white/70 max-w-2xl font-light mb-12 leading-relaxed"
+          transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+          className="text-[17px] sm:text-[19px] text-white/40 max-w-xl font-light mb-12 leading-relaxed tracking-tight"
         >
-          Domain-specialist staffing for IT &amp; Healthcare professionals.
-          48-hour shortlist SLA. Work-auth verified on every candidate.
+          Data-driven recruitment for high-compliance technical clusters. 
+          Verified candidates delivered within <span className="text-white/80 font-medium">48 hours</span>.
         </motion.p>
 
-        {/* CTAs */}
+        {/* ── Action Control ─────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row gap-5 mb-20"
+          transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
+          className="flex flex-col sm:flex-row items-center gap-5 mb-16"
         >
           <Link
             href="/consult-with-us"
-            className="ci-pill-btn ci-pill-btn-primary group"
+            className="group relative px-9 py-3.5 rounded-full bg-[#a4f07a] text-black text-[13px] font-bold transition-all hover:bg-[#b8f58e] hover:shadow-[0_0_40px_rgba(164,240,122,0.35)]"
           >
-            Request Talent
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <span className="relative flex items-center gap-2">
+              Request Talent
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </span>
           </Link>
           <Link
             href="/jobs"
-            className="ci-pill-btn ci-pill-btn-outline"
+            className="px-9 py-3.5 rounded-full border border-white/10 text-white/80 text-[13px] font-semibold hover:bg-white/[0.04] hover:border-white/20 transition-all"
           >
             Browse Openings
           </Link>
         </motion.div>
 
-        {/* Hero Visual — faster reveal */}
+        {/* ── Command Bar (Trust signals) ────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          style={{ y: imageY }}
-          className="relative w-full max-w-5xl aspect-[16/9] lg:aspect-[21/9] rounded-[2rem] overflow-hidden border border-white/5 bg-[#0d0d0d] shadow-2xl group"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.6 }}
+          className="flex flex-wrap justify-center items-center gap-x-12 gap-y-6 mb-20"
         >
-          {/* Inner Grid */}
-          <div className="absolute inset-0 ci-grid-bg-small opacity-20 group-hover:opacity-30 transition-opacity duration-700" />
+          {trustSignals.map((t, i) => (
+            <div key={t.label} className="flex items-center gap-3.5 group cursor-default">
+              <div className="w-8 h-8 rounded-lg bg-white/[0.03] border border-white/[0.06] flex items-center justify-center transition-all group-hover:border-[#a4f07a]/30 group-hover:bg-[#a4f07a]/[0.05]">
+                <t.icon className="w-4 h-4 text-white/30 group-hover:text-[#a4f07a] transition-colors" />
+              </div>
+              <div className="text-left">
+                <p className="text-[12px] font-bold text-white/70 group-hover:text-white transition-colors leading-none mb-1">
+                  {t.label}
+                </p>
+                <p className="text-[10px] text-white/25 font-medium uppercase tracking-widest leading-none">
+                  {t.sub}
+                </p>
+              </div>
+            </div>
+          ))}
+        </motion.div>
 
+        {/* ── Main Hero Visual ───────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          style={{ y: imageY }}
+          className="relative w-full max-w-5xl aspect-[21/9] rounded-[2.5rem] overflow-hidden border border-white/[0.1] bg-[#080808] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.05)] group"
+        >
+          {/* Inner Layering for detail */}
+          <div className="absolute inset-0 ci-grid-bg-small opacity-[0.12] z-10 pointer-events-none" />
+          
           <Image
             src="/hero-green-infra.png"
-            alt="CloudInfra Digital Infrastructure Visualization"
+            alt="CloudInfra Infrastructure Intelligence"
             fill
-            className="object-cover object-center opacity-80 group-hover:scale-105 transition-transform duration-1000"
+            className="object-cover opacity-90 group-hover:scale-[1.02] transition-transform duration-[3s]"
             priority
           />
 
-          {/* Edge ring */}
-          <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[2rem] pointer-events-none" />
-
-          {/* Bottom badges — slide up on load */}
+          {/* Depth Mask */}
+          <div className="absolute inset-0 bg-radial from-transparent via-transparent to-black/60 z-10 pointer-events-none" />
+          
+          {/* Floating UI Elements */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9 }}
-            className="absolute bottom-8 left-8 flex flex-col gap-3"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.2 }}
+            className="absolute bottom-8 left-8 z-20 flex items-center gap-3 px-4 py-3 rounded-2xl bg-black/60 border border-white/[0.08] backdrop-blur-xl"
           >
-            <div className="flex items-center gap-2 bg-black/70 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10">
-              <CheckCircle2 className="h-4 w-4 text-[#a4f07a] shrink-0" />
-              <span className="text-[12px] text-white/80 font-medium tracking-tight">48-Hour Shortlist SLA</span>
-            </div>
-            <div className="flex items-center gap-2 bg-black/70 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10">
-              <CheckCircle2 className="h-4 w-4 text-[#a4f07a] shrink-0" />
-              <span className="text-[12px] text-white/80 font-medium tracking-tight">USCIS Compliance Guaranteed</span>
-            </div>
+            <div className="w-2 h-2 rounded-full bg-[#a4f07a] animate-pulse" />
+            <span className="text-[11px] font-bold text-white/80">3.2k Placements Active</span>
           </motion.div>
 
-          {/* Top-right version tag */}
-          <div className="absolute top-6 right-8 opacity-30">
-            <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-white font-mono">INFRA V2.0</span>
+          <div className="absolute top-8 right-8 z-20 opacity-30">
+            <span className="text-[9px] font-mono uppercase tracking-[0.5em] text-white">System.v2.6_Stable</span>
           </div>
         </motion.div>
 
       </motion.div>
 
-      {/* Scroll indicator */}
+      {/* ── Minimal Scroll Guide ─────────────────────────── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.0 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+        transition={{ delay: 2.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center"
       >
-        <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-mono">Scroll</span>
         <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-px h-8 bg-gradient-to-b from-[#a4f07a]/40 to-transparent"
+          animate={{ height: [12, 40, 12] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="w-[1px] bg-gradient-to-b from-[#a4f07a]/40 to-transparent"
         />
       </motion.div>
 

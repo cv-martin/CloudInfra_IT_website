@@ -235,9 +235,7 @@ body {
 
 .ci-pill-btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow:
-    0 0 30px rgba(var(--ci-accent-rgb), 0.55),
-    0 10px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 30px rgba(164, 240, 122, 0.4);
   background-color: #b8f58e;
 }
 

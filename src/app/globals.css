@@ -123,6 +123,26 @@ body {
   padding-bottom: var(--section-py);
 }
 
+/*
+  ci-page-hero — standard inner page hero top padding.
+  Accounts for fixed header height (~72px) + visual breathing room.
+  All inner pages (non-homepage) should use this on their first section.
+  Equivalent to pt-40 (10rem) at all breakpoints.
+*/
+.ci-page-hero {
+  padding-top: 10rem; /* 160px — clears fixed header + breathing room */
+}
+
+/*
+  ci-page-hero-fullscreen — cinematic hero variant.
+  Use on sections with min-h-screen + background image.
+  Content padding from nav top, extra bottom breathing room.
+*/
+.ci-page-hero-fullscreen {
+  padding-top: 9rem;   /* 144px — fixed header clearance */
+  padding-bottom: 7rem;
+}
+
 /* ============================================================
    CARD SYSTEM — Premium lift + neon glow on hover
    ============================================================ */

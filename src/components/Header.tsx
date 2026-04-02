@@ -41,6 +41,7 @@ const navLinks = [
 
 export default function Header() {
   const pathname = usePathname();
+  const isHome = pathname === "/";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [desktopScrolled, setDesktopScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<"services" | "industries" | null>(null);
@@ -57,11 +58,18 @@ export default function Header() {
     setMobileOpen(false);
   }, [pathname]);
 
+  /*
+   * Header style logic:
+   *  - Homepage only: transparent on load, glass on scroll (cinematic hero beneath)
+   *  - All inner pages: always solid glass from load (no juggling on arrival)
+   */
+  const isGlass = !isHome || desktopScrolled;
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${
-        desktopScrolled
-          ? "bg-black/80 backdrop-blur-xl border-b border-white/5 py-3 shadow-2xl"
+        isGlass
+          ? "bg-black/88 backdrop-blur-xl border-b border-white/6 py-4 shadow-[0_1px_0_0_rgba(255,255,255,0.04)]"
           : "bg-transparent py-6"
       }`}
     >

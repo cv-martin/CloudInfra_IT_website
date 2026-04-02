@@ -3,550 +3,475 @@
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import { motion } from "framer-motion";
 import {
-  ArrowRight, Phone, Search, FileText,
-  CalendarCheck, ClipboardCheck, HeartHandshake,
-  Building2, User, CheckCircle2, ShieldCheck,
-  Globe, Clock, ChevronRight,
+  ArrowRight, CheckCircle2, ShieldCheck, Globe, Clock,
+  Building2, User,
 } from "lucide-react";
 
-/* ─────────────────────────────────────────────────────────────
-   Our Process  /our-process
-   Brochure-quality layout: overview → depth → imagery → CTA
-   Dual audience throughout: Employer & Candidate perspectives
-───────────────────────────────────────────────────────────── */
+/*
+  Our Process — /our-process
+  Story-first design. No repeated boxes. No dropdown feel.
+  Each step is a scene with its own visual weight and rhythm.
+*/
 
-/** High-level phase map — shown as scannable overview */
-const phases = [
-  { num: "01", icon: Phone,         label: "Consultation",       desc: "We learn your world before we start." },
-  { num: "02", icon: Search,        label: "Active Search",      desc: "Specialist networks reach who job boards miss." },
-  { num: "03", icon: FileText,      label: "Screening",          desc: "Qualified profiles in 48–72 hours, not weeks." },
-  { num: "04", icon: CalendarCheck, label: "Interview & Prep",   desc: "Fully coordinated — you just show up." },
-  { num: "05", icon: ClipboardCheck,label: "Offer & Onboarding", desc: "Verified. Compliant. Ready from day one." },
-  { num: "06", icon: HeartHandshake,label: "30/60/90 Follow-Up", desc: "We stay engaged long after start date." },
-];
-
-/** Detailed steps with dual-perspective content */
-const steps = [
-  {
-    num: "01",
-    icon: Phone,
-    title: "Requirements Consultation",
-    summary: "We start by deeply understanding — not just documenting.",
-    image: null,
-    forClient: {
-      label: "For Employers",
-      body: "A dedicated Hiring Partner books a consultation call (15–30 min) to learn your corporate culture, team dynamics, and what a genuine 'right fit' looks like for your organisation. We also share current market intelligence — salary benchmarks, talent availability, and realistic timelines — before we open any search.",
-    },
-    forCandidate: {
-      label: "For Candidates",
-      body: "Your specialist recruiter reviews your background and career goals in depth, matched against active client requirements in your domain. No generic job applications. We only put your profile forward where you genuinely fit — and where you want to be.",
-    },
-    deliverables: ["Culture & requirements brief", "Market salary benchmarking", "Role classification confirmed"],
-  },
-  {
-    num: "02",
-    icon: Search,
-    title: "Active Talent Search & Market Intelligence",
-    summary: "We go to the talent. We don't wait for applications.",
-    image: null,
-    forClient: {
-      label: "For Employers",
-      body: "Our specialised IT and Healthcare recruiters tap deep referral networks, professional communities, and a passive talent pipeline that traditional job boards never reach. We then compose the ideal job description attracting the right talent in the shortest possible time — using our market research, not guesswork.",
-    },
-    forCandidate: {
-      label: "For Candidates",
-      body: "You enter our active pipeline across multiple practice areas and seniority levels. When your profile aligns with a current or upcoming requirement, you're the first call we make — not an afterthought from a keyword search.",
-    },
-    deliverables: ["Active sourcing — not passive posting", "Domain-specialist recruiter assigned", "Bespoke recruitment strategy formulated"],
-  },
-  {
-    num: "03",
-    icon: FileText,
-    title: "Candidate Screening & Profile Delivery",
-    summary: "You receive full profiles, not résumé dumps.",
-    image: "/images/process-consultation.jpg",
-    imageAlt: "CloudInfra IT recruiter conducting in-depth candidate screening",
-    forClient: {
-      label: "For Employers",
-      body: "We deliver a minimum of three qualified candidates within the first 48–72 hours. Each submission includes a résumé, recruiter assessment notes, and any supporting information we believe helps you make a confident, informed decision. Your feedback after the first shortlist lets us immediately fine-tune the search.",
-    },
-    forCandidate: {
-      label: "For Candidates",
-      body: "An in-depth screening happens before your profile is shared anywhere — covering your credentials, work history, and references. We only present you to clients where we are confident of a genuine match. You are briefed on every client before your details go forward.",
-    },
-    deliverables: ["3+ qualified submissions within 48–72 hours", "Full candidate brief per profile", "Structured client feedback loop"],
-  },
-  {
-    num: "04",
-    icon: CalendarCheck,
-    title: "Interview Coordination & Candidate Preparation",
-    summary: "Both sides walk into the room ready.",
-    image: null,
-    forClient: {
-      label: "For Employers",
-      body: "Our team professionally schedules each interview, prepares candidates on your expectations and culture, and confirms attendance. You focus entirely on evaluating the person — not chasing coordinators or answering intake calls. After every round, we reconnect with you to guide the process forward.",
-    },
-    forCandidate: {
-      label: "For Candidates",
-      body: "Before every interview, you receive a full brief: who you're meeting, what the company values, the interview format, and what to prepare technically and professionally. We make sure you walk in confident — not anxious.",
-    },
-    deliverables: ["Full interview scheduling managed", "Candidate preparation session included", "Post-interview debrief & guidance"],
-  },
-  {
-    num: "05",
-    icon: ClipboardCheck,
-    title: "Offer Management, Verification & Onboarding",
-    summary: "Background checked, compliantly onboarded, ready from day one.",
-    image: "/img-team-office.png",
-    imageAlt: "CloudInfra IT team managing onboarding and compliance",
-    highlight: true,
-    forClient: {
-      label: "For Employers",
-      body: "Upon request, we provide a complimentary background check package — at no cost to you. Choose from: Reference Checks, E-Verify, California Board of License Verification, and Universal Background Screening. For clients sponsoring international talent, we also provide a complimentary immigration package, covering the complexity so you can focus on the hire.",
-    },
-    forCandidate: {
-      label: "For Candidates",
-      body: "We support you through the full offer stage — negotiation, contract review, and work authorisation where applicable. For contract and temporary placements, payroll, tax compliance, and benefits are fully managed by CloudInfra IT from your first day.",
-    },
-    deliverables: ["Free background check package", "Free immigration package (on request)", "Payroll & compliance fully managed"],
-  },
-  {
-    num: "06",
-    icon: HeartHandshake,
-    title: "30 / 60 / 90-Day Follow-Through",
-    summary: "We stay engaged long after the start date.",
-    image: null,
-    forClient: {
-      label: "For Employers",
-      body: "Scheduled check-ins at 30, 60, and 90 days keep us aligned with how the placement is performing and whether your team's needs have evolved. If a rapid replacement is required, our SLA covers that. As your team scales, we scale with you.",
-    },
-    forCandidate: {
-      label: "For Candidates",
-      body: "Your recruiter remains your point of contact beyond placement. We track your progress, surface new opportunities as contracts near completion, and manage extensions or permanent conversions on your behalf.",
-    },
-    deliverables: ["Proactive 30/60/90-day check-ins", "Rapid replacement SLA", "Ongoing scale-up partnership"],
-  },
-];
-
-const differentiators = [
-  {
-    icon: ShieldCheck,
-    title: "Free Background Check Package",
-    body: "Reference Checks, E-Verify, California Board of License Verification, and Universal Background Screening — provided at no cost on request.",
-  },
-  {
-    icon: Globe,
-    title: "Free Immigration Support Package",
-    body: "Clients wishing to sponsor international candidates receive our full immigration package at no charge. We handle the complexity, you focus on the hire.",
-  },
-  {
-    icon: Clock,
-    title: "48–72 Hour Candidate Delivery",
-    body: "Three or more qualified submissions within 48 to 72 hours of your brief. Every time — backed by our SLA.",
-  },
-];
-
-const fade = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.5 } } };
+const fade = (delay = 0) => ({
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, delay } },
+});
 
 export default function OurProcessPage() {
   return (
     <div className="flex flex-col min-h-screen bg-black text-white">
 
-      {/* ══════════════════════════════════════════════════
-          HERO — Value statement + team image
-      ══════════════════════════════════════════════════ */}
-      <section className="pt-40 pb-0 bg-black relative overflow-hidden">
-        <div className="absolute inset-0 ci-grid-bg opacity-[0.03] pointer-events-none" />
-        <div className="absolute inset-0 ci-radial-glow pointer-events-none" />
+      {/* ── HERO — full viewport, cinematic ── */}
+      <section className="relative min-h-screen flex items-center bg-black overflow-hidden">
 
-        <div className="ci-container relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-end">
-
-            {/* Left: Headline & philosophy */}
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55 }}
-              className="pb-16"
-            >
-              <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-[#a4f07a]/30 bg-[#a4f07a]/5">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#a4f07a] animate-pulse" />
-                <span className="text-[11px] font-black uppercase tracking-[0.35em] text-[#a4f07a]">Recruitment & Hiring Process</span>
-              </div>
-
-              <h1 className="text-[clamp(2.6rem,5.5vw,4.5rem)] font-extrabold text-white leading-[1.05] tracking-tighter mb-6">
-                An unbreakable match —<br />
-                <span className="text-[#a4f07a]">built on process,</span><br />
-                not chance.
-              </h1>
-
-              <p className="text-lg text-white/65 leading-relaxed font-light mb-5 max-w-lg">
-                Our thorough hiring process delivers the highest-quality results by creating a genuine alignment between client organisations and professional candidates. We operate on two principles: deep client understanding and strong candidate relationships.
-              </p>
-
-              <p className="text-sm text-white/40 leading-relaxed font-light max-w-lg italic">
-                &ldquo;Your success story is CloudInfra IT&apos;s success story.&rdquo;
-              </p>
-
-              <div className="flex items-center gap-6 mt-10">
-                <Link href="/consult-with-us" className="ci-pill-btn ci-pill-btn-primary">
-                  Start a Search <ArrowRight className="h-4 w-4 ml-2" />
-                </Link>
-                <Link href="/jobs" className="ci-pill-btn ci-pill-btn-outline">
-                  I&apos;m a Candidate
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Right: Image — bleeds to edge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.2 }}
-              className="relative h-[520px] lg:h-[620px] rounded-t-2xl overflow-hidden self-end"
-            >
-              <img
-                src="/img-team-office.png"
-                alt="CloudInfra IT team in strategic consultation"
-                className="h-full w-full object-cover object-top brightness-[0.55]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
-
-              {/* Floating KPI chips anchored to image bottom */}
-              <div className="absolute bottom-8 left-8 right-8 flex gap-3 flex-wrap">
-                {[
-                  { val: "48–72h", label: "first shortlist" },
-                  { val: "Free",   label: "background checks" },
-                  { val: "Free",   label: "immigration support" },
-                  { val: "6-step", label: "verified process" },
-                ].map(s => (
-                  <div key={s.label} className="flex items-baseline gap-1.5 px-4 py-2 rounded-xl bg-black/70 border border-white/10 backdrop-blur-md">
-                    <span className="text-sm font-black text-[#a4f07a]">{s.val}</span>
-                    <span className="text-[10px] text-white/45 uppercase tracking-widest">{s.label}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-          </div>
+        {/* Full bleed background image */}
+        <div className="absolute inset-0">
+          <img
+            src="/images/process-hero.jpg"
+            alt="CloudInfra IT recruiter reviewing candidate profiles"
+            className="w-full h-full object-cover object-center brightness-[0.38]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />
         </div>
-      </section>
 
-      {/* ══════════════════════════════════════════════════
-          PROCESS OVERVIEW — Scannable at a glance
-          (The "brochure contents page" moment)
-      ══════════════════════════════════════════════════ */}
-      <section className="bg-[#040404] border-t border-b border-white/6">
-        <div className="ci-container py-16 lg:py-20">
-
-          <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-12">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="h-px w-6 bg-[#a4f07a]" />
-              <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#a4f07a]">Process Overview</span>
+        {/* Content — centred within the full viewport, padded from nav */}
+        <div className="ci-container relative z-10 ci-page-hero-fullscreen">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="max-w-3xl"
+          >
+            <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-[#a4f07a]/30 bg-[#a4f07a]/5">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#a4f07a] animate-pulse" />
+              <span className="text-[11px] font-black uppercase tracking-[0.35em] text-[#a4f07a]">Recruitment & Hiring Process</span>
             </div>
-            <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
-              Six phases. Every placement.
-            </h2>
-            <p className="text-sm text-white/45 mt-2 font-light">
-              A consistent, repeatable framework applied to every engagement — IT or Healthcare, permanent or contract.
+
+            <h1 className="text-[clamp(3rem,7vw,6rem)] font-extrabold text-white leading-[1.02] tracking-tighter mb-7">
+              An unbreakable match —<br />
+              <span className="text-[#a4f07a]">built on process,</span><br />
+              not chance.
+            </h1>
+
+            <p className="text-lg lg:text-xl text-white/68 leading-relaxed font-light max-w-2xl mb-4">
+              Our thorough hiring process delivers the highest-quality results by creating a genuine alignment between client organisations and professional candidates.
             </p>
+            <p className="text-base text-white/40 font-light italic mb-12">
+              &ldquo;Your success story is CloudInfra IT&apos;s success story.&rdquo;
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/consult-with-us" className="ci-pill-btn ci-pill-btn-primary">
+                Start a Search <ArrowRight className="h-4 w-4 ml-2" />
+              </Link>
+              <Link href="/jobs" className="ci-pill-btn ci-pill-btn-outline">
+                I&apos;m a Candidate
+              </Link>
+            </div>
           </motion.div>
 
-          {/* Phase grid — scannable, icon-led */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1">
-            {phases.map((p, i) => {
-              const Icon = p.icon;
-              return (
-                <motion.div
-                  key={p.num}
-                  variants={fade}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.06 }}
-                  className="flex flex-col items-start p-5 rounded-xl border border-white/6 bg-white/[0.015] hover:border-[#a4f07a]/20 hover:bg-white/[0.025] transition-all duration-300 group"
-                >
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="text-[10px] font-black text-white/20 tabular-nums">{p.num}</span>
-                    <ChevronRight className="h-3 w-3 text-white/10" />
-                  </div>
-                  <Icon className="h-5 w-5 text-[#a4f07a]/60 group-hover:text-[#a4f07a] transition-colors mb-3" />
-                  <p className="text-sm font-bold text-white mb-1 tracking-tight">{p.label}</p>
-                  <p className="text-xs text-white/35 leading-snug font-light">{p.desc}</p>
-                </motion.div>
-              );
-            })}
-          </div>
-
+          {/* KPI strip */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex flex-wrap gap-8 mt-20 pt-10 border-t border-white/10"
+          >
+            {[
+              { val: "48–72h", label: "First qualified shortlist" },
+              { val: "Free",   label: "Background check package" },
+              { val: "Free",   label: "Immigration support" },
+              { val: "6-step", label: "Repeatable process, every time" },
+            ].map(s => (
+              <div key={s.label} className="flex items-baseline gap-2">
+                <span className="text-2xl font-black text-[#a4f07a] tracking-tight">{s.val}</span>
+                <span className="text-xs text-white/40 uppercase tracking-widest font-light">{s.label}</span>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      <main className="flex-1 bg-black">
+      <main className="flex-1">
 
-        {/* ══════════════════════════════════════════════════
-            PHILOSOPHY SPLIT — Two audiences, one commitment
-        ══════════════════════════════════════════════════ */}
-        <section className="bg-black border-b border-white/5">
-          <div className="ci-container py-16">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-14">
-              <div className="flex items-start gap-5">
-                <div className="w-11 h-11 shrink-0 rounded-xl bg-[#a4f07a]/8 border border-[#a4f07a]/25 flex items-center justify-center mt-0.5">
-                  <Building2 className="h-5 w-5 text-[#a4f07a]" />
-                </div>
-                <div>
-                  <p className="text-xs font-black uppercase tracking-[0.25em] text-[#a4f07a] mb-2">Our Commitment to Clients</p>
-                  <p className="text-sm text-white/65 leading-relaxed">
-                    We operate with honesty, respect, and a genuine drive to build lasting client relationships. Before opening any search, we invest the time to clearly understand your corporate culture, staffing needs, and long-term objectives.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-5">
-                <div className="w-11 h-11 shrink-0 rounded-xl bg-white/5 border border-white/12 flex items-center justify-center mt-0.5">
-                  <User className="h-5 w-5 text-white/50" />
-                </div>
-                <div>
-                  <p className="text-xs font-black uppercase tracking-[0.25em] text-white/45 mb-2">Our Commitment to Candidates</p>
-                  <p className="text-sm text-white/65 leading-relaxed">
-                    We build strong, lasting relationships with every professional we recruit. Finding the right career move matters as much to us as filling the role — because your success is what builds our reputation.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════
-            DETAILED STEPS — Numbered vertical process
-        ══════════════════════════════════════════════════ */}
-        <section className="bg-black">
-          <div className="ci-container py-16 lg:py-24">
-
-            <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-14">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="h-px w-6 bg-[#a4f07a]" />
-                <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#a4f07a]">In Detail</span>
-              </div>
-              <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
-                Step by step — what actually happens.
-              </h2>
-              <p className="text-sm text-white/45 mt-2 font-light">
-                Each phase is shown from both perspectives: what we deliver to employers, and what we do for candidates.
-              </p>
-            </motion.div>
-
-            <div className="flex flex-col">
-              {steps.map((step, i) => {
-                const Icon = step.icon;
-                const isLast = i === steps.length - 1;
-                return (
-                  <motion.div
-                    key={step.num}
-                    variants={fade}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.05 }}
-                    className={`relative flex flex-col lg:flex-row gap-6 lg:gap-10 ${!isLast ? 'pb-12 mb-4 border-b border-white/5' : 'pb-0'}`}
-                  >
-                    {/* Connector line */}
-                    {!isLast && (
-                      <div className="absolute left-[1.35rem] top-14 w-px h-[calc(100%-3rem)] bg-white/6 hidden lg:block" />
-                    )}
-
-                    {/* Icon + number */}
-                    <div className="flex lg:flex-col items-center lg:items-center gap-4 lg:gap-2 w-full lg:w-12 shrink-0">
-                      <div className={`w-11 h-11 shrink-0 rounded-xl flex items-center justify-center border z-10 ${step.highlight ? 'bg-[#a4f07a]/12 border-[#a4f07a]/35' : 'bg-[#0d0d0d] border-white/10'}`}>
-                        <Icon className={`h-4 w-4 ${step.highlight ? 'text-[#a4f07a]' : 'text-[#a4f07a]/55'}`} />
-                      </div>
-                      <span className="text-[10px] font-black text-white/18 tracking-widest lg:text-center">{step.num}</span>
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1">
-
-                      {/* Heading */}
-                      <div className="mb-6">
-                        <h3 className="text-xl lg:text-2xl font-bold text-white tracking-tight mb-1">{step.title}</h3>
-                        <p className="text-sm text-white/38 font-light italic">{step.summary}</p>
-                      </div>
-
-                      {/* Optional image for key phases */}
-                      {step.image && (
-                        <div className="mb-7 rounded-2xl overflow-hidden border border-white/8 h-56 lg:h-64 relative">
-                          <img
-                            src={step.image}
-                            alt={step.imageAlt}
-                            className="h-full w-full object-cover brightness-[0.5]"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-black/30" />
-                          <div className="absolute bottom-5 left-6">
-                            <span className="text-xs font-black uppercase tracking-[0.2em] text-[#a4f07a]">Phase {step.num}</span>
-                            <p className="text-sm text-white/70 font-light mt-1">{step.summary}</p>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Dual perspective blocks */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
-                        <div className="rounded-xl border border-white/8 bg-white/[0.018] p-5">
-                          <div className="flex items-center gap-2 mb-3">
-                            <Building2 className="h-3.5 w-3.5 text-[#a4f07a]/60" />
-                            <span className="text-[9px] font-black uppercase tracking-[0.22em] text-[#a4f07a]/75">{step.forClient.label}</span>
-                          </div>
-                          <p className="text-sm text-white/65 leading-relaxed">{step.forClient.body}</p>
-                        </div>
-                        <div className="rounded-xl border border-white/8 bg-white/[0.018] p-5">
-                          <div className="flex items-center gap-2 mb-3">
-                            <User className="h-3.5 w-3.5 text-white/35" />
-                            <span className="text-[9px] font-black uppercase tracking-[0.22em] text-white/38">{step.forCandidate.label}</span>
-                          </div>
-                          <p className="text-sm text-white/65 leading-relaxed">{step.forCandidate.body}</p>
-                        </div>
-                      </div>
-
-                      {/* Deliverable tags */}
-                      <div className="flex flex-wrap gap-2">
-                        {step.deliverables.map(d => (
-                          <div
-                            key={d}
-                            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs border ${step.highlight
-                              ? 'border-[#a4f07a]/30 bg-[#a4f07a]/6 text-[#a4f07a]/80 font-semibold'
-                              : 'border-white/8 bg-white/[0.02] text-white/45'
-                            }`}
-                          >
-                            <CheckCircle2 className={`h-3 w-3 shrink-0 ${step.highlight ? 'text-[#a4f07a]' : 'text-[#a4f07a]/45'}`} />
-                            {d}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════
-            DIFFERENTIATORS — What others charge for,
-            we include as standard
-        ══════════════════════════════════════════════════ */}
-        <section className="bg-[#040404] border-t border-white/6 relative overflow-hidden">
-          {/* Background texture */}
-          <div className="absolute inset-0 ci-grid-bg-small opacity-[0.02]" />
-
-          <div className="ci-container py-20 relative z-10">
-
-            {/* Section intro */}
-            <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-14 items-end">
-              <div>
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="h-px w-6 bg-[#a4f07a]" />
-                  <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#a4f07a]">Included at No Extra Cost</span>
-                </div>
-                <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
-                  Services others bill separately for.<br />
-                  <span className="text-[#a4f07a]">We include as standard.</span>
-                </h2>
-              </div>
-              <p className="text-sm text-white/50 leading-relaxed font-light lg:text-right max-w-md lg:ml-auto">
-                Every CloudInfra IT client has access to our complimentary background check package and immigration support — tools that give you the complete picture before making any hiring decision.
-              </p>
-            </motion.div>
-
-            {/* Differentiator cards */}
+        {/* ── STORY INTRO ── */}
+        <section className="bg-[#040404] border-b border-white/6">
+          <div className="ci-container py-16 lg:py-20">
             <motion.div
-              variants={fade}
+              variants={fade()}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+              className="max-w-4xl mx-auto text-center"
             >
-              {differentiators.map(d => {
-                const Icon = d.icon;
-                return (
-                  <div key={d.title} className="ci-card p-8 flex flex-col gap-5 group hover:border-[#a4f07a]/25 transition-all duration-300">
-                    <div className="w-12 h-12 rounded-2xl bg-[#a4f07a]/8 border border-[#a4f07a]/20 flex items-center justify-center">
-                      <Icon className="h-5 w-5 text-[#a4f07a]" />
-                    </div>
-                    <div>
-                      <p className="text-base font-bold text-white tracking-tight mb-2">{d.title}</p>
-                      <p className="text-sm text-white/55 leading-relaxed font-light">{d.body}</p>
-                    </div>
-                    <div className="mt-auto pt-4 border-t border-white/5">
-                      <span className="text-[10px] font-black text-[#a4f07a]/60 uppercase tracking-[0.2em]">Included ✓</span>
-                    </div>
+              <p className="text-xs font-black uppercase tracking-[0.3em] text-[#a4f07a] mb-6">Two principles. One promise.</p>
+              <p className="text-2xl lg:text-3xl text-white font-light leading-relaxed tracking-tight">
+                We operate with <strong className="font-bold text-white">honesty, respect, and a drive for deep connections</strong> with every client. And we build <strong className="font-bold text-white">strong, lasting relationships</strong> with every candidate we recruit — because a career decision is as important to us as a staffing decision.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════
+            STEP 01 — CONSULTATION
+            Full text, no image. Let the words breathe.
+        ══════════════════════════════════════════ */}
+        <section className="bg-black border-b border-white/5">
+          <div className="ci-container py-20 lg:py-28">
+            <motion.div variants={fade()} initial="hidden" whileInView="show" viewport={{ once: true }}>
+
+              <div className="flex items-end gap-6 mb-10">
+                <span className="text-[8rem] lg:text-[11rem] font-black text-white/[0.04] leading-none tracking-tighter select-none">01</span>
+                <div className="pb-4">
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#a4f07a] mb-2">We start by listening</p>
+                  <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">Requirements Consultation</h2>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+                <div>
+                  <p className="text-lg text-white/75 leading-relaxed mb-6">
+                    Every engagement begins with a rigorous consultation. A dedicated Hiring Partner sits with you — not just to collect a job description, but to understand your corporate culture, team dynamics, and what a genuine &ldquo;right fit&rdquo; truly means for your organisation.
+                  </p>
+                  <p className="text-base text-white/50 leading-relaxed">
+                    We also bring market intelligence to the table: current salary benchmarks, talent availability in your geography, and realistic timelines — so your expectations are grounded in reality, not hope.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-lg text-white/75 leading-relaxed mb-6">
+                    For candidates, the same depth applies. Your specialist recruiter reviews your background, your career goals, and what environments you genuinely thrive in — before putting your name anywhere.
+                  </p>
+                  <div className="flex flex-col gap-3 mt-8">
+                    {["15–30 min alignment call", "Culture & requirements brief documented", "Market salary benchmarking shared", "Role classification confirmed"].map(d => (
+                      <div key={d} className="flex items-center gap-3 text-sm text-white/55">
+                        <CheckCircle2 className="h-4 w-4 text-[#a4f07a]/70 shrink-0" />
+                        {d}
+                      </div>
+                    ))}
                   </div>
-                );
-              })}
+                </div>
+              </div>
+
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════
+            STEP 02 — ACTIVE SEARCH
+            Dark alt background, pull stat prominent
+        ══════════════════════════════════════════ */}
+        <section className="bg-[#030303] border-b border-white/5">
+          <div className="ci-container py-20 lg:py-28">
+            <motion.div variants={fade()} initial="hidden" whileInView="show" viewport={{ once: true }}>
+
+              <div className="flex items-end gap-6 mb-10">
+                <span className="text-[8rem] lg:text-[11rem] font-black text-white/[0.04] leading-none tracking-tighter select-none">02</span>
+                <div className="pb-4">
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#a4f07a] mb-2">We go to the talent</p>
+                  <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">Active Talent Search</h2>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+                <div className="lg:col-span-7">
+                  <p className="text-lg text-white/75 leading-relaxed mb-6">
+                    Our specialised IT and Healthcare recruiters don&apos;t post and wait. They tap into deep referral networks, technical communities, and a passive talent pipeline that traditional job boards never reach. We also conduct ongoing employment market research — giving us the intelligence to compose the ideal job description that attracts the <em>right</em> talent in the shortest time.
+                  </p>
+                  <p className="text-base text-white/50 leading-relaxed">
+                    This is where the shortlist starts to take shape — not from a keyword match against a database, but from a specialist recruiter who understands your domain and actively works their network on your behalf.
+                  </p>
+                </div>
+                <div className="lg:col-span-5 flex flex-col gap-6">
+                  <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-8">
+                    <p className="text-4xl font-black text-[#a4f07a] mb-2">Active.</p>
+                    <p className="text-base text-white/55 leading-relaxed">
+                      Not passive. Not a job board. A specialist recruiter working their network specifically for your role.
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    {["Domain-specific recruiter assigned", "Bespoke recruitment strategy formulated", "Pre-vetted talent pipeline activated"].map(d => (
+                      <div key={d} className="flex items-center gap-3 text-sm text-white/50">
+                        <CheckCircle2 className="h-4 w-4 text-[#a4f07a]/60 shrink-0" />
+                        {d}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════
+            STEP 03 — SCREENING
+            Full-bleed image + text side-by-side
+        ══════════════════════════════════════════ */}
+        <section className="bg-black border-b border-white/5">
+          <div className="ci-container py-20 lg:py-28">
+            <motion.div variants={fade()} initial="hidden" whileInView="show" viewport={{ once: true }}>
+
+              <div className="flex items-end gap-6 mb-12">
+                <span className="text-[8rem] lg:text-[11rem] font-black text-white/[0.04] leading-none tracking-tighter select-none">03</span>
+                <div className="pb-4">
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#a4f07a] mb-2">Quality over volume</p>
+                  <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">Screening & Profile Delivery</h2>
+                </div>
+              </div>
+
             </motion.div>
 
+            {/* Full-width image — tall, breathing */}
+            <motion.div
+              initial={{ opacity: 0, scale: 1.03 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative w-full h-[480px] lg:h-[560px] rounded-2xl overflow-hidden mb-12 border border-white/8"
+            >
+              <img
+                src="/images/process-consultation.jpg"
+                alt="CloudInfra IT recruiter conducting in-depth candidate screening"
+                className="w-full h-full object-cover object-center brightness-[0.5]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+              <div className="absolute bottom-10 left-10 max-w-lg">
+                <p className="text-2xl lg:text-3xl font-bold text-white leading-tight tracking-tight">
+                  &ldquo;Information is power in the recruiting process.&rdquo;
+                </p>
+                <p className="text-sm text-white/50 mt-3 font-light">CloudInfra IT — the standard we hold our recruiters to</p>
+              </div>
+            </motion.div>
+
+            <motion.div variants={fade()} initial="hidden" whileInView="show" viewport={{ once: true }}>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+                <div>
+                  <p className="text-lg text-white/75 leading-relaxed mb-6">
+                    Before any profile reaches your desk, our recruiters conduct an in-depth initial screening — reviewing credentials, work history, references, and technical or clinical capability. You receive resumes, CVs, recruiter notes, and any additional context we believe helps you make a confident decision.
+                  </p>
+                  <p className="text-base text-white/50 leading-relaxed">
+                    We deliver a minimum of three qualified candidates within the first 48–72 hours. Your feedback after the first shortlist lets us refine immediately — narrowing the search based on what you actually respond to, not what we assumed.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-base text-white/55 leading-relaxed mb-8">
+                    For candidates, screening is protection: we only submit your profile where we are genuinely confident of alignment. You are briefed on every client before your details go anywhere.
+                  </p>
+                  <div className="flex flex-col gap-3">
+                    {["3+ qualified submissions in 48–72 hours", "Recruiter assessment notes with each profile", "Structured client feedback loop built in", "Candidate briefed before profile is shared"].map(d => (
+                      <div key={d} className="flex items-center gap-3 text-sm text-white/55">
+                        <CheckCircle2 className="h-4 w-4 text-[#a4f07a]/70 shrink-0" />
+                        {d}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </section>
 
-        {/* ══════════════════════════════════════════════════
-            IMAGE BREAK — Human moment, professional context
-        ══════════════════════════════════════════════════ */}
-        <section className="relative h-[380px] overflow-hidden">
-          <img
-            src="/images/process-consultation.jpg"
-            alt="CloudInfra IT recruiter supporting candidate through the process"
-            className="h-full w-full object-cover object-center brightness-[0.4]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-black/50" />
-          <div className="absolute inset-0 flex items-center">
-            <div className="ci-container">
-              <motion.div
-                variants={fade}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                className="max-w-2xl"
-              >
-                <p className="text-xs font-black uppercase tracking-[0.3em] text-[#a4f07a] mb-4">Our Approach</p>
-                <p className="text-2xl lg:text-3xl font-bold text-white leading-tight tracking-tight mb-4">
-                  &ldquo;We guide the entire process — so clients can focus on their company, not the hiring logistics.&rdquo;
-                </p>
-                <p className="text-sm text-white/50 font-light">
-                  CloudInfra IT — IT & Healthcare Staffing, North America
-                </p>
-              </motion.div>
-            </div>
+        {/* ══════════════════════════════════════════
+            STEP 04 — INTERVIEW COORDINATION
+            Text only, pull-quote as visual anchor
+        ══════════════════════════════════════════ */}
+        <section className="bg-[#030303] border-b border-white/5">
+          <div className="ci-container py-20 lg:py-28">
+            <motion.div variants={fade()} initial="hidden" whileInView="show" viewport={{ once: true }}>
+
+              <div className="flex items-end gap-6 mb-10">
+                <span className="text-[8rem] lg:text-[11rem] font-black text-white/[0.04] leading-none tracking-tighter select-none">04</span>
+                <div className="pb-4">
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#a4f07a] mb-2">We handle the logistics</p>
+                  <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">Interview Coordination & Preparation</h2>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+                <div>
+                  <p className="text-lg text-white/75 leading-relaxed mb-6">
+                    Once you select your top candidates, our team takes complete ownership of the scheduling process — professionally coordinating interview times, briefing candidates on your expectations and culture, and confirming attendance. You focus on evaluating the person in the room. We handle everything around it.
+                  </p>
+                  <p className="text-base text-white/50 leading-relaxed">
+                    After every interview round, our recruitment team reconnects with both you and the candidate — guiding the process forward until the position is successfully filled. Our attention and involvement throughout means you can stay focused on your business, not the hiring logistics.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-8">
+                  <blockquote className="border-l-2 border-[#a4f07a]/40 pl-6">
+                    <p className="text-xl text-white/75 font-light leading-relaxed italic">
+                      &ldquo;Our team makes certain candidates will arrive to their scheduled interview — prepared, briefed, and ready to perform.&rdquo;
+                    </p>
+                  </blockquote>
+                  <div className="flex flex-col gap-3">
+                    {["Full interview scheduling managed", "Candidate prepared on expectations & format", "Attendance confirmed by our team", "Post-interview debrief & guidance provided"].map(d => (
+                      <div key={d} className="flex items-center gap-3 text-sm text-white/50">
+                        <CheckCircle2 className="h-4 w-4 text-[#a4f07a]/60 shrink-0" />
+                        {d}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+            </motion.div>
           </div>
         </section>
 
-        {/* ══════════════════════════════════════════════════
-            DUAL CTA — Two paths, clear next step
-        ══════════════════════════════════════════════════ */}
-        <section className="bg-black border-t border-white/6">
-          <div className="ci-container py-20 lg:py-24">
+        {/* ══════════════════════════════════════════
+            STEP 05 — OFFER, VERIFICATION, ONBOARDING
+            Hero moment — differentiators surfaced
+        ══════════════════════════════════════════ */}
+        <section className="bg-black border-b border-white/5">
+          <div className="ci-container py-20 lg:py-28">
+            <motion.div variants={fade()} initial="hidden" whileInView="show" viewport={{ once: true }}>
 
-            <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-12 text-center">
-              <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-tight mb-3">
-                Ready to put the process to work?
+              <div className="flex items-end gap-6 mb-12">
+                <span className="text-[8rem] lg:text-[11rem] font-black text-white/[0.04] leading-none tracking-tighter select-none">05</span>
+                <div className="pb-4">
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#a4f07a] mb-2">The offer stage & beyond</p>
+                  <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">Offer, Verification & Onboarding</h2>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 mb-16">
+                <div>
+                  <p className="text-lg text-white/75 leading-relaxed mb-6">
+                    When you&apos;re ready to make an offer, we manage the negotiation, contract, and onboarding paperwork — so neither party faces delays when momentum matters most. For contract and temporary placements, CloudInfra IT handles payroll, benefits, tax compliance, and HR administration for the entire duration.
+                  </p>
+                  <p className="text-base text-white/50 leading-relaxed">
+                    For candidates, we guide you through every stage: offer review, contract understanding, and first-day coordination. We stay with you past the acceptance — because a successful start matters as much as the hire itself.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-base text-white/75 leading-relaxed mb-6">
+                    We also go significantly further than other firms at this stage — at no extra cost.
+                  </p>
+                  <p className="text-sm text-white/45 leading-relaxed font-light">
+                    The following services are included on request for every CloudInfra IT client. There is no additional charge.
+                  </p>
+                </div>
+              </div>
+
+              {/* Differentiator cards — given visual prominence here, at the point they're relevant */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {[
+                  {
+                    icon: ShieldCheck,
+                    title: "Free Background Check Package",
+                    body: "Reference Checks, E-Verify, California Board of License Verification, and Universal Background Screening — included at no cost on request.",
+                    tag: "Included, no extra charge",
+                  },
+                  {
+                    icon: Globe,
+                    title: "Free Immigration Support",
+                    body: "Clients sponsoring international candidates receive our full immigration handling package — at no charge. We manage the complexity.",
+                    tag: "Included, no extra charge",
+                  },
+                  {
+                    icon: Clock,
+                    title: "Payroll & Compliance Management",
+                    body: "For contract and temporary placements, all payroll, tax, benefits, and compliance are managed by CloudInfra IT from day one.",
+                    tag: "Contract & temp placements",
+                  },
+                ].map(d => {
+                  const Icon = d.icon;
+                  return (
+                    <div key={d.title} className="ci-card p-7 flex flex-col gap-5">
+                      <div className="w-11 h-11 rounded-xl bg-[#a4f07a]/8 border border-[#a4f07a]/20 flex items-center justify-center">
+                        <Icon className="h-5 w-5 text-[#a4f07a]" />
+                      </div>
+                      <div>
+                        <p className="text-base font-bold text-white tracking-tight mb-2">{d.title}</p>
+                        <p className="text-sm text-white/55 leading-relaxed">{d.body}</p>
+                      </div>
+                      <div className="mt-auto pt-4 border-t border-[#a4f07a]/10">
+                        <span className="text-[10px] font-black text-[#a4f07a]/60 uppercase tracking-[0.18em]">✓ {d.tag}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════
+            STEP 06 — 30/60/90 FOLLOW-THROUGH
+            Closing chapter — emotional resonance
+        ══════════════════════════════════════════ */}
+        <section className="bg-[#030303] border-b border-white/5">
+          <div className="ci-container py-20 lg:py-28">
+            <motion.div variants={fade()} initial="hidden" whileInView="show" viewport={{ once: true }}>
+
+              <div className="flex items-end gap-6 mb-10">
+                <span className="text-[8rem] lg:text-[11rem] font-black text-white/[0.04] leading-none tracking-tighter select-none">06</span>
+                <div className="pb-4">
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#a4f07a] mb-2">The relationship continues</p>
+                  <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">30 / 60 / 90-Day Follow-Through</h2>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+                <div>
+                  <p className="text-lg text-white/75 leading-relaxed mb-6">
+                    We don&apos;t disappear after the start date. We maintain a persistent relationship with every client and candidate through scheduled check-ins at 30, 60, and 90 days — ensuring the placement is performing, the relationship is working, and any emerging needs are addressed before they become problems.
+                  </p>
+                  <p className="text-base text-white/50 leading-relaxed">
+                    For clients, this means rapid response if a replacement is ever needed. For candidates on contract, it means your recruiter remains your point of contact — surfacing new opportunities, managing extensions, and handling any conversion to permanent employment.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-lg text-[#a4f07a]/80 font-light leading-relaxed italic mb-8">
+                    &ldquo;The position is filled — but the partnership is just beginning.&rdquo;
+                  </p>
+                  <div className="flex flex-col gap-3">
+                    {["Scheduled 30/60/90-day check-ins", "Rapid replacement SLA if required", "Scale-up support as your team grows", "Extension & conversion management for contractors"].map(d => (
+                      <div key={d} className="flex items-center gap-3 text-sm text-white/55">
+                        <CheckCircle2 className="h-4 w-4 text-[#a4f07a]/65 shrink-0" />
+                        {d}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════
+            CTA — Two paths, clear & final
+        ══════════════════════════════════════════ */}
+        <section className="bg-black">
+          <div className="ci-container py-20 lg:py-28">
+            <motion.div variants={fade()} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-12">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-px w-6 bg-[#a4f07a]" />
+                <span className="text-[11px] font-black uppercase tracking-[0.3em] text-[#a4f07a]">Ready to begin?</span>
+              </div>
+              <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">
+                Your process starts with one conversation.
               </h2>
-              <p className="text-sm text-white/45 font-light">
-                Whether you&apos;re hiring or looking, your next step is the same — a conversation.
-              </p>
             </motion.div>
 
             <motion.div
-              variants={fade}
+              variants={fade(0.1)}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
               className="grid grid-cols-1 lg:grid-cols-2 gap-6"
             >
-              {/* Employers */}
-              <div className="ci-card p-8 flex flex-col gap-5 group hover:border-[#a4f07a]/25 transition-all duration-300 relative overflow-hidden">
+              <div className="ci-card p-8 lg:p-10 flex flex-col gap-5 group hover:border-[#a4f07a]/25 transition-all duration-300 relative overflow-hidden">
                 <div className="absolute inset-0 ci-grid-bg-small opacity-[0.018] group-hover:opacity-[0.035] transition-opacity" />
                 <div className="relative z-10">
-                  <Building2 className="h-5 w-5 text-[#a4f07a] mb-4" />
+                  <Building2 className="h-5 w-5 text-[#a4f07a] mb-5" />
                   <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#a4f07a] mb-3">For Employers</p>
                   <h3 className="text-xl font-bold text-white mb-3 tracking-tight">Ready to start your search?</h3>
-                  <p className="text-sm text-white/55 leading-relaxed mb-7 font-light">
-                    Tell us your requirements in a 15-minute consultation. We&apos;ll have your first qualified shortlist ready within 48–72 hours.
+                  <p className="text-sm text-white/55 leading-relaxed mb-8 font-light">
+                    A 15-minute consultation is all it takes to start. We&apos;ll have your first qualified shortlist ready within 48–72 hours.
                   </p>
                   <Link href="/consult-with-us" className="ci-pill-btn ci-pill-btn-primary">
                     Request a Consultation <ArrowRight className="h-4 w-4 ml-2" />
@@ -554,14 +479,13 @@ export default function OurProcessPage() {
                 </div>
               </div>
 
-              {/* Candidates */}
-              <div className="ci-card p-8 flex flex-col gap-5 group hover:border-white/18 transition-all duration-300 relative overflow-hidden">
+              <div className="ci-card p-8 lg:p-10 flex flex-col gap-5 group hover:border-white/18 transition-all duration-300 relative overflow-hidden">
                 <div className="absolute inset-0 ci-grid-bg-small opacity-[0.018] group-hover:opacity-[0.035] transition-opacity" />
                 <div className="relative z-10">
-                  <User className="h-5 w-5 text-white/45 mb-4" />
+                  <User className="h-5 w-5 text-white/45 mb-5" />
                   <p className="text-[10px] font-black uppercase tracking-[0.25em] text-white/35 mb-3">For Candidates</p>
                   <h3 className="text-xl font-bold text-white mb-3 tracking-tight">Looking for your next opportunity?</h3>
-                  <p className="text-sm text-white/55 leading-relaxed mb-7 font-light">
+                  <p className="text-sm text-white/55 leading-relaxed mb-8 font-light">
                     We place IT and Healthcare professionals across North America. Let a specialist recruiter match you to roles you won&apos;t find on job boards.
                   </p>
                   <Link href="/jobs" className="ci-pill-btn ci-pill-btn-outline">
@@ -570,7 +494,6 @@ export default function OurProcessPage() {
                 </div>
               </div>
             </motion.div>
-
           </div>
         </section>
 

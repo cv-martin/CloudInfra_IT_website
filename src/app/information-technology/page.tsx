@@ -150,9 +150,9 @@ export default function InformationTechnologyPage() {
               viewport={{ once: true }}
               className="mb-16"
             >
-              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Deployment Vectors</span>
-              <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight">Active Verticals.</h2>
-              <p className="text-lg text-white/30 mt-6 max-w-2xl font-light leading-relaxed">
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Specialties</span>
+              <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight">What We Place.</h2>
+              <p className="text-lg text-white/55 mt-6 max-w-2xl font-light leading-relaxed">
                 We cover the full IT spectrum. Every search is run by a recruiter with real domain experience in that specific area.
               </p>
             </motion.div>
@@ -198,8 +198,8 @@ export default function InformationTechnologyPage() {
               viewport={{ once: true }}
               className="mb-16"
             >
-              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Engagement Protocols</span>
-              <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight">Collaboration Delivery.</h2>
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Engagement Models</span>
+              <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight">Ways to Engage.</h2>
             </motion.div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
@@ -215,7 +215,7 @@ export default function InformationTechnologyPage() {
                    <div className="absolute inset-0 ci-grid-bg opacity-[0.015] pointer-events-none group-hover:opacity-[0.03] transition-opacity" />
                   <p className="text-[10px] font-black uppercase tracking-[0.4em] text-[#a4f07a] mb-6 block relative z-10">{m.title}</p>
                   <p className="text-xl font-bold text-white/50 italic mb-4 leading-snug relative z-10">&ldquo;{m.scenario}&rdquo;</p>
-                  <p className="text-base text-white/40 leading-relaxed font-light relative z-10">{m.detail}</p>
+                  <p className="text-base text-white/55 leading-relaxed font-light relative z-10">{m.detail}</p>
                 </motion.div>
               ))}
             </div>
@@ -227,7 +227,7 @@ export default function InformationTechnologyPage() {
               className="mt-12 text-center"
             >
               <Link href="/custom-services-provided" className="text-xs font-black uppercase tracking-[0.4em] text-white/20 hover:text-[#a4f07a] transition-all">
-                Access Enterprise Frameworks <ArrowRight className="h-4 w-4 inline ml-2" />
+                View All Services <ArrowRight className="h-4 w-4 inline ml-2" />
               </Link>
             </motion.div>
           </div>
@@ -243,12 +243,12 @@ export default function InformationTechnologyPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Legacy Benchmark</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#a4f07a] mb-4 block">Why CloudInfra IT</span>
                 <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tighter leading-[1.1] mb-8">
-                  Engineers by Design, <br/>Recruiters by Protocol.
+                  Engineers who recruit.<br/>Not the other way around.
                 </h2>
-                <p className="text-lg text-white/30 leading-relaxed font-light mb-10 max-w-xl">
-                  Every CloudInfra IT recruiter has worked directly alongside engineering teams. We understand what a 5+ year DevOps engineer looks like versus a buzzword-padded CV — and we never transmit the wrong fit.
+                <p className="text-lg text-white/55 leading-relaxed font-light mb-10 max-w-xl">
+                  Every CloudInfra IT recruiter has worked directly alongside engineering teams. We know what a strong DevOps engineer looks like versus a buzzword-padded CV — and we never send the wrong fit.
                 </p>
                 <div className="grid grid-cols-1 gap-4">
                   {whyPoints.map(p => (
@@ -256,7 +256,7 @@ export default function InformationTechnologyPage() {
                       <div className="w-5 h-5 shrink-0 rounded-md bg-[#a4f07a]/10 border border-[#a4f07a]/20 flex items-center justify-center mt-0.5">
                         <CheckCircle2 className="h-3 w-3 text-[#a4f07a]" />
                       </div>
-                      <span className="text-sm text-white/40 font-light leading-relaxed">{p}</span>
+                      <span className="text-sm text-white/55 font-light leading-relaxed">{p}</span>
                     </div>
                   ))}
                 </div>
@@ -293,9 +293,9 @@ export default function InformationTechnologyPage() {
               className="flex flex-col lg:flex-row items-center justify-between gap-12"
             >
               <div>
-                <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">Initiate IT Acquisition.</h2>
-                <p className="text-lg text-white/30 mt-4 max-w-xl font-light">
-                  Whether you are scaling a cloud squad or looking for your next engineering mandate — activate the protocol today.
+                <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">Start an IT Search.</h2>
+                <p className="text-lg text-white/55 mt-4 max-w-xl font-light">
+                  Whether you are scaling a cloud team or finding your next engineering role — get started today.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 shrink-0">
@@ -309,7 +309,7 @@ export default function InformationTechnologyPage() {
                   href="/consult-with-us"
                   className="ci-pill-btn ci-pill-btn-outline"
                 >
-                  Deploy IT Talent
+                  Hire IT Talent
                 </Link>
               </div>
             </motion.div>
